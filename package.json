@@ -1,0 +1,45 @@
+{
+  "name": "mouse-ui",
+  "version": "1.0.0",
+  "description": "UI for the mouse-in-a-maze application",
+  "scripts": {
+    "build": "cp -R static dist && webpack --config webpack/config.prod",
+    "dev-server": "webpack-dev-server --hot --inline --config webpack/config.dev",
+    "lint": "tslint -e node_modules -p tsconfig.json -t stylish",
+    "lint:fix": "tslint -e node_modules -p tsconfig.json --fix",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gfoust/mouse-ui.git"
+  },
+  "author": "C. Gabriel Foust",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gfoust/mouse-ui/issues"
+  },
+  "homepage": "https://github.com/gfoust/mouse-ui#readme",
+  "dependencies": {
+    "@types/react": "^16.8.4",
+    "@types/react-dom": "^16.8.2",
+    "@types/react-redux": "^7.0.1",
+    "autoprefixer": "^9.4.8",
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.3.1",
+    "node-sass": "^4.11.0",
+    "popper.js": "^1.14.7",
+    "postcss-loader": "^3.0.0",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "react-redux": "^6.0.1",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "ts-loader": "^5.3.3",
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.3333",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.0",
+    "webpack-merge": "^4.2.1"
+  }
+}

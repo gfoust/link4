@@ -1,0 +1,14 @@
+
+[data-tag='tile'] {
+  transition: all 1s;
+}
+
+[data-tag='tile'].playerA {
+  fill: #00f;
+  stroke: #009;
+}
+
+[data-tag='tile'].playerB {
+  fill: #f00;
+  stroke: #900;
+}

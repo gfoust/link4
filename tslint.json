@@ -1,0 +1,25 @@
+{
+    "defaultSeverity": "warning",
+    "extends": [ "tslint:recommended" ],
+    "rules": {
+      "arrow-parens": [ true, "ban-single-arg-parens" ],
+      "forin": false,
+      "interface-name": [ true, "never-prefix" ],
+      "member-access": false,
+      "no-console": false,
+      "object-literal-sort-keys": false,
+      "one-line": [ true, "check-open-brack", "check-whitespace" ],
+      "quotemark": [ true, "single" ],
+      "trailing-comma": [ true, {
+        "multiline": {
+          "objects": "always",
+          "arrays": "always",
+          "typeLiterals": "always",
+          "imports": "always",
+          "exports": "always",
+          "functions": "never"
+        },
+        "singleline": "never"
+      } ]
+    }
+}
