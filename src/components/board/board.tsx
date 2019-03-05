@@ -2,8 +2,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { config } from 'src/config';
 
-import { Game, State } from 'src/model/state';
-import { count, map2d } from 'src/util';
+import { Game, Piece, State } from 'src/model/state';
+import { map2d } from 'src/util';
 import { UI } from '../ui';
 
 export interface BoardComponentParams {
@@ -14,34 +14,39 @@ export interface BoardComponentParams {
   game: Game;
 }
 
+interface PlayedPiece extends Piece {
+  r: number;
+  c: number;
+}
+
 export function StatelessBoardComponent({ x, y, width, height, game }: BoardComponentParams) {
   const tileWidth = width / config.boardWidth;
   const tileHeight = height / (config.boardHeight + 1);
 
+  const pieces: PlayedPiece[] = [ ];
+
+  map2d(game.board, (tile, r, c) => {
+    if (tile !== null) {
+      pieces[tile.id] = { ...tile, r: r + 1, c };
+    }
+  });
+  if (game.nextMove !== null) {
+    pieces[game.count] = { id: game.count, player: game.turn, r: 0, c: game.nextMove };
+  }
+
   return (
     <g>
-    { count(config.boardWidth, i =>
-        i === game.potential &&
-          <UI.Tile
-            row={0}
-            col={i}
+    { pieces.map(piece =>
+          <UI.Piece
+            key={`tile-${piece.id}`}
+            id={`tile-${piece.id}`}
+            row={piece.r}
+            col={piece.c}
             x={x}
             y={y}
             width={tileWidth}
             height={tileHeight}
-            tile={game.turn}
-        />
-      )
-    }
-    { map2d(game.board, (tile, i, j) =>
-          <UI.Tile
-            row={j + 1}
-            col={i}
-            x={x}
-            y={y}
-            width={tileWidth}
-            height={tileHeight}
-            tile={tile}
+            player={piece.player}
           />
         )
     }

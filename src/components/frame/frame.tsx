@@ -20,11 +20,12 @@ export function FrameComponent({ x, y, width, height }: FrameComponentParams) {
       <defs>
         <mask id='hole-mask' maskContentUnits='objectBoundingBox'>
           <rect cx={0} cy={0} width={1} height={1} fill='white'/>
-          <ellipse cx={0.5} cy={0.5} rx={0.45} ry={0.45} fill='black' />
+          <ellipse cx={0.5} cy={0.5} rx={0.425} ry={0.425} fill='black' />
         </mask>
       </defs>
       { count2d(config.boardHeight, config.boardWidth, (i, j) =>
           <UI.FrameTile
+            key={`frame-tile-${i}-${j}`}
             x={x + j * tileWidth}
             y={y + i * tileHeight}
             width={tileWidth}

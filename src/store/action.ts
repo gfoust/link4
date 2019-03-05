@@ -1,14 +1,24 @@
 
-export interface RegisterPotentialMove {
-  type: 'RegisterPotentialMove';
+export interface SetNextMove {
+  type: 'SetNextMove';
   column: number;
 }
 
-export function registerPotentialMove(column: number): RegisterPotentialMove {
+export function setNextMove(column: number): SetNextMove {
   return {
-    type: 'RegisterPotentialMove',
+    type: 'SetNextMove',
     column,
   };
 }
 
-export type Action = RegisterPotentialMove;
+export interface TakeTurn {
+  type: 'TakeTurn';
+}
+
+export function takeTurn(): TakeTurn {
+  return {
+    type: 'TakeTurn',
+  };
+}
+
+export type Action = SetNextMove | TakeTurn;

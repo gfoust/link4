@@ -3,7 +3,7 @@ import * as React from 'react';
 import './frame-tile.scss';
 
 import { App } from 'src/App';
-import { registerPotentialMove } from 'src/store/action';
+import { setNextMove, takeTurn } from 'src/store/action';
 
 export interface FrameTileComponentParams {
   x: number;
@@ -16,14 +16,25 @@ export interface FrameTileComponentParams {
 
 export function FrameTileComponent({ x, y, width, height, column, maskId }: FrameTileComponentParams) {
   return (
-    <rect
-      data-tag='frame-tile'
-      x={x}
-      y={y}
-      width={width}
-      height={height}
+    <g
+      onMouseMove={() => App.store.dispatch(setNextMove(column))}
+      onClick={() => App.store.dispatch(takeTurn())}
       mask={`url(#${maskId})`}
-      onMouseMove={() => App.store.dispatch(registerPotentialMove(column))}
-    />
+    >
+      <rect
+        data-tag='frame-tile'
+        x={x}
+        y={y}
+        width={width}
+        height={height}
+      />
+      <ellipse
+        data-tag='frame-hole'
+        cx={x + width / 2}
+        cy={y + height / 2}
+        rx={width * .435}
+        ry={width * .435}
+      />
+    </g>
   );
 }

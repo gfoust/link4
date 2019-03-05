@@ -38,7 +38,7 @@ export function push(newLogger: Logger): void {
 export function pop(): Maybe<Logger> {
   loggerList.pop();
   const last = logger;
-  logger = loggerList.length > 0 ? loggerList[loggerList.length - 1] : undefined;
+  logger = loggerList.length > 0 ? loggerList[loggerList.length - 1] : null;
   return last;
 
 }

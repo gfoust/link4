@@ -1,32 +1,33 @@
-import { Board, Game, Tile } from 'src/model/state';
+import { config } from 'src/config';
+import { Board, Game } from 'src/model/state';
 
 function findTop(board: Board, column: number): number {
   let top = 0;
-  while (board[top][column] === Tile.empty) {
+  while (top < config.boardHeight &&  board[top][column] === null) {
     ++top;
   }
   return top - 1;
 }
 
-export function takeTurn(game: Game): Game {
-  if (game.potential === undefined) {
-    return game;
+export function takeTurn(game: Game): Board {
+  if (game.nextMove === null) {
+    return game.board;
   }
 
-  const top = findTop(game.board, game.potential);
+  const top = findTop(game.board, game.nextMove);
   if (top === -1) {
-    return game;
+    return game.board;
   }
 
   const topRow  = [ ...game.board[top] ];
-  topRow[game.potential] = game.turn;
+  topRow[game.nextMove] = { id: game.count, player: game.turn };
 
   const board = [ ...game.board ];
   board[top] = topRow;
 
-  return {
-    board,
-    potential: undefined,
-    turn: game.turn === Tile.playerA ? Tile.playerB : Tile.playerA,
-  };
+  return board;
+}
+
+export function camMove(game: Game): boolean {
+  return game.nextMove !== null && findTop(game.board, game.nextMove) !== -1;
 }
