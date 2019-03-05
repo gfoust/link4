@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { config } from 'src/config';
 
 import { Game, Piece, State } from 'src/model/state';
+import { canMove } from 'src/services/game';
 import { map2d } from 'src/util';
 import { UI } from '../ui';
 
@@ -17,6 +18,7 @@ export interface BoardComponentParams {
 interface PlayedPiece extends Piece {
   r: number;
   c: number;
+  disabled: boolean;
 }
 
 export function StatelessBoardComponent({ x, y, width, height, game }: BoardComponentParams) {
@@ -27,11 +29,11 @@ export function StatelessBoardComponent({ x, y, width, height, game }: BoardComp
 
   map2d(game.board, (tile, r, c) => {
     if (tile !== null) {
-      pieces[tile.id] = { ...tile, r: r + 1, c };
+      pieces[tile.id] = { ...tile, r: r + 1, c, disabled: false };
     }
   });
   if (game.nextMove !== null) {
-    pieces[game.count] = { id: game.count, player: game.turn, r: 0, c: game.nextMove };
+    pieces[game.count] = { id: game.count, player: game.turn, r: 0, c: game.nextMove, disabled: !canMove(game) };
   }
 
   return (
@@ -47,6 +49,7 @@ export function StatelessBoardComponent({ x, y, width, height, game }: BoardComp
             width={tileWidth}
             height={tileHeight}
             player={piece.player}
+            disabled={piece.disabled}
           />
         )
     }

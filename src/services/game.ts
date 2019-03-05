@@ -28,6 +28,6 @@ export function takeTurn(game: Game): Board {
   return board;
 }
 
-export function camMove(game: Game): boolean {
+export function canMove(game: Game): boolean {
   return game.nextMove !== null && findTop(game.board, game.nextMove) !== -1;
 }

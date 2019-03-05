@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 
 import { config } from 'src/config';
 import { Board, Game, Player, Tile } from 'src/model/state';
-import { takeTurn } from 'src/services/game';
+import { canMove, takeTurn } from 'src/services/game';
+import { Maybe } from 'src/util';
 import { Action } from './action';
 
 function board(state: Board | undefined, action: Action): Board {
@@ -19,7 +20,7 @@ function board(state: Board | undefined, action: Action): Board {
   return state;
 }
 
-function nextMove(state: number | null = null, action: Action): number | null {
+function nextMove(state: Maybe<number> = null, action: Action): Maybe<number> {
   if (action.type === 'SetNextMove') {
     return action.column;
   }
@@ -42,12 +43,14 @@ function game(state = { } as Game, action: Action) {
   state = defaultGame(state, action);
   switch (action.type) {
     case 'TakeTurn':
-      return {
-        board: takeTurn(state),
-        nextMove: state.nextMove,
-        turn: state.turn === Player.playerA ? Player.playerB : Player.playerA,
-        count: state.count + 1,
-      };
+      if (canMove(state)) {
+        return {
+          board: takeTurn(state),
+          nextMove: state.nextMove,
+          turn: state.turn === Player.playerA ? Player.playerB : Player.playerA,
+          count: state.count + 1,
+        };
+      }
     default:
       return state;
   }

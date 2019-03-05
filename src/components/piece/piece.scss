@@ -32,3 +32,12 @@
   fill: #f00;
   stroke: #900;
 }
+
+[data-tag='tile'].disabled {
+  opacity: 0.5;
+}
+
+[data-tag='tile'].x {
+  stroke: red;
+  stroke-width: 7;
+}
