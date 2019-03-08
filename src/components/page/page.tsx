@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { Game } from 'src/models/game';
+import { Game, PieceLocation, Player } from 'src/models/game';
 import { State } from 'src/models/state';
-import { UI } from '../ui';
+import { findTop } from 'src/services/game';
+import { Maybe } from 'src/util';
+import { ui } from '../ui';
 import './page.scss';
 
 export interface PageComponentParams {
@@ -11,11 +13,29 @@ export interface PageComponentParams {
 }
 
 export function StatelessPageComponent({ game }: PageComponentParams) {
+  let highlight = [ ] as PieceLocation[];
+  let winner = null as Maybe<Player>;
+
+  if (game.status === 'playing' && game.lastMove !== null) {
+    highlight.push([findTop(game.board, game.lastMove) + 1, game.lastMove]);
+  }
+  else if (game.winner) {
+    highlight = game.winner;
+    const [ winx, winy ] = game.winner[0];
+    const wintype = game.board[winx][winy].type;
+    if (wintype !== 'empty') {
+      winner = wintype;
+    }
+  }
+
   return (
-    <svg>
-      <UI.Board x={0} y={0} width={700} height={700} game={game}/>
-      <UI.Frame x={0} y={100} width={700} height={600} active={game.status === 'playing'}/>
-    </svg>
+    <section>
+      <svg>
+        <ui.Board x={0} y={0} width={700} height={700} game={game}/>
+        <ui.Frame x={0} y={100} width={700} height={600} active={game.status === 'playing'} highlight={highlight}/>
+      </svg>
+      <ui.StatusPanel status={game.status} turn={game.turn} winner={winner}/>
+    </section>
   );
 }
 

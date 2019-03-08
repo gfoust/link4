@@ -3,11 +3,13 @@ import { FrameTileComponent } from './frame-tile/frame-tile';
 import { FrameComponent } from './frame/frame';
 import { PageComponent } from './page/page';
 import { PieceComponent } from './piece/piece';
+import { StatusPanelComponent } from './status-panel/status-panel';
 
-export const UI = {
-  Page: PageComponent,
+export const ui = {
   Board: BoardComponent,
-  Piece: PieceComponent,
   Frame: FrameComponent,
   FrameTile: FrameTileComponent,
+  Page: PageComponent,
+  Piece: PieceComponent,
+  StatusPanel: StatusPanelComponent,
 };

@@ -4,7 +4,7 @@ import { boardCols, boardRows } from 'src/config';
 import { Game, PlayerTile } from 'src/models/game';
 import { canMove } from 'src/services/game';
 import { map2d } from 'src/util';
-import { UI } from '../ui';
+import { ui } from '../ui';
 
 export interface BoardComponentParams {
   x: number;
@@ -38,7 +38,7 @@ export function BoardComponent({ x, y, width, height, game }: BoardComponentPara
   return (
     <g>
     { pieces.map(piece =>
-          <UI.Piece
+          <ui.Piece
             key={`tile-${piece.id}`}
             id={`tile-${piece.id}`}
             row={piece.r}

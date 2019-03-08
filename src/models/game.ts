@@ -1,13 +1,13 @@
 import { Maybe } from 'src/util';
 
-export type Player = 'playerA' | 'playerB';
+export type Player = 'player1' | 'player2';
 
 export function otherPlayer(player: Player): Player {
   switch (player) {
-    case 'playerA':
-      return 'playerB';
+    case 'player1':
+      return 'player2';
     default:
-      return 'playerA';
+      return 'player1';
   }
 }
 
@@ -28,11 +28,16 @@ export type Board = Tile[][];
 
 export type Status = 'init' | 'playing' | 'gameover';
 
+export type PieceLocation = [number, number];
+
+export type WinLocation = [PieceLocation, PieceLocation, PieceLocation, PieceLocation];
+
 export interface Game {
   status: Status;
   board: Board;
   turn: Player;
   count: number;
   nextMove: Maybe<number>;
-  winner: Maybe<Player>;
+  lastMove: Maybe<number>;
+  winner: Maybe<WinLocation>;
 }

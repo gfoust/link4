@@ -1,9 +1,9 @@
 import { boardCols, boardRows } from 'src/config';
-import { Board, Game, otherPlayer, Player, Status, TileType } from 'src/models/game';
+import { Board, Game, otherPlayer, Player, Status, TileType, WinLocation, PieceLocation } from 'src/models/game';
 import { Pattern, PatternMatch, winningPatterns } from 'src/models/pattern';
 import { Dictionary, Maybe } from 'src/util';
 
-function findTop(board: Board, column: number): number {
+export function findTop(board: Board, column: number): number {
   let top = 0;
   while (top < boardRows &&  board[top][column].type === 'empty') {
     ++top;
@@ -15,13 +15,31 @@ export function canMove(game: Game): boolean {
   return game.nextMove !== null && findTop(game.board, game.nextMove) !== -1;
 }
 
-function gameWon(board: Board, player: Player): boolean {
-  for (const pattern of winningPatterns) {
-    if (matchPattern(pattern, board, player).length > 0) {
-      return true;
+function findAll(pattern: Pattern, letter: string, offset: PieceLocation = [0, 0]): PieceLocation[] {
+  const locs = [ ] as PieceLocation[];
+  for (let r = 0; r < pattern.length; ++r) {
+    const cols = pattern[r].length;
+    for (let c = 0; c < cols; ++c) {
+      if (pattern[r][c] === 'X') {
+        locs.push([r + offset[0], c + offset[1]]);
+      }
     }
   }
-  return false;
+  return locs;
+}
+
+function gameWon(board: Board, player: Player): Maybe<WinLocation> {
+  for (const pattern of winningPatterns) {
+    const matches = matchPattern(pattern, board, player);
+    if (matches.length > 0) {
+      return findAll(pattern, 'X', [ matches[0].row, matches[0].col ]) as WinLocation;
+    }
+  }
+  return null;
+}
+
+function boardFull(board: Board): boolean {
+  return board[0].every(tile => tile.type !== 'empty');
 }
 
 export function takeTurn(game: Game): Game {
@@ -41,18 +59,21 @@ export function takeTurn(game: Game): Game {
   board[top] = topRow;
 
   let status: Status = 'playing';
-  let winner: Maybe<Player> = null;
-  if (gameWon(board, game.turn)) {
+  const winner: Maybe<WinLocation> = gameWon(board, game.turn);
+  if (winner) {
     status = 'gameover';
-    winner = game.turn;
+  }
+  if (boardFull(board)) {
+    status = 'gameover';
   }
 
   return {
     status,
-    board,
-    count: game.count + 1,
-    nextMove: game.nextMove,
     turn: otherPlayer(game.turn),
+    count: game.count + 1,
+    board,
+    nextMove: game.nextMove,
+    lastMove: game.nextMove,
     winner,
   };
 }

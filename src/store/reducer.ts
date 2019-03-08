@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import { boardCols, boardRows } from 'src/config';
-import { Board, EmptyTile, Game, Player, Status, Tile } from 'src/models/game';
+import { Board, EmptyTile, Game, Player, Status, Tile, WinLocation } from 'src/models/game';
 import { State } from 'src/models/state';
 import { takeTurn } from 'src/services/game';
 import { Maybe } from 'src/util';
@@ -34,7 +34,11 @@ function nextMove(state: Maybe<number> = null, action: Action): Maybe<number> {
   }
 }
 
-function turn(state: Player = 'playerA', action: Action): Player {
+function lastMove(state: Maybe<number> = null, action: Action): Maybe<number> {
+  return state;
+}
+
+function turn(state: Player = 'player1', action: Action): Player {
   return state;
 }
 
@@ -46,11 +50,11 @@ function status(state: Status = 'playing', action: Action): Status {
   return state;
 }
 
-function winner(state: Maybe<Player> = null, action: Action): Maybe<Player> {
+function winner(state: Maybe<WinLocation> = null, action: Action): Maybe<WinLocation> {
   return state;
 }
 
-const defaultGame = combineReducers({ status, board, nextMove, turn, count, winner });
+const defaultGame = combineReducers({ status, turn, board, nextMove, lastMove, count, winner });
 
 function game(state = { } as Game, action: Action) {
   state = defaultGame(state, action);

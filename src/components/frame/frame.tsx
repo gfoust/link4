@@ -1,8 +1,9 @@
 import React from 'react';
 
 import { boardCols, boardRows } from 'src/config';
-import { count2d } from 'src/util';
-import { UI } from '../ui';
+import { PieceLocation } from 'src/models/game';
+import { count2d, Maybe } from 'src/util';
+import { ui } from '../ui';
 
 export interface FrameComponentParams {
   x: number;
@@ -10,30 +11,41 @@ export interface FrameComponentParams {
   width: number;
   height: number;
   active: boolean;
+  highlight: PieceLocation[];
 }
 
-export function FrameComponent({ x, y, width, height, active }: FrameComponentParams) {
+export function FrameComponent({ x, y, width, height, active, highlight }: FrameComponentParams) {
   const tileWidth = width / boardCols;
   const tileHeight = height / boardRows;
+
+  function shouldHighlight(row: number, col: number) {
+    for (const [r, c] of highlight) {
+      if (r === row && c === col) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   return (
     <g>
       <defs>
-        <mask id='hole-mask' maskContentUnits='objectBoundingBox'>
-          <rect cx={0} cy={0} width={1} height={1} fill='white'/>
-          <ellipse cx={0.5} cy={0.5} rx={0.425} ry={0.425} fill='black' />
+        <mask id="hole-mask" maskContentUnits="objectBoundingBox">
+          <rect cx={0} cy={0} width={1} height={1} fill="white"/>
+          <ellipse cx={0.5} cy={0.5} rx={0.425} ry={0.425} fill="black" />
         </mask>
       </defs>
-      { count2d(boardRows, boardCols, (i, j) =>
-          <UI.FrameTile
-            key={`frame-tile-${i}-${j}`}
-            x={x + j * tileWidth}
-            y={y + i * tileHeight}
+      { count2d(boardRows, boardCols, (r, c) =>
+          <ui.FrameTile
+            key={`frame-tile-${r}-${c}`}
+            x={x + c * tileWidth}
+            y={y + r * tileHeight}
             width={tileWidth}
             height={tileHeight}
-            maskId='hole-mask'
-            column={j}
-            active
+            maskId="hole-mask"
+            column={c}
+            active={active}
+            highlight={shouldHighlight(r, c)}
           />
         )
       }

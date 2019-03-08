@@ -23,12 +23,12 @@
   transition: transform 0.48s ease-in;
 }
 
-[data-tag='tile'].playerA {
+[data-tag='tile'].player1 {
   fill: #00f;
   stroke: #009;
 }
 
-[data-tag='tile'].playerB {
+[data-tag='tile'].player2 {
   fill: #f00;
   stroke: #900;
 }

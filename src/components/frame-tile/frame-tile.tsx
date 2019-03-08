@@ -12,9 +12,22 @@ export interface FrameTileComponentParams {
   column: number;
   maskId: string;
   active: boolean;
+  highlight?: boolean;
 }
 
-export function FrameTileComponent({ x, y, width, height, column, maskId, active }: FrameTileComponentParams) {
+export function FrameTileComponent({
+  x,
+  y,
+  width,
+  height,
+  column,
+  maskId,
+  active,
+  highlight,
+}: FrameTileComponentParams) {
+
+  const activeClass = active ? 'active' : '';
+  const highlightClass = highlight ? 'highlight' : '';
   return (
     <g
       onMouseMove={() => active && App.store.dispatch(setNextMove(column))}
@@ -22,14 +35,14 @@ export function FrameTileComponent({ x, y, width, height, column, maskId, active
       mask={`url(#${maskId})`}
     >
       <rect
-        className='frame-tile'
+        className={`frame-tile ${activeClass} ${highlightClass}`}
         x={x}
         y={y}
         width={width}
         height={height}
       />
       <ellipse
-        className='frame-hole'
+        className={`frame-hole ${activeClass} ${highlightClass}`}
         cx={x + width / 2}
         cy={y + height / 2}
         rx={width * .435}

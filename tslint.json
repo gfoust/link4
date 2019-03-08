@@ -10,7 +10,7 @@
       "no-unused-variable": true,
       "object-literal-sort-keys": false,
       "one-line": [ true, "check-open-brack", "check-whitespace" ],
-      "quotemark": [ true, "single" ],
+      "quotemark": [ true, "single", "jsx-double", "avoid-escape" ],
       "trailing-comma": [ true, {
         "multiline": {
           "objects": "always",

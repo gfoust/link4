@@ -1,0 +1,39 @@
+.status-panel-outer {
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 12px;
+  border-color: #ccc #666 #666 #ccc;
+  margin-top: 1rem;
+  user-select: none;
+}
+
+.status-panel-outer.player1 {
+  border-color: #00f #008 #008 #00f;
+}
+
+.status-panel-outer.player2 {
+  border-color: #f00 #800 #800 #f00;
+}
+
+.status-panel-inner {
+  font-size: 2rem;
+  padding: 1rem;
+  background-color: #eee;
+  color: #666;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  border-color: #666 #ccc #ccc #666;
+}
+
+.status-panel-inner.player1 {
+  background-color: #eef;
+  color: #008;
+  border-color: #008 #00f #00f #008;
+}
+
+.status-panel-inner.player2 {
+  background-color: #fee;
+  color: #800;
+  border-color: #800 #f00 #f00 #800;
+}
