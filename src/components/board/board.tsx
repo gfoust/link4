@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { boardCols, boardRows } from 'src/config';
-import { Game, PlayerTile } from 'src/model/game';
+import { Game, PlayerTile } from 'src/models/game';
 import { canMove } from 'src/services/game';
 import { map2d } from 'src/util';
 import { UI } from '../ui';

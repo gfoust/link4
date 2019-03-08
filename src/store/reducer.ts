@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 
 import { boardCols, boardRows } from 'src/config';
-import { Board, EmptyTile, Game, Player, Status, Tile } from 'src/model/game';
-import { State } from 'src/model/state';
+import { Board, EmptyTile, Game, Player, Status, Tile } from 'src/models/game';
+import { State } from 'src/models/state';
 import { takeTurn } from 'src/services/game';
 import { Maybe } from 'src/util';
 import { Action } from './action';

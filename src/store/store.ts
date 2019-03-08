@@ -1,7 +1,7 @@
 import * as Redux from 'redux';
 
 import { App } from 'src/App';
-import { State } from 'src/model/state';
+import { State } from 'src/models/state';
 import { reducer } from './reducer';
 
 function loadState(): Partial<State> {

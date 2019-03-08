@@ -1,6 +1,6 @@
 import { boardCols, boardRows } from 'src/config';
-import { Board, Game, otherPlayer, Player, Status, TileType } from 'src/model/game';
-import { Pattern, PatternMatch, winningPatterns } from 'src/model/pattern';
+import { Board, Game, otherPlayer, Player, Status, TileType } from 'src/models/game';
+import { Pattern, PatternMatch, winningPatterns } from 'src/models/pattern';
 import { Dictionary, Maybe } from 'src/util';
 
 function findTop(board: Board, column: number): number {

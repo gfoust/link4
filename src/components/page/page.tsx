@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { Game } from 'src/model/game';
-import { State } from 'src/model/state';
+import { Game } from 'src/models/game';
+import { State } from 'src/models/state';
 import { UI } from '../ui';
 import './page.scss';
 
