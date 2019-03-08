@@ -1,21 +1,7 @@
 import { boardCols, boardRows } from 'src/config';
-import { Board, Game, otherPlayer, Pattern, PatternMatch, Player, TileType } from 'src/model/state';
+import { Board, Game, otherPlayer, Player, Status, TileType } from 'src/model/game';
+import { Pattern, PatternMatch, winningPatterns } from 'src/model/pattern';
 import { Dictionary, Maybe } from 'src/util';
-
-const winningPatterns = [
-  ['XXXX',
-  ],
-  ['X',
-   'X',
-   'X',
-   'X',
-  ],
-  ['X',
-   ' X',
-   '  X',
-   '   X',
-  ],
-];
 
 function findTop(board: Board, column: number): number {
   let top = 0;
@@ -39,7 +25,7 @@ function gameWon(board: Board, player: Player): boolean {
 }
 
 export function takeTurn(game: Game): Game {
-  if (game.nextMove === null) {
+  if (game.status !== 'playing' || game.nextMove === null) {
     return game;
   }
 
@@ -54,11 +40,20 @@ export function takeTurn(game: Game): Game {
   const board = [ ...game.board ];
   board[top] = topRow;
 
+  let status: Status = 'playing';
+  let winner: Maybe<Player> = null;
+  if (gameWon(board, game.turn)) {
+    status = 'gameover';
+    winner = game.turn;
+  }
+
   return {
+    status,
     board,
     count: game.count + 1,
     nextMove: game.nextMove,
     turn: otherPlayer(game.turn),
+    winner,
   };
 }
 
@@ -100,14 +95,14 @@ function matchPatternAt(
   }
 
   const context = {
-    O: player,
-    X: otherPlayer(player),
+    X: player,
+    O: otherPlayer(player),
   } as Dictionary<TileType>;
 
   for (let r = 0; r < rows; ++r) {
     const cols = pattern[r].length;
     for (let c = 0; c < cols; ++c) {
-      if (tileMatches(pattern[r][c], board, row + r, col + c, context)) {
+      if (! tileMatches(pattern[r][c], board, row + r, col + c, context)) {
         return null;
       }
     }

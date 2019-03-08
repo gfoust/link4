@@ -1,8 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import { boardCols, boardRows } from 'src/config';
-import { Game, PlayerTile, State } from 'src/model/state';
+import { Game, PlayerTile } from 'src/model/game';
 import { canMove } from 'src/services/game';
 import { map2d } from 'src/util';
 import { UI } from '../ui';
@@ -21,7 +20,7 @@ interface PlayedPiece extends PlayerTile {
   disabled?: boolean;
 }
 
-export function StatelessBoardComponent({ x, y, width, height, game }: BoardComponentParams) {
+export function BoardComponent({ x, y, width, height, game }: BoardComponentParams) {
   const tileWidth = width / boardCols;
   const tileHeight = height / (boardRows + 1);
 
@@ -32,7 +31,7 @@ export function StatelessBoardComponent({ x, y, width, height, game }: BoardComp
       pieces[tile.id] = { ...tile, r: r + 1, c };
     }
   });
-  if (game.nextMove !== null) {
+  if (game.status === 'playing' && game.nextMove !== null) {
     pieces[game.count] = { id: game.count, type: game.turn, r: 0, c: game.nextMove, disabled: !canMove(game) };
   }
 
@@ -56,7 +55,3 @@ export function StatelessBoardComponent({ x, y, width, height, game }: BoardComp
     </g>
   );
 }
-
-export const BoardComponent = connect((state: State) => ({
-  game: state.game,
-}))(StatelessBoardComponent);

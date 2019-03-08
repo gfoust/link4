@@ -9,9 +9,10 @@ export interface FrameComponentParams {
   y: number;
   width: number;
   height: number;
+  active: boolean;
 }
 
-export function FrameComponent({ x, y, width, height }: FrameComponentParams) {
+export function FrameComponent({ x, y, width, height, active }: FrameComponentParams) {
   const tileWidth = width / boardCols;
   const tileHeight = height / boardRows;
 
@@ -32,6 +33,7 @@ export function FrameComponent({ x, y, width, height }: FrameComponentParams) {
             height={tileHeight}
             maskId='hole-mask'
             column={j}
+            active
           />
         )
       }

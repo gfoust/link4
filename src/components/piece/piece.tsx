@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-import { Player } from 'src/model/state';
+import { Player } from 'src/model/game';
 import './piece.scss';
 
 export interface PieceComponentParams {

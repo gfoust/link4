@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 
 import { boardCols, boardRows } from 'src/config';
-import { Board, EmptyTile, Game, Player, Tile } from 'src/model/state';
+import { Board, EmptyTile, Game, Player, Status, Tile } from 'src/model/game';
+import { State } from 'src/model/state';
 import { takeTurn } from 'src/services/game';
 import { Maybe } from 'src/util';
 import { Action } from './action';
@@ -41,7 +42,15 @@ function count(state = 0, action: Action): number {
   return state;
 }
 
-const defaultGame = combineReducers({ board, nextMove, turn, count });
+function status(state: Status = 'playing', action: Action): Status {
+  return state;
+}
+
+function winner(state: Maybe<Player> = null, action: Action): Maybe<Player> {
+  return state;
+}
+
+const defaultGame = combineReducers({ status, board, nextMove, turn, count, winner });
 
 function game(state = { } as Game, action: Action) {
   state = defaultGame(state, action);
@@ -53,4 +62,10 @@ function game(state = { } as Game, action: Action) {
   }
 }
 
-export const reducer = combineReducers({ game });
+export const realReducer = combineReducers({ game });
+
+export function reducer(state: State | undefined, action: Action): State {
+  state = realReducer(state, action);
+  (window as any).state = state;
+  return state;
+}

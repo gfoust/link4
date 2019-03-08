@@ -1,14 +1,14 @@
 
-[data-tag="frame-tile"], [data-tag="frame-hole"] {
+.frame-tile.active, .frame-hole.active {
   cursor: pointer;
 }
 
-[data-tag="frame-tile"] {
+.frame-tile {
   fill: #dd0;
   stroke: #990;
 }
 
-[data-tag="frame-hole"] {
+.frame-hole {
   fill: #dd0;
   stroke: #990;
 }
