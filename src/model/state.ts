@@ -1,24 +1,44 @@
-import { Maybe } from 'src/util';
+import { Dictionary, Maybe } from 'src/util';
 
-export enum Player {
-  playerA,
-  playerB,
+export type Player = 'playerA' | 'playerB';
+
+export function otherPlayer(player: Player): Player {
+  switch (player) {
+    case 'playerA':
+      return 'playerB';
+    default:
+      return 'playerA';
+  }
 }
 
-export interface Piece {
+export interface EmptyTile {
+  type: 'empty';
+}
+
+export interface PlayerTile {
+  type: Player;
   id: number;
-  player: Player;
 }
 
-export type Tile = Maybe<Piece>;
+export type Tile = EmptyTile | PlayerTile;
+
+export type TileType = Player | 'empty';
 
 export type Board = Tile[][];
 
 export interface Game {
   board: Board;
-  nextMove: Maybe<number>;
   turn: Player;
   count: number;
+  nextMove: Maybe<number>;
+}
+
+export type Pattern = string[];
+
+export interface PatternMatch {
+  row: number;
+  col: number;
+  variables: Dictionary<TileType>;
 }
 
 export interface State {

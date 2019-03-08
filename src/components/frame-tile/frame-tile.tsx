@@ -1,9 +1,8 @@
-
-import * as React from 'react';
-import './frame-tile.scss';
+import React from 'react';
 
 import { App } from 'src/App';
 import { setNextMove, takeTurn } from 'src/store/action';
+import './frame-tile.scss';
 
 export interface FrameTileComponentParams {
   x: number;

@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { config } from 'src/config';
 
-import { Game, Piece, State } from 'src/model/state';
+import { boardCols, boardRows } from 'src/config';
+import { Game, PlayerTile, State } from 'src/model/state';
 import { canMove } from 'src/services/game';
 import { map2d } from 'src/util';
 import { UI } from '../ui';
@@ -15,25 +15,25 @@ export interface BoardComponentParams {
   game: Game;
 }
 
-interface PlayedPiece extends Piece {
+interface PlayedPiece extends PlayerTile {
   r: number;
   c: number;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 export function StatelessBoardComponent({ x, y, width, height, game }: BoardComponentParams) {
-  const tileWidth = width / config.boardWidth;
-  const tileHeight = height / (config.boardHeight + 1);
+  const tileWidth = width / boardCols;
+  const tileHeight = height / (boardRows + 1);
 
   const pieces: PlayedPiece[] = [ ];
 
   map2d(game.board, (tile, r, c) => {
-    if (tile !== null) {
-      pieces[tile.id] = { ...tile, r: r + 1, c, disabled: false };
+    if (tile.type !== 'empty') {
+      pieces[tile.id] = { ...tile, r: r + 1, c };
     }
   });
   if (game.nextMove !== null) {
-    pieces[game.count] = { id: game.count, player: game.turn, r: 0, c: game.nextMove, disabled: !canMove(game) };
+    pieces[game.count] = { id: game.count, type: game.turn, r: 0, c: game.nextMove, disabled: !canMove(game) };
   }
 
   return (
@@ -48,7 +48,7 @@ export function StatelessBoardComponent({ x, y, width, height, game }: BoardComp
             y={y}
             width={tileWidth}
             height={tileHeight}
-            player={piece.player}
+            player={piece.type}
             disabled={piece.disabled}
           />
         )

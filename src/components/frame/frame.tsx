@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 
-import { config } from 'src/config';
+import { boardCols, boardRows } from 'src/config';
 import { count2d } from 'src/util';
 import { UI } from '../ui';
 
@@ -12,8 +12,8 @@ export interface FrameComponentParams {
 }
 
 export function FrameComponent({ x, y, width, height }: FrameComponentParams) {
-  const tileWidth = width / config.boardWidth;
-  const tileHeight = height / config.boardHeight;
+  const tileWidth = width / boardCols;
+  const tileHeight = height / boardRows;
 
   return (
     <g>
@@ -23,7 +23,7 @@ export function FrameComponent({ x, y, width, height }: FrameComponentParams) {
           <ellipse cx={0.5} cy={0.5} rx={0.425} ry={0.425} fill='black' />
         </mask>
       </defs>
-      { count2d(config.boardHeight, config.boardWidth, (i, j) =>
+      { count2d(boardRows, boardCols, (i, j) =>
           <UI.FrameTile
             key={`frame-tile-${i}-${j}`}
             x={x + j * tileWidth}

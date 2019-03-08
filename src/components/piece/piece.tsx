@@ -1,5 +1,5 @@
 
-import * as React from 'react';
+import React from 'react';
 
 import { Player } from 'src/model/state';
 import './piece.scss';
@@ -13,7 +13,7 @@ export interface PieceComponentParams {
   width: number;
   height: number;
   player: Player;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 export function PieceComponent({ id, row, col, x, y, width, height, player, disabled }: PieceComponentParams) {
@@ -26,7 +26,7 @@ export function PieceComponent({ id, row, col, x, y, width, height, player, disa
       style={{ transform: `translate(${(col + 0.5) * width}px, ${(row + 0.5) * height}px)`}}
       rx={width * 0.45}
       ry={height * 0.45}
-      className={`tile ${Player[player]} row-${row} ${disabled ? 'disabled' : ''}`}
+      className={`tile ${player} row-${row} ${disabled ? 'disabled' : ''}`}
     />;
 
   if (disabled) {

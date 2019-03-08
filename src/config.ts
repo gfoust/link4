@@ -1,5 +1,3 @@
 
- export const config = {
-  boardWidth: 7,
-  boardHeight: 6,
-};
+export const boardRows = 6;
+export const boardCols = 7;

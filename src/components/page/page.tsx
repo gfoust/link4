@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+
 import { State, Tile } from 'src/model/state';
 import { UI } from '../ui';
 import './page.scss';
