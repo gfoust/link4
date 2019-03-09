@@ -42,10 +42,6 @@ function turn(state: Player = 'player1', action: Action): Player {
   return state;
 }
 
-function count(state = 0, action: Action): number {
-  return state;
-}
-
 function status(state: Status = 'playing', action: Action): Status {
   return state;
 }
@@ -54,22 +50,62 @@ function winner(state: Maybe<WinLocation> = null, action: Action): Maybe<WinLoca
   return state;
 }
 
-const defaultGame = combineReducers({ status, turn, board, nextMove, lastMove, count, winner });
+const defaultGame = combineReducers({ status, turn, board, lastMove, winner });
 
-function game(state = { } as Game, action: Action) {
-  state = defaultGame(state, action);
+// can't use state; need new data
+function games(state = [ ] as Game[], cr: number, ct: number, nm: Maybe<number>, action: Action): Game[] {
+  let nextGame = defaultGame(state[cr], action);
+  if (nextGame !== state[cr]) {
+    state = state.slice(0, cr + 1);
+    state.push(nextGame);
+  }
   switch (action.type) {
     case 'TakeTurn':
-      return takeTurn(state);
+      nextGame = takeTurn(state[cr], ct, nm);
+      if (nextGame !== state[cr]) {
+        state = state.slice(0, cr + 1);
+        state.push(nextGame);
+      }
+      setTimeout(() => (document.getElementById(`turn-${cr}`) as HTMLElement).scrollIntoView(), 10);
+  }
+  return state;
+}
+
+function current(state = 0, action: Action): number {
+  switch (action.type) {
+    case 'SetCurrentGame':
+      return action.value;
     default:
       return state;
   }
 }
 
-export const realReducer = combineReducers({ game });
+function count(state = 0, action: Action): number {
+  switch (action.type) {
+    case 'TakeTurn':
+      return state + 1;
+    default:
+      return state;
+  }
+}
 
-export function reducer(state: State | undefined, action: Action): State {
-  state = realReducer(state, action);
-  (window as any).state = state;
-  return state;
+export function reducer(state = { } as State, action: Action): State {
+  const nm = nextMove(state.nextMove, action);
+  let cr = current(state.current, action);
+  const gs = games(state.games, cr, state.count, nm, action);
+  const ct = count(state.count, action);
+  if (gs !== state.games) {
+    cr = gs.length - 1;
+  }
+  if (nm === state.nextMove && gs === state.games && cr === state.current && ct === state.count) {
+    return state;
+  }
+  else {
+    return (window as any).state = {
+      nextMove: nm,
+      games: gs,
+      current: cr,
+      count: ct,
+    };
+  }
 }

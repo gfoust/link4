@@ -45,8 +45,8 @@ export function FrameTileComponent({
         className={`frame-hole ${activeClass} ${highlightClass}`}
         cx={x + width / 2}
         cy={y + height / 2}
-        rx={width * .435}
-        ry={width * .435}
+        rx={width * .43}
+        ry={width * .43}
       />
     </g>
   );

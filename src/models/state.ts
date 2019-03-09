@@ -1,5 +1,9 @@
+import { Maybe } from 'src/util';
 import { Game } from './game';
 
 export interface State {
-  game: Game;
+  nextMove: Maybe<number>;
+  games: Game[];
+  current: number;
+  count: number;
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import { boardCols, boardRows } from 'src/config';
 import { Game, PlayerTile } from 'src/models/game';
 import { canMove } from 'src/services/game';
-import { map2d } from 'src/util';
+import { map2d, Maybe } from 'src/util';
 import { ui } from '../ui';
 
 export interface BoardComponentParams {
@@ -12,6 +12,8 @@ export interface BoardComponentParams {
   width: number;
   height: number;
   game: Game;
+  count: number;
+  nextMove: Maybe<number>;
 }
 
 interface PlayedPiece extends PlayerTile {
@@ -20,7 +22,7 @@ interface PlayedPiece extends PlayerTile {
   disabled?: boolean;
 }
 
-export function BoardComponent({ x, y, width, height, game }: BoardComponentParams) {
+export function BoardComponent({ x, y, width, height, game, count, nextMove }: BoardComponentParams) {
   const tileWidth = width / boardCols;
   const tileHeight = height / (boardRows + 1);
 
@@ -31,8 +33,8 @@ export function BoardComponent({ x, y, width, height, game }: BoardComponentPara
       pieces[tile.id] = { ...tile, r: r + 1, c };
     }
   });
-  if (game.status === 'playing' && game.nextMove !== null) {
-    pieces[game.count] = { id: game.count, type: game.turn, r: 0, c: game.nextMove, disabled: !canMove(game) };
+  if (game.status === 'playing' && nextMove !== null) {
+    pieces[count] = { id: count, type: game.turn, r: 0, c: nextMove, disabled: !canMove(game, nextMove) };
   }
 
   return (

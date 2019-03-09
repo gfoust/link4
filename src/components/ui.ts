@@ -4,6 +4,7 @@ import { FrameComponent } from './frame/frame';
 import { PageComponent } from './page/page';
 import { PieceComponent } from './piece/piece';
 import { StatusPanelComponent } from './status-panel/status-panel';
+import { TurnsPanelComponent } from './turns-panel/turns-panel';
 
 export const ui = {
   Board: BoardComponent,
@@ -12,4 +13,5 @@ export const ui = {
   Page: PageComponent,
   Piece: PieceComponent,
   StatusPanel: StatusPanelComponent,
+  TurnsPanel: TurnsPanelComponent,
 };

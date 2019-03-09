@@ -36,8 +36,6 @@ export interface Game {
   status: Status;
   board: Board;
   turn: Player;
-  count: number;
-  nextMove: Maybe<number>;
   lastMove: Maybe<number>;
   winner: Maybe<WinLocation>;
 }

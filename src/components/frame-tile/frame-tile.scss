@@ -11,6 +11,7 @@
 .frame-hole {
   fill: #dd0;
   stroke: #990;
+  stroke-width: 3px;
 }
 
 .frame-tile.highlight {
@@ -21,5 +22,4 @@
 .frame-hole.highlight {
   fill: #0d0;
   stroke: #090;
-  stroke-width: 6px;
 }

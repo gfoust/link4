@@ -1,5 +1,5 @@
 import { boardCols, boardRows } from 'src/config';
-import { Board, Game, otherPlayer, Player, Status, TileType, WinLocation, PieceLocation } from 'src/models/game';
+import { Board, Game, otherPlayer, PieceLocation, Player, Status, TileType, WinLocation } from 'src/models/game';
 import { Pattern, PatternMatch, winningPatterns } from 'src/models/pattern';
 import { Dictionary, Maybe } from 'src/util';
 
@@ -11,8 +11,8 @@ export function findTop(board: Board, column: number): number {
   return top - 1;
 }
 
-export function canMove(game: Game): boolean {
-  return game.nextMove !== null && findTop(game.board, game.nextMove) !== -1;
+export function canMove(game: Game, nextMove: Maybe<number>): boolean {
+  return nextMove !== null && findTop(game.board, nextMove) !== -1;
 }
 
 function findAll(pattern: Pattern, letter: string, offset: PieceLocation = [0, 0]): PieceLocation[] {
@@ -42,18 +42,18 @@ function boardFull(board: Board): boolean {
   return board[0].every(tile => tile.type !== 'empty');
 }
 
-export function takeTurn(game: Game): Game {
-  if (game.status !== 'playing' || game.nextMove === null) {
+export function takeTurn(game: Game, count: number, nextMove: Maybe<number>): Game {
+  if (game.status !== 'playing' || nextMove === null) {
     return game;
   }
 
-  const top = findTop(game.board, game.nextMove);
+  const top = findTop(game.board, nextMove);
   if (top === -1) {
     return game;
   }
 
   const topRow  = [ ...game.board[top] ];
-  topRow[game.nextMove] = { id: game.count, type: game.turn };
+  topRow[nextMove] = { id: count, type: game.turn };
 
   const board = [ ...game.board ];
   board[top] = topRow;
@@ -70,10 +70,8 @@ export function takeTurn(game: Game): Game {
   return {
     status,
     turn: otherPlayer(game.turn),
-    count: game.count + 1,
     board,
-    nextMove: game.nextMove,
-    lastMove: game.nextMove,
+    lastMove: nextMove,
     winner,
   };
 }
