@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { Player, Status } from 'src/models/game';
+import { PlayerInfo, State } from 'src/models/state';
 import { Maybe } from 'src/util';
 import './status-panel.scss';
 
@@ -8,32 +10,24 @@ export interface StatusPanelProps {
   status: Status;
   turn: Player;
   winner: Maybe<Player>;
+  playerNames: PlayerInfo<string>;
 }
 
-export function StatusPanelComponent({ status, turn, winner }: StatusPanelProps) {
+export function StatelessStatusPanelComponent({ status, turn, winner, playerNames }: StatusPanelProps) {
   let message: string;
-  let player= '';
+  let player = '';
   if (status === 'playing') {
-    if (turn === 'player1') {
-      message = "Player 1's Turn";
-    }
-    else {
-      message = "Player 2's Turn";
-    }
+    message = playerNames[turn] + "'s Turn";
     player = turn;
   }
   else {
     if (winner) {
-      if (winner === 'player1') {
-        message = 'Player 1 Wins';
-      }
-      else {
-        message = 'Player 2 Wins';
-      }
+      message = playerNames[winner] + ' Wins';
       player = winner;
     }
     else {
       message = 'Tie Game';
+      player = 'tie';
     }
   }
 
@@ -43,3 +37,7 @@ export function StatusPanelComponent({ status, turn, winner }: StatusPanelProps)
     </div>
   );
 }
+
+export const StatusPanelComponent = connect((state: State) => ({
+  playerNames: state.playerNames,
+}))(StatelessStatusPanelComponent);

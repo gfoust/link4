@@ -9,14 +9,14 @@ import { Maybe } from 'src/util';
 import { ui } from '../ui';
 import './game-screen.scss';
 
-export interface GameScreenComponentParams {
+export interface GameScreenComponentProps {
   games: Game[];
   nextMove: Maybe<number>;
   current: number;
   count: number;
 }
 
-export function StatelessGameScreenComponent({ games, count, nextMove, current }: GameScreenComponentParams) {
+export function StatelessGameScreenComponent({ games, count, nextMove, current }: GameScreenComponentProps) {
   let highlight = [ ] as PieceLocation[];
   let winner = null as Maybe<Player>;
   const game = games[current];
@@ -39,6 +39,7 @@ export function StatelessGameScreenComponent({ games, count, nextMove, current }
 
   return (
     <section className="game-screen">
+      <ui.MenuPanel/>
       <div className="board-area">
         <svg>
           <ui.Board

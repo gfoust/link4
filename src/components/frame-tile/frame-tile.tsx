@@ -4,7 +4,7 @@ import { App } from 'src/App';
 import { setNextMove, takeTurn } from 'src/store/action';
 import './frame-tile.scss';
 
-export interface FrameTileComponentParams {
+export interface FrameTileComponentProps {
   x: number;
   y: number;
   width: number;
@@ -24,7 +24,7 @@ export function FrameTileComponent({
   maskId,
   active,
   highlight,
-}: FrameTileComponentParams) {
+}: FrameTileComponentProps) {
 
   const activeClass = active ? 'active' : '';
   const highlightClass = highlight ? 'highlight' : '';

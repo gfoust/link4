@@ -3,6 +3,7 @@
 .turns-panel {
   width: 200px;
   height: 500px;
+  user-select: none;
 
   .card-body {
     padding: 0;
@@ -16,25 +17,6 @@
     }
   }
 }
-
-// .turn {
-//   font-size: 1.2rem;
-//   padding: 0.5rem;
-//   border-top: 1px solid #fff;
-//   border-bottom: 1px solid #fff;
-//   user-select: none;
-//   cursor: pointer;
-// }
-
-// .turn.player1 {
-//   color: #008;
-//   background: #eef;
-// }
-
-// .turn.player1:hover {
-//   color: #006;
-//   background: #dde;
-// }
 
 .list-group-item-action.list-group-item-player1.current,
 .list-group-item-action.list-group-item-player1.current:active,
@@ -52,17 +34,3 @@
   background: $player2;
 }
 
-// .turn.player2 {
-//   color: #800;
-//   background: #fee;
-// }
-
-// .turn.player2:hover {
-//   color: #600;
-//   background: #edd;
-// }
-
-// .turn.current.player2 {
-//   color: #fff;
-//   background: #800;
-// }

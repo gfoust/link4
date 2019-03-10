@@ -4,7 +4,7 @@ import React from 'react';
 import { Player } from 'src/models/game';
 import './piece.scss';
 
-export interface PieceComponentParams {
+export interface PieceComponentProps {
   id: string;
   row: number;
   col: number;
@@ -16,7 +16,7 @@ export interface PieceComponentParams {
   disabled?: boolean;
 }
 
-export function PieceComponent({ id, row, col, x, y, width, height, player, disabled }: PieceComponentParams) {
+export function PieceComponent({ id, row, col, x, y, width, height, player, disabled }: PieceComponentProps) {
   const piece =
     <ellipse
       id={id}

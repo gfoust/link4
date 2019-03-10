@@ -33,3 +33,17 @@ export function count2d<T>(iEnd: number, jEnd: number, f: (i: number, j: number)
 
   return result;
 }
+
+export function allPropertiesIdentical(x: any, y: any): boolean {
+  for (const key in x) {
+    if (! (key in y) || x[key] !== y[key]) {
+      return false;
+    }
+  }
+  for (const key in y) {
+    if (! (key in x)) {
+      return false;
+    }
+  }
+  return true;
+}

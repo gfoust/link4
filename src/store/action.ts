@@ -1,4 +1,5 @@
-import { Screen } from 'src/models/state';
+import { PlayerType } from 'src/models/game';
+import { PlayerInfo, Screen } from 'src/models/state';
 
 // ---------------------------------------------------------
 
@@ -45,4 +46,22 @@ export function setScreen(screen: Screen) {
 
 // ---------------------------------------------------------
 
-export type Action = SetNextMove | TakeTurn | SetCurrentGame | SetScreen;
+export interface StartGame {
+  type: 'StartGame';
+  playerNames: PlayerInfo<string>;
+  // playerTypes: PlayerInfo<PlayerType>;
+}
+
+export function startGame(player1Name: string, player2Name: string) {
+  return {
+    type: 'StartGame',
+    playerNames: {
+      player1: player1Name,
+      player2: player2Name,
+    },
+  };
+}
+
+// ---------------------------------------------------------
+
+export type Action = SetNextMove | TakeTurn | SetCurrentGame | SetScreen | StartGame;

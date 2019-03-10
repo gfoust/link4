@@ -39,17 +39,17 @@ module.exports = {
         test: /\.scss$/,
         loader: 'sass-loader',
       },
-      // {
-      //   test: /\.(svg|eot|woff|ttf|svg|woff2)$/,
-      //   use: [
-      //       {
-      //           loader: 'file-loader',
-      //           options: {
-      //               name: '[path][name].[ext]',
-      //           }
-      //       }
-      //   ]
-      // }
+      {
+        test: /\.(svg|eot|woff|ttf|svg|woff2)$/,
+        use: [
+            {
+                loader: 'file-loader',
+                options: {
+                    name: '[path][name].[ext]',
+                }
+            }
+        ]
+      }
     ],
   },
 };

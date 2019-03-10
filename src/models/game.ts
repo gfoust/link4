@@ -2,6 +2,8 @@ import { Maybe } from 'src/util';
 
 export type Player = 'player1' | 'player2';
 
+export type PlayerType = 'human' | 'computer';
+
 export function otherPlayer(player: Player): Player {
   switch (player) {
     case 'player1':

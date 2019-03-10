@@ -5,7 +5,7 @@ import { PieceLocation } from 'src/models/game';
 import { count2d, Maybe } from 'src/util';
 import { ui } from '../ui';
 
-export interface FrameComponentParams {
+export interface FrameComponentProps {
   x: number;
   y: number;
   width: number;
@@ -14,7 +14,7 @@ export interface FrameComponentParams {
   highlight: PieceLocation[];
 }
 
-export function FrameComponent({ x, y, width, height, availableMoves, highlight }: FrameComponentParams) {
+export function FrameComponent({ x, y, width, height, availableMoves, highlight }: FrameComponentProps) {
   const tileWidth = width / boardCols;
   const tileHeight = height / boardRows;
 

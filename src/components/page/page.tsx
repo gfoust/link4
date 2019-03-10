@@ -5,11 +5,11 @@ import { Screen, State } from 'src/models/state';
 import { ui } from '../ui';
 import './page.scss';
 
-export interface PageComponentParams {
+export interface PageComponentProps {
   screen: Screen;
 }
 
-export function StatelessPageComponent({ screen }: PageComponentParams) {
+export function StatelessPageComponent({ screen }: PageComponentProps) {
 
   if (screen === 'start') {
     return <ui.StartScreen/>;

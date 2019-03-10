@@ -6,7 +6,7 @@ import { canMove } from 'src/services/game';
 import { map2d, Maybe } from 'src/util';
 import { ui } from '../ui';
 
-export interface BoardComponentParams {
+export interface BoardComponentProps {
   x: number;
   y: number;
   width: number;
@@ -22,7 +22,7 @@ interface PlayedPiece extends PlayerTile {
   disabled?: boolean;
 }
 
-export function BoardComponent({ x, y, width, height, game, count, nextMove }: BoardComponentParams) {
+export function BoardComponent({ x, y, width, height, game, count, nextMove }: BoardComponentProps) {
   const tileWidth = width / boardCols;
   const tileHeight = height / (boardRows + 1);
 
