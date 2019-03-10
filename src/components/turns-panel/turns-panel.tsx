@@ -15,20 +15,25 @@ export function TurnsPanelComponent({ games, current }: TurnsPanelProps) {
   for (let i = 0, end = games.length; i < end; ++i) {
     const currentClass = i === current ? 'current' : '';
     turns.push(
-      <div
+      <button
         key={`turn-${i}`}
         id={`turn-${i}`}
-        className={`turn ${games[i].turn} ${currentClass}`}
+        className={`list-group-item list-group-item-action list-group-item-${games[i].turn} ${currentClass}`}
         onClick={() => App.store.dispatch(setCurrentGame(i))}
       >
-        Turn {i}
-      </div>
+        Turn {i + 1}
+      </button>
     );
   }
 
   return (
-    <div className="turns-panel">
-    { turns }
+    <div className="card turns-panel">
+      <div className="card-header">
+        Turn List
+      </div>
+      <div className="card-body list-group list-group-flush">
+      { turns }
+      </div>
     </div>
   );
 }

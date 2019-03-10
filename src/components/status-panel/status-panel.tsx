@@ -38,10 +38,8 @@ export function StatusPanelComponent({ status, turn, winner }: StatusPanelProps)
   }
 
   return (
-    <div className={`status-panel-outer ${player}`}>
-      <div className={`status-panel-inner ${player}`}>
-        { message }
-      </div>
+    <div className={`alert alert-${player}`}>
+      { message }
     </div>
   );
 }

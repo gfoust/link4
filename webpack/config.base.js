@@ -24,6 +24,10 @@ module.exports = {
       },
       {
         test: /\.scss$/,
+        loader: 'css-loader',
+      },
+      {
+        test: /\.scss$/,
         loader: 'postcss-loader',
         options: {
           config: {
@@ -35,6 +39,17 @@ module.exports = {
         test: /\.scss$/,
         loader: 'sass-loader',
       },
+      // {
+      //   test: /\.(svg|eot|woff|ttf|svg|woff2)$/,
+      //   use: [
+      //       {
+      //           loader: 'file-loader',
+      //           options: {
+      //               name: '[path][name].[ext]',
+      //           }
+      //       }
+      //   ]
+      // }
     ],
   },
 };

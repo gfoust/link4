@@ -1,3 +1,4 @@
+@import "src/scss/variables";
 
 [data-tag='tile'].row-1 {
   transition: transform 0.08s ease-in;
@@ -24,12 +25,12 @@
 }
 
 [data-tag='tile'].player1 {
-  fill: #00f;
+  fill: $player1;
   stroke: #009;
 }
 
 [data-tag='tile'].player2 {
-  fill: #f00;
+  fill: $player2;
   stroke: #900;
 }
 
@@ -38,6 +39,6 @@
 }
 
 [data-tag='tile'].x {
-  stroke: red;
+  stroke: #c00;
   stroke-width: 7;
 }

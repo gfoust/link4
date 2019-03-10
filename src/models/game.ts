@@ -26,7 +26,7 @@ export type TileType = Player | 'empty';
 
 export type Board = Tile[][];
 
-export type Status = 'init' | 'playing' | 'gameover';
+export type Status = 'playing' | 'gameover';
 
 export type PieceLocation = [number, number];
 

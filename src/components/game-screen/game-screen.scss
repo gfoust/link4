@@ -1,0 +1,19 @@
+
+svg {
+  width: 700px;
+  height: 700px;
+}
+
+.game-screen {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.board-area {
+  margin-right: 4rem;
+  .alert {
+    user-select: none;
+  }
+}

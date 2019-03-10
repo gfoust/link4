@@ -10,11 +10,11 @@ export interface FrameComponentParams {
   y: number;
   width: number;
   height: number;
-  active: boolean;
+  availableMoves: boolean[];
   highlight: PieceLocation[];
 }
 
-export function FrameComponent({ x, y, width, height, active, highlight }: FrameComponentParams) {
+export function FrameComponent({ x, y, width, height, availableMoves, highlight }: FrameComponentParams) {
   const tileWidth = width / boardCols;
   const tileHeight = height / boardRows;
 
@@ -44,7 +44,7 @@ export function FrameComponent({ x, y, width, height, active, highlight }: Frame
             height={tileHeight}
             maskId="hole-mask"
             column={c}
-            active={active}
+            active={availableMoves[c]}
             highlight={shouldHighlight(r, c)}
           />
         )

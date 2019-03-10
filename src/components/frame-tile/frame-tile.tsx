@@ -30,7 +30,7 @@ export function FrameTileComponent({
   const highlightClass = highlight ? 'highlight' : '';
   return (
     <g
-      onMouseMove={() => active && App.store.dispatch(setNextMove(column))}
+      onMouseMove={() => App.store.dispatch(setNextMove(column))}
       onClick={() => active && App.store.dispatch(takeTurn())}
       mask={`url(#${maskId})`}
     >

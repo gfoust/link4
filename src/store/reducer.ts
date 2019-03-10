@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import { boardCols, boardRows } from 'src/config';
 import { Board, EmptyTile, Game, Player, Status, Tile, WinLocation } from 'src/models/game';
-import { State } from 'src/models/state';
+import { Screen, State } from 'src/models/state';
 import { takeTurn } from 'src/services/game';
 import { Maybe } from 'src/util';
 import { Action } from './action';
@@ -50,23 +50,19 @@ function winner(state: Maybe<WinLocation> = null, action: Action): Maybe<WinLoca
   return state;
 }
 
-const defaultGame = combineReducers({ status, turn, board, lastMove, winner });
+const game = combineReducers({ status, turn, board, lastMove, winner });
 
-// can't use state; need new data
-function games(state = [ ] as Game[], cr: number, ct: number, nm: Maybe<number>, action: Action): Game[] {
-  let nextGame = defaultGame(state[cr], action);
-  if (nextGame !== state[cr]) {
-    state = state.slice(0, cr + 1);
-    state.push(nextGame);
-  }
+// tslint:disable-next-line no-shadowed-variable
+function games(state = [ ] as Game[], current: number, count: number, nextMove: Maybe<number>, action: Action): Game[] {
+  let nextGame = game(state[current], action);
   switch (action.type) {
     case 'TakeTurn':
-      nextGame = takeTurn(state[cr], ct, nm);
-      if (nextGame !== state[cr]) {
-        state = state.slice(0, cr + 1);
-        state.push(nextGame);
-      }
-      setTimeout(() => (document.getElementById(`turn-${cr}`) as HTMLElement).scrollIntoView(), 10);
+      nextGame = takeTurn(nextGame, count, nextMove);
+      setTimeout(() => (document.getElementById(`turn-${current}`) as HTMLElement).scrollIntoView(), 10);
+  }
+  if (nextGame !== state[current]) {
+    state = state.slice(0, current + 1);
+    state.push(nextGame);
   }
   return state;
 }
@@ -75,6 +71,8 @@ function current(state = 0, action: Action): number {
   switch (action.type) {
     case 'SetCurrentGame':
       return action.value;
+    case 'TakeTurn':
+      return state + 1;
     default:
       return state;
   }
@@ -89,23 +87,33 @@ function count(state = 0, action: Action): number {
   }
 }
 
-export function reducer(state = { } as State, action: Action): State {
-  const nm = nextMove(state.nextMove, action);
-  let cr = current(state.current, action);
-  const gs = games(state.games, cr, state.count, nm, action);
-  const ct = count(state.count, action);
-  if (gs !== state.games) {
-    cr = gs.length - 1;
+function screen(state: Screen = 'start', action: Action): Screen {
+  switch (action.type) {
+    case 'SetScreen':
+      return action.screen;
+    default:
+      return state;
   }
-  if (nm === state.nextMove && gs === state.games && cr === state.current && ct === state.count) {
+}
+
+export function reducer(state = { } as State, action: Action): State {
+  const nextState = { } as State;
+
+  nextState.nextMove = nextMove(state.nextMove, action);
+  nextState.current = current(state.current, action);
+  nextState.count = count(state.count, action);
+  nextState.screen = screen(state.screen, action);
+  nextState.games = games(state.games, state.current, state.count, state.nextMove, action);
+
+  if (nextState.screen === state.screen &&
+      nextState.nextMove === state.nextMove &&
+      nextState.games === state.games &&
+      nextState.current === state.current &&
+      nextState.count === state.count
+  ) {
     return state;
   }
   else {
-    return (window as any).state = {
-      nextMove: nm,
-      games: gs,
-      current: cr,
-      count: ct,
-    };
+    return (window as any).state = nextState;
   }
 }
