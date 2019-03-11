@@ -1,120 +1,52 @@
-import React, { FormEvent } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import { App } from 'src/App';
 import { startGame } from 'src/models/action';
-import { Player, PlayerType } from 'src/models/game';
-import { PlayerInfo, State } from 'src/models/state';
+import { FullSetup, State } from 'src/models/state';
+import { PlayerSetupComponent } from '../player-setup/player-setup';
+import { ui } from '../ui';
 import './start-screen.scss';
 
 interface StartScreenProps {
-  playerNames: PlayerInfo<string>;
-  playerTypes: PlayerInfo<PlayerType>;
+  setup: FullSetup;
 }
 
-interface StartScreenState {
-  player1Name: string;
-  player2Name: string;
-  player1Type: PlayerType;
-  player2Type: PlayerType;
-}
+export function StatelessStartScreenComponent(props: StartScreenProps) {
+  const player1 = React.createRef<PlayerSetupComponent>();
+  const player2 = React.createRef<PlayerSetupComponent>();
 
-export class StatelessStartScreenComponent extends React.PureComponent<StartScreenProps, StartScreenState> {
-  constructor(props: StartScreenProps) {
-    super(props);
-
-    let player1Name = props.playerNames.player1;
-    if (player1Name === App.state.defaultPlayerNames.player1) {
-      player1Name = '';
-    }
-    let player2Name = props.playerNames.player2;
-    if (player2Name === App.state.defaultPlayerNames.player2) {
-      player2Name = '';
-    }
-
-    this.state = {
-      player1Name,
-      player2Name,
-      player1Type: props.playerTypes.player1,
-      player2Type: props.playerTypes.player2,
-    };
-  }
-
-  onNameChange = (player: Player) => (event: FormEvent<HTMLInputElement>) => {
-    this.setState({ [player + 'Name']: (event.target as HTMLInputElement).value } as any);
-  }
-
-  onTypeChange = (player: Player, type: PlayerType) => () => {
-    this.setState({ [player + 'Type']: type } as any);
-  }
-
-  onNewGame = () => {
+  const onNewGame = () => {
     App.store.dispatch(startGame(
-      this.state.player1Name,
-      this.state.player2Name,
-      this.state.player1Type,
-      this.state.player2Type
+      player1.current!.setup,
+      player2.current!.setup
     ));
-  }
+  };
 
-  render() {
-    return (
-      <section className="start-screen">
-        <h1>Link 4</h1>
-        <div>
-          <form onSubmit={event => event.preventDefault()}>
-            <div className="input-group mb-3">
-              <div className="input-group-prepend">
-                <div className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" tabIndex={-1}>
-                { this.state.player1Type === 'human' ?
-                    <span className="material-icons">person</span> :
-                    <span className="material-icons">computer</span>
-                }
-                </div>
-                <div className="dropdown-menu">
-                  <div className="dropdown-item" onClick={this.onTypeChange('player1', 'human')}>Human</div>
-                  <div className="dropdown-item" onClick={this.onTypeChange('player1', 'computer')}>Computer</div>
-                </div>
-              </div>
-              <input
-                type="text"
-                value={this.state.player1Name}
-                onInput={this.onNameChange('player1')}
-                placeholder={App.state.defaultPlayerNames.player1}
-                autoFocus
-              />
-            </div>
-            <div className="input-group mb-3">
-              <div className="input-group-prepend">
-                <div className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" tabIndex={-1}>
-                { this.state.player2Type === 'human' ?
-                    <span className="material-icons">person</span> :
-                    <span className="material-icons">computer</span>
-                }
-                </div>
-                <div className="dropdown-menu">
-                  <div className="dropdown-item" onClick={this.onTypeChange('player2', 'human')}>Human</div>
-                  <div className="dropdown-item" onClick={this.onTypeChange('player2', 'computer')}>Computer</div>
-                </div>
-              </div>
-              <input
-                type="text"
-                value={this.state.player2Name}
-                onInput={this.onNameChange('player2')}
-                placeholder={App.state.defaultPlayerNames.player2}
-              />
-            </div>
-            <button className="btn btn-primary btn-block" onClick={this.onNewGame}>
-              New Game
-            </button>
-          </form>
-        </div>
-      </section>
-    );
-  }
+  return (
+    <section className="start-screen">
+      <h1>Link 4</h1>
+      <div>
+        <form onSubmit={event => event.preventDefault()}>
+          <ui.PlayerSetup
+            ref={player1}
+            player="player1"
+            init={props.setup.player1}
+          />
+          <ui.PlayerSetup
+            ref={player2}
+            player="player2"
+            init={props.setup.player2}
+          />
+          <button className="btn btn-secondary btn-block" onClick={onNewGame}>
+            New Game
+          </button>
+        </form>
+      </div>
+    </section>
+  );
 }
 
 export const StartScreenComponent = connect((state: State) => ({
-  playerNames: state.playerNames,
-  playerTypes: state.playerTypes,
+  setup: state.setup,
 }))(StatelessStartScreenComponent);

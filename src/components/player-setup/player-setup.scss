@@ -1,0 +1,35 @@
+
+.player-setup {
+
+  input {
+    padding-left: 0.5rem;
+  }
+
+  .dropdown-item {
+    user-select: none;
+    cursor: pointer;
+  }
+
+  .input-group {
+    width: 400px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: stretch;
+    margin-bottom: 2px;
+    margin-top: 1rem;
+
+    .input-group-prepend {
+      flex-grow: 0;
+    }
+
+    input {
+      flex-grow: 1;
+    }
+  }
+
+  .file-add-on {
+    height: 2.5rem;
+    width: 400px;
+  }
+
+}

@@ -1,19 +1,32 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import { Player, Status } from 'src/models/game';
-import { PlayerInfo, State } from 'src/models/state';
+import { FullSetup } from 'src/models/state';
 import { Maybe } from 'src/models/util';
+import { defaultPlayerNames } from 'src/services/state';
 import './status-panel.scss';
 
 export interface StatusPanelProps {
   status: Status;
   turn: Player;
   winner: Maybe<Player>;
-  playerNames: PlayerInfo<string>;
+  setup: FullSetup;
 }
 
-export function StatelessStatusPanelComponent({ status, turn, winner, playerNames }: StatusPanelProps) {
+export function StatusPanelComponent({ status, turn, winner, setup }: StatusPanelProps) {
+  const playerNames = {
+    player1: setup.player1.name.trim(),
+    player2: setup.player2.name.trim(),
+  };
+
+  if (! playerNames.player1.match(/\S/)) {
+    playerNames.player1 = defaultPlayerNames.player1;
+  }
+
+  if (! playerNames.player2.match(/\S/)) {
+    playerNames.player2 = defaultPlayerNames.player2;
+  }
+
   let message: string;
   let player = '';
   if (status === 'playing') {
@@ -37,7 +50,3 @@ export function StatelessStatusPanelComponent({ status, turn, winner, playerName
     </div>
   );
 }
-
-export const StatusPanelComponent = connect((state: State) => ({
-  playerNames: state.playerNames,
-}))(StatelessStatusPanelComponent);

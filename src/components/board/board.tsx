@@ -1,8 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { App } from 'src/App';
-import { Game, PlayerTile, PlayerType } from 'src/models/game';
-import { PlayerInfo } from 'src/models/state';
+import { Game, PlayerTile } from 'src/models/game';
+import { FullSetup, State } from 'src/models/state';
 import { Maybe } from 'src/models/util';
 import { ui } from '../ui';
 
@@ -15,7 +16,7 @@ export interface BoardProps {
   count: number;
   nextMove: Maybe<number>;
   computerMove: Maybe<number>;
-  playerTypes: PlayerInfo<PlayerType>;
+  setup: FullSetup;
 }
 
 interface PlayedPiece extends PlayerTile {
@@ -24,7 +25,17 @@ interface PlayedPiece extends PlayerTile {
   disabled?: boolean;
 }
 
-export function BoardComponent({ x, y, width, height, game, count, nextMove, computerMove, playerTypes }: BoardProps) {
+export function DisconnectedBoardComponent({
+  x,
+  y,
+  width,
+  height,
+  game,
+  count,
+  nextMove,
+  computerMove,
+  setup,
+}: BoardProps) {
   const tileWidth = width / App.config.boardCols;
   const tileHeight = height / (App.config.boardRows + 1);
 
@@ -36,7 +47,7 @@ export function BoardComponent({ x, y, width, height, game, count, nextMove, com
     }
   });
   if (game.status === 'playing') {
-    if (playerTypes[game.turn] === 'human' && nextMove !== null) {
+    if (setup[game.turn].type === 'human' && nextMove !== null) {
       pieces[count] = {
         id: count,
         type: game.turn,
@@ -45,7 +56,7 @@ export function BoardComponent({ x, y, width, height, game, count, nextMove, com
         disabled: !App.game.canMove(game.board, nextMove),
       };
     }
-    else if (playerTypes[game.turn] === 'computer' && computerMove != null) {
+    else if (setup[game.turn].type === 'computer' && computerMove != null) {
       pieces[count] = {
         id: count,
         type: game.turn,
@@ -75,3 +86,11 @@ export function BoardComponent({ x, y, width, height, game, count, nextMove, com
     </g>
   );
 }
+
+export const BoardComponent = connect((state: State) => ({
+  count: state.count,
+  game: state.games[state.current],
+  nextMove: state.nextMove,
+  computerMove: state.computerMove,
+  setup: state.setup,
+}))(DisconnectedBoardComponent);

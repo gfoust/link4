@@ -19,7 +19,7 @@ export function trigger(state: State, nextState: State, action: Action) {
 async function onTakeTurn(nextState: State) {
   setTimeout(() => (document.getElementById(`turn-${nextState.current}`) as HTMLElement).scrollIntoView(), 10);
   const game = nextState.games[nextState.current];
-  if (game.status === 'playing' && nextState.playerTypes[game.turn] === 'computer') {
+  if (game.status === 'playing' && nextState.setup[game.turn].type === 'computer') {
     const move = await App.ai.pickMove(game.turn, game.board);
     App.store.dispatch(setComputerMove(move));
   }
@@ -34,7 +34,7 @@ function onSetComputerMove(action: SetComputerMove) {
 
 async function onStartGame(nextState: State, action: StartGame) {
   const game = nextState.games[nextState.current];
-  if (action.playerTypes.player1 === 'computer') {
+  if (action.setup.player1.type === 'computer') {
     const move = await App.ai.pickMove(game.turn, game.board);
     App.store.dispatch(setComputerMove(move));
   }

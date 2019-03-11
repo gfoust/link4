@@ -1,12 +1,17 @@
-import { Game, PlayerType } from './game';
-import { Maybe } from './util';
+import { Game, Player, PlayerType } from './game';
+import { Code } from './parser';
+import { Dictionary, Maybe } from './util';
 
 export type Screen = 'start' | 'game';
 
-export interface PlayerInfo<T> {
-  player1: T;
-  player2: T;
+export interface PlayerSetup {
+  name: string;
+  type: PlayerType;
+  file: Maybe<File>;
+  code: Maybe<Code>;
 }
+
+export type FullSetup = Dictionary<PlayerSetup, Player>;
 
 export interface State {
   screen: Screen;
@@ -15,6 +20,5 @@ export interface State {
   games: Game[];
   current: number;
   count: number;
-  playerNames: PlayerInfo<string>;
-  playerTypes: PlayerInfo<PlayerType>;
+  setup: FullSetup;
 }

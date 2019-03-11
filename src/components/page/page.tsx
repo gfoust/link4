@@ -9,7 +9,7 @@ export interface PageComponentProps {
   screen: Screen;
 }
 
-export function StatelessPageComponent({ screen }: PageComponentProps) {
+export function DisconnectedPageComponent({ screen }: PageComponentProps) {
 
   if (screen === 'start') {
     return <ui.StartScreen/>;
@@ -21,4 +21,4 @@ export function StatelessPageComponent({ screen }: PageComponentProps) {
 
 export const PageComponent = connect((state: State) => ({
   screen: state.screen,
-}))(StatelessPageComponent);
+}))(DisconnectedPageComponent);

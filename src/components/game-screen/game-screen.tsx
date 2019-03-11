@@ -4,28 +4,18 @@ import { connect } from 'react-redux';
 import { App } from 'src/App';
 import { setNextMove } from 'src/models/action';
 import { Game, PieceLocation, Player, PlayerType } from 'src/models/game';
-import { PlayerInfo, State } from 'src/models/state';
+import { FullSetup, State } from 'src/models/state';
 import { Maybe } from 'src/models/util';
 import { ui } from '../ui';
 import './game-screen.scss';
 
 export interface GameScreenComponentProps {
   games: Game[];
-  nextMove: Maybe<number>;
-  computerMove: Maybe<number>;
   current: number;
-  count: number;
-  playerTypes: PlayerInfo<PlayerType>;
+  setup: FullSetup;
 }
 
-export function StatelessGameScreenComponent({
-  games,
-  count,
-  nextMove,
-  computerMove,
-  current,
-  playerTypes,
-}: GameScreenComponentProps) {
+export function DisconnectedGameScreenComponent({ games, current, setup, }: GameScreenComponentProps) {
   let highlight = [ ] as PieceLocation[];
   let winner = null as Maybe<Player>;
   const game = games[current];
@@ -45,7 +35,7 @@ export function StatelessGameScreenComponent({
   for (let i = 0; i < App.config.boardCols; ++i) {
     availableMoves[i] =
       game.status === 'playing' &&
-      playerTypes[game.turn] === 'human' &&
+      setup[game.turn].type === 'human' &&
       App.game.canMove(game.board, i);
   }
 
@@ -59,11 +49,6 @@ export function StatelessGameScreenComponent({
             y={0}
             width={700}
             height={700}
-            game={game}
-            count={count}
-            nextMove={nextMove}
-            computerMove={computerMove}
-            playerTypes={playerTypes}
           />
           <ui.Frame
             x={0}
@@ -74,7 +59,7 @@ export function StatelessGameScreenComponent({
             highlight={highlight}
           />
         </svg>
-        <ui.StatusPanel status={game.status} turn={game.turn} winner={winner}/>
+        <ui.StatusPanel status={game.status} turn={game.turn} winner={winner} setup={setup}/>
       </div>
       <ui.TurnsPanel games={games} current={current}/>
     </section>
@@ -83,9 +68,6 @@ export function StatelessGameScreenComponent({
 
 export const GameScreenComponent = connect((state: State) => ({
   games: state.games,
-  nextMove: state.nextMove,
-  computerMove: state.computerMove,
   current: state.current,
-  count: state.count,
-  playerTypes: state.playerTypes,
-}))(StatelessGameScreenComponent);
+  setup: state.setup,
+}))(DisconnectedGameScreenComponent);

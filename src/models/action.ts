@@ -1,6 +1,6 @@
-import { PlayerType } from 'src/models/game';
-import { PlayerInfo, Screen } from 'src/models/state';
-import { Maybe } from './util';
+import { Player } from 'src/models/game';
+import { PlayerSetup, Screen } from 'src/models/state';
+import { Dictionary, Maybe } from './util';
 
 // ---------------------------------------------------------
 
@@ -61,25 +61,18 @@ export function setScreen(screen: Screen): SetScreen {
 
 export interface StartGame {
   type: 'StartGame';
-  playerNames: PlayerInfo<string>;
-  playerTypes: PlayerInfo<PlayerType>;
+  setup: Dictionary<PlayerSetup, Player>;
 }
 
 export function startGame(
-  player1Name: string,
-  player2Name: string,
-  player1Type: PlayerType,
-  player2Type: PlayerType
+  player1Setup: PlayerSetup,
+  player2Setup: PlayerSetup
 ): StartGame {
   return {
     type: 'StartGame',
-    playerNames: {
-      player1: player1Name,
-      player2: player2Name,
-    },
-    playerTypes: {
-      player1: player1Type,
-      player2: player2Type,
+    setup: {
+      player1: player1Setup,
+      player2: player2Setup,
     },
   };
 }
