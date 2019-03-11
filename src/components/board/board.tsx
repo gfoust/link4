@@ -14,6 +14,7 @@ export interface BoardProps {
   game: Game;
   count: number;
   nextMove: Maybe<number>;
+  computerMove: Maybe<number>;
   playerTypes: PlayerInfo<PlayerType>;
 }
 
@@ -23,7 +24,7 @@ interface PlayedPiece extends PlayerTile {
   disabled?: boolean;
 }
 
-export function BoardComponent({ x, y, width, height, game, count, nextMove, playerTypes }: BoardProps) {
+export function BoardComponent({ x, y, width, height, game, count, nextMove, computerMove, playerTypes }: BoardProps) {
   const tileWidth = width / App.config.boardCols;
   const tileHeight = height / (App.config.boardRows + 1);
 
@@ -34,14 +35,24 @@ export function BoardComponent({ x, y, width, height, game, count, nextMove, pla
       pieces[tile.id] = { ...tile, r: r + 1, c };
     }
   });
-  if (game.status === 'playing' && playerTypes[game.turn] === 'human' && nextMove !== null) {
-    pieces[count] = {
-      id: count,
-      type: game.turn,
-      r: 0,
-      c: nextMove,
-      disabled: !App.game.canMove(game.board, nextMove),
-    };
+  if (game.status === 'playing') {
+    if (playerTypes[game.turn] === 'human' && nextMove !== null) {
+      pieces[count] = {
+        id: count,
+        type: game.turn,
+        r: 0,
+        c: nextMove,
+        disabled: !App.game.canMove(game.board, nextMove),
+      };
+    }
+    else if (playerTypes[game.turn] === 'computer' && computerMove != null) {
+      pieces[count] = {
+        id: count,
+        type: game.turn,
+        r: 0,
+        c: computerMove,
+      };
+    }
   }
 
   return (

@@ -15,12 +15,24 @@ export function setNextMove(column: Maybe<number>): SetNextMove {
 
 // ---------------------------------------------------------
 
-export interface TakeTurn {
-  type: 'TakeTurn';
+export interface SetComputerMove {
+  type: 'SetComputerMove';
+  column: Maybe<number>;
 }
 
-export function takeTurn(): TakeTurn {
-  return { type: 'TakeTurn' };
+export function setComputerMove(column: Maybe<number>): SetComputerMove {
+  return { type: 'SetComputerMove', column };
+}
+
+// ---------------------------------------------------------
+
+export interface TakeTurn {
+  type: 'TakeTurn';
+  move: number;
+}
+
+export function takeTurn(move: number): TakeTurn {
+  return { type: 'TakeTurn', move };
 }
 
 // ---------------------------------------------------------
@@ -74,4 +86,4 @@ export function startGame(
 
 // ---------------------------------------------------------
 
-export type Action = SetNextMove | TakeTurn | SetCurrentGame | SetScreen | StartGame;
+export type Action = SetNextMove  | SetComputerMove | TakeTurn | SetCurrentGame | SetScreen | StartGame;

@@ -31,7 +31,7 @@ export function FrameTileComponent({
   return (
     <g
       onMouseMove={() => App.store.dispatch(setNextMove(column))}
-      onClick={() => active && App.store.dispatch(takeTurn())}
+      onClick={() => active && App.store.dispatch(takeTurn(column))}
       mask={`url(#${maskId})`}
     >
       <rect

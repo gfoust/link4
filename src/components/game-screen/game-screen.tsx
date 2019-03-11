@@ -12,6 +12,7 @@ import './game-screen.scss';
 export interface GameScreenComponentProps {
   games: Game[];
   nextMove: Maybe<number>;
+  computerMove: Maybe<number>;
   current: number;
   count: number;
   playerTypes: PlayerInfo<PlayerType>;
@@ -21,6 +22,7 @@ export function StatelessGameScreenComponent({
   games,
   count,
   nextMove,
+  computerMove,
   current,
   playerTypes,
 }: GameScreenComponentProps) {
@@ -60,6 +62,7 @@ export function StatelessGameScreenComponent({
             game={game}
             count={count}
             nextMove={nextMove}
+            computerMove={computerMove}
             playerTypes={playerTypes}
           />
           <ui.Frame
@@ -81,6 +84,7 @@ export function StatelessGameScreenComponent({
 export const GameScreenComponent = connect((state: State) => ({
   games: state.games,
   nextMove: state.nextMove,
+  computerMove: state.computerMove,
   current: state.current,
   count: state.count,
   playerTypes: state.playerTypes,

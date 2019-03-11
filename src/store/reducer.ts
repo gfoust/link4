@@ -24,15 +24,6 @@ function board(state: Board | undefined, action: Action): Board {
   return state;
 }
 
-function nextMove(state: Maybe<number> = null, action: Action): Maybe<number> {
-  if (action.type === 'SetNextMove') {
-    return action.column;
-  }
-  else {
-    return state;
-  }
-}
-
 function lastMove(state: Maybe<number> = null, action: Action): Maybe<number> {
   return state;
 }
@@ -52,7 +43,7 @@ function winner(state: Maybe<WinLocation> = null, action: Action): Maybe<WinLoca
 const game = combineReducers({ status, turn, board, lastMove, winner });
 
 // tslint:disable-next-line no-shadowed-variable
-function games(state = [ ] as Game[], current: number, count: number, nextMove: Maybe<number>, action: Action): Game[] {
+function games(state = [ ] as Game[], current: number, count: number, action: Action): Game[] {
   if (action.type === 'StartGame') {
     state = [ ];
   }
@@ -62,7 +53,7 @@ function games(state = [ ] as Game[], current: number, count: number, nextMove: 
   }
   switch (action.type) {
     case 'TakeTurn':
-      nextGame = App.game.makeMove(nextGame, count, nextMove);
+      nextGame = App.game.makeMove(nextGame, count, action.move);
       state = state.slice(0, current + 1);
       state.push(nextGame);
       break;
@@ -78,6 +69,26 @@ function current(state = 0, action: Action): number {
       return state + 1;
     case 'StartGame':
       return 0;
+    default:
+      return state;
+  }
+}
+
+function nextMove(state: Maybe<number> = null, action: Action): Maybe<number> {
+  if (action.type === 'SetNextMove') {
+    return action.column;
+  }
+  else {
+    return state;
+  }
+}
+
+function computerMove(state: Maybe<number> = null, action: Action): Maybe<number> {
+  switch (action.type) {
+    case 'SetComputerMove':
+      return action.column;
+    case 'TakeTurn':
+      return null;
     default:
       return state;
   }
@@ -132,10 +143,11 @@ function playerTypes(state = App.state.defaultPlayerTypes, action: Action): Play
 export function reducer(state = { } as State, action: Action): State {
   const nextState: State = {
     nextMove: nextMove(state.nextMove, action),
+    computerMove: computerMove(state.computerMove, action),
     current: current(state.current, action),
     count: count(state.count, action),
     screen: screen(state.screen, action),
-    games: games(state.games, state.current, state.count, state.nextMove, action),
+    games: games(state.games, state.current, state.count, action),
     playerNames: playerNames(state.playerNames, action),
     playerTypes: playerTypes(state.playerTypes, action),
   };

@@ -11,6 +11,7 @@ export interface PlayerInfo<T> {
 export interface State {
   screen: Screen;
   nextMove: Maybe<number>;
+  computerMove: Maybe<number>;
   games: Game[];
   current: number;
   count: number;
