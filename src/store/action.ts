@@ -1,14 +1,15 @@
 import { PlayerType } from 'src/models/game';
 import { PlayerInfo, Screen } from 'src/models/state';
+import { Maybe } from 'src/util';
 
 // ---------------------------------------------------------
 
 export interface SetNextMove {
   type: 'SetNextMove';
-  column: number;
+  column: Maybe<number>;
 }
 
-export function setNextMove(column: number): SetNextMove {
+export function setNextMove(column: Maybe<number>): SetNextMove {
   return { type: 'SetNextMove', column };
 }
 
@@ -49,15 +50,19 @@ export function setScreen(screen: Screen) {
 export interface StartGame {
   type: 'StartGame';
   playerNames: PlayerInfo<string>;
-  // playerTypes: PlayerInfo<PlayerType>;
+  playerTypes: PlayerInfo<PlayerType>;
 }
 
-export function startGame(player1Name: string, player2Name: string) {
+export function startGame(player1Name: string, player2Name: string, player1Type: PlayerType, player2Type: PlayerType) {
   return {
     type: 'StartGame',
     playerNames: {
       player1: player1Name,
       player2: player2Name,
+    },
+    playerTypes: {
+      player1: player1Type,
+      player2: player2Type,
     },
   };
 }

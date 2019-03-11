@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { App } from 'src/App';
 import { boardCols } from 'src/config';
 import { Game, PieceLocation, Player } from 'src/models/game';
 import { State } from 'src/models/state';
 import { canMove, findTop } from 'src/services/game';
+import { setNextMove } from 'src/store/action';
 import { Maybe } from 'src/util';
 import { ui } from '../ui';
 import './game-screen.scss';
@@ -41,7 +43,7 @@ export function StatelessGameScreenComponent({ games, count, nextMove, current }
     <section className="game-screen">
       <ui.MenuPanel/>
       <div className="board-area">
-        <svg>
+        <svg onMouseLeave={() => App.store.dispatch(setNextMove(null))}>
           <ui.Board
             x={0}
             y={0}

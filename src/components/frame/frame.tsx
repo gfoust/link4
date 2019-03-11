@@ -2,7 +2,7 @@ import React from 'react';
 
 import { boardCols, boardRows } from 'src/config';
 import { PieceLocation } from 'src/models/game';
-import { count2d, Maybe } from 'src/util';
+import { count2d } from 'src/util';
 import { ui } from '../ui';
 
 export interface FrameComponentProps {

@@ -2,4 +2,9 @@
   input {
     padding-left: 0.5rem;
   }
+
+  .dropdown-item {
+    user-select: none;
+    cursor: pointer;
+  }
 }

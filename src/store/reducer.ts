@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import { boardCols, boardRows } from 'src/config';
 import { Board, EmptyTile, Game, Player, PlayerType, Status, Tile, WinLocation } from 'src/models/game';
-import { PlayerInfo, Screen, State } from 'src/models/state';
+import { defaultPlayerNames, defaultPlayerTypes, PlayerInfo, Screen, State } from 'src/models/state';
 import { takeTurn } from 'src/services/game';
 import { allPropertiesIdentical, Maybe } from 'src/util';
 import { Action } from './action';
@@ -105,11 +105,6 @@ function screen(state: Screen = 'start', action: Action): Screen {
   }
 }
 
-const defaultPlayerNames: PlayerInfo<string> = {
-  player1: 'Player 1',
-  player2: 'Player 2',
-};
-
 function playerNames(state = defaultPlayerNames, action: Action): PlayerInfo<string> {
   switch (action.type) {
     case 'StartGame':
@@ -122,10 +117,17 @@ function playerNames(state = defaultPlayerNames, action: Action): PlayerInfo<str
   }
 }
 
-const playerTypes: PlayerInfo<PlayerType> = {
-  player1: 'human',
-  player2: 'human',
-};
+function playerTypes(state = defaultPlayerTypes, action: Action): PlayerInfo<PlayerType> {
+  switch (action.type) {
+    case 'StartGame':
+      return {
+        player1: action.playerTypes.player1 || defaultPlayerTypes.player1,
+        player2: action.playerTypes.player2 || defaultPlayerTypes.player2,
+      };
+    default:
+      return state;
+  }
+}
 
 export function reducer(state = { } as State, action: Action): State {
   const nextState: State = {
@@ -135,7 +137,7 @@ export function reducer(state = { } as State, action: Action): State {
     screen: screen(state.screen, action),
     games: games(state.games, state.current, state.count, state.nextMove, action),
     playerNames: playerNames(state.playerNames, action),
-    playerTypes,
+    playerTypes: playerTypes(state.playerTypes, action),
   };
 
   if (allPropertiesIdentical(state, nextState)) {

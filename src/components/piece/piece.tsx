@@ -20,7 +20,7 @@ export function PieceComponent({ id, row, col, x, y, width, height, player, disa
   const piece =
     <ellipse
       id={id}
-      data-tag='tile'
+      data-tag="tile"
       cx={x}
       cy={y}
       style={{ transform: `translate(${(col + 0.5) * width}px, ${(row + 0.5) * height}px)`}}
@@ -34,16 +34,16 @@ export function PieceComponent({ id, row, col, x, y, width, height, player, disa
       <g>
         {piece}
         <line
-          data-tag='tile'
-          className='x'
+          data-tag="tile"
+          className="x"
           x1={x + (col + 0.1) * width}
           y1={y + (row + 0.1) * height}
           x2={x + (col + 0.9) * width}
           y2={y + (row + 0.9) * height}
         />
         <line
-          data-tag='tile'
-          className='x'
+          data-tag="tile"
+          className="x"
           x1={x + (col + 0.9) * width}
           y1={y + (row + 0.1) * height}
           x2={x + (col + 0.1) * width}

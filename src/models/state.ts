@@ -8,6 +8,16 @@ export interface PlayerInfo<T> {
   player2: T;
 }
 
+export const defaultPlayerNames: PlayerInfo<string> = {
+  player1: 'Player 1',
+  player2: 'Player 2',
+};
+
+export const defaultPlayerTypes: PlayerInfo<PlayerType> = {
+  player1: 'human',
+  player2: 'human',
+};
+
 export interface State {
   screen: Screen;
   nextMove: Maybe<number>;
