@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { App } from 'src/App';
+import { setCurrentGame } from 'src/models/action';
 import { Game } from 'src/models/game';
-import { setCurrentGame } from 'src/store/action';
 import './turns-panel.scss';
 
 export interface TurnsPanelProps {

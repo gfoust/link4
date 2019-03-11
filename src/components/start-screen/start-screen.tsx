@@ -2,9 +2,9 @@ import React, { FormEvent } from 'react';
 import { connect } from 'react-redux';
 
 import { App } from 'src/App';
+import { startGame } from 'src/models/action';
 import { Player, PlayerType } from 'src/models/game';
-import { defaultPlayerNames, PlayerInfo, State } from 'src/models/state';
-import { startGame } from 'src/store/action';
+import { PlayerInfo, State } from 'src/models/state';
 import './start-screen.scss';
 
 interface StartScreenProps {
@@ -23,9 +23,18 @@ export class StatelessStartScreenComponent extends React.PureComponent<StartScre
   constructor(props: StartScreenProps) {
     super(props);
 
+    let player1Name = props.playerNames.player1;
+    if (player1Name === App.state.defaultPlayerNames.player1) {
+      player1Name = '';
+    }
+    let player2Name = props.playerNames.player2;
+    if (player2Name === App.state.defaultPlayerNames.player2) {
+      player2Name = '';
+    }
+
     this.state = {
-      player1Name: props.playerNames.player1,
-      player2Name: props.playerNames.player2,
+      player1Name,
+      player2Name,
       player1Type: props.playerTypes.player1,
       player2Type: props.playerTypes.player2,
     };
@@ -71,7 +80,7 @@ export class StatelessStartScreenComponent extends React.PureComponent<StartScre
                 type="text"
                 value={this.state.player1Name}
                 onInput={this.onNameChange('player1')}
-                placeholder={defaultPlayerNames.player1}
+                placeholder={App.state.defaultPlayerNames.player1}
                 autoFocus
               />
             </div>
@@ -92,7 +101,7 @@ export class StatelessStartScreenComponent extends React.PureComponent<StartScre
                 type="text"
                 value={this.state.player2Name}
                 onInput={this.onNameChange('player2')}
-                placeholder={defaultPlayerNames.player2}
+                placeholder={App.state.defaultPlayerNames.player2}
               />
             </div>
             <button className="btn btn-primary btn-block" onClick={this.onNewGame}>

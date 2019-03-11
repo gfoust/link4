@@ -1,0 +1,18 @@
+
+// Required
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+$player1: #00f;
+$player2: #e00;
+$tie: $gray-600;
+
+$theme-colors: map-merge(
+  (
+    "player1":    $player1,
+    "player2":    $player2,
+    "tie":        $tie,
+  ),
+  $theme-colors
+);

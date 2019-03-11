@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "UI for the mouse-in-a-maze application",
   "scripts": {
-    "build": "cp -R static dist && webpack --config webpack/config.prod",
+    "build": "webpack --config webpack/config.prod && cp -R static/* dist",
     "dev-server": "webpack-dev-server --hot --inline --config webpack/config.dev",
     "lint": "tslint -e node_modules -p tsconfig.json -t stylish",
     "lint:fix": "tslint -e node_modules -p tsconfig.json --fix",

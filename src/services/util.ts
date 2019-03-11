@@ -1,8 +1,3 @@
-export type Maybe<T> = T | null;
-
-export interface Dictionary<T> {
-  [k: string]: T;
-}
 
 export function map2d<T, U>(ts: T[][], f: (t: T, i: number, j: number) => U): U[] {
   const result: U[] = [ ];

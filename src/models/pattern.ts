@@ -1,5 +1,5 @@
-import { Dictionary } from 'src/util';
 import { TileType } from './game';
+import { Dictionary } from './util';
 
 export type Pattern = string[];
 
@@ -8,23 +8,3 @@ export interface PatternMatch {
   col: number;
   variables: Dictionary<TileType>;
 }
-
-export const winningPatterns = [
-  ['XXXX',
-  ],
-  ['X',
-   'X',
-   'X',
-   'X',
-  ],
-  ['X',
-   ' X',
-   '  X',
-   '   X',
-  ],
-  ['   X',
-   '  X',
-   ' X',
-   'X',
-  ],
-];

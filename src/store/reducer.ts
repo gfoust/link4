@@ -1,11 +1,10 @@
 import { combineReducers } from 'redux';
 
-import { boardCols, boardRows } from 'src/config';
+import { App } from 'src/App';
 import { Board, EmptyTile, Game, Player, PlayerType, Status, Tile, WinLocation } from 'src/models/game';
-import { defaultPlayerNames, defaultPlayerTypes, PlayerInfo, Screen, State } from 'src/models/state';
-import { takeTurn } from 'src/services/game';
-import { allPropertiesIdentical, Maybe } from 'src/util';
-import { Action } from './action';
+import { PlayerInfo, Screen, State } from 'src/models/state';
+import { Maybe } from 'src/models/util';
+import { Action } from '../models/action';
 
 const emptyTile: EmptyTile = {
   type: 'empty',
@@ -14,9 +13,9 @@ const emptyTile: EmptyTile = {
 function board(state: Board | undefined, action: Action): Board {
   if (! state) {
     state = [ ];
-    for (let i = 0; i < boardRows; ++i) {
+    for (let i = 0; i < App.config.boardRows; ++i) {
       const row: Tile[] = [ ];
-      for (let j = 0; j < boardCols; ++j) {
+      for (let j = 0; j < App.config.boardCols; ++j) {
         row.push(emptyTile);
       }
       state.push(row);
@@ -58,14 +57,15 @@ function games(state = [ ] as Game[], current: number, count: number, nextMove: 
     state = [ ];
   }
   let nextGame = game(state[current], action);
+  if (state.length === 0) {
+    state.push(nextGame);
+  }
   switch (action.type) {
     case 'TakeTurn':
-      nextGame = takeTurn(nextGame, count, nextMove);
-      setTimeout(() => (document.getElementById(`turn-${current}`) as HTMLElement).scrollIntoView(), 10);
-  }
-  if (nextGame !== state[current]) {
-    state = state.slice(0, current + 1);
-    state.push(nextGame);
+      nextGame = App.game.makeMove(nextGame, count, nextMove);
+      state = state.slice(0, current + 1);
+      state.push(nextGame);
+      break;
   }
   return state;
 }
@@ -105,24 +105,24 @@ function screen(state: Screen = 'start', action: Action): Screen {
   }
 }
 
-function playerNames(state = defaultPlayerNames, action: Action): PlayerInfo<string> {
+function playerNames(state = App.state.defaultPlayerNames, action: Action): PlayerInfo<string> {
   switch (action.type) {
     case 'StartGame':
       return {
-        player1: action.playerNames.player1 || defaultPlayerNames.player1,
-        player2: action.playerNames.player2 || defaultPlayerNames.player2,
+        player1: action.playerNames.player1 || App.state.defaultPlayerNames.player1,
+        player2: action.playerNames.player2 || App.state.defaultPlayerNames.player2,
       };
     default:
       return state;
   }
 }
 
-function playerTypes(state = defaultPlayerTypes, action: Action): PlayerInfo<PlayerType> {
+function playerTypes(state = App.state.defaultPlayerTypes, action: Action): PlayerInfo<PlayerType> {
   switch (action.type) {
     case 'StartGame':
       return {
-        player1: action.playerTypes.player1 || defaultPlayerTypes.player1,
-        player2: action.playerTypes.player2 || defaultPlayerTypes.player2,
+        player1: action.playerTypes.player1 || App.state.defaultPlayerTypes.player1,
+        player2: action.playerTypes.player2 || App.state.defaultPlayerTypes.player2,
       };
     default:
       return state;
@@ -140,10 +140,12 @@ export function reducer(state = { } as State, action: Action): State {
     playerTypes: playerTypes(state.playerTypes, action),
   };
 
-  if (allPropertiesIdentical(state, nextState)) {
+  if (App.util.allPropertiesIdentical(state, nextState)) {
     return state;
   }
   else {
-    return (window as any).state = nextState;
+    (window as any).state = nextState;
+    App.triggers.trigger(state, nextState, action);
+    return nextState;
   }
 }

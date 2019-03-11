@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { Player, Status } from 'src/models/game';
 import { PlayerInfo, State } from 'src/models/state';
-import { Maybe } from 'src/util';
+import { Maybe } from 'src/models/util';
 import './status-panel.scss';
 
 export interface StatusPanelProps {

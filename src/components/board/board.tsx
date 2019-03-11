@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { boardCols, boardRows } from 'src/config';
-import { Game, PlayerTile } from 'src/models/game';
-import { canMove } from 'src/services/game';
-import { map2d, Maybe } from 'src/util';
+import { App } from 'src/App';
+import { Game, PlayerTile, PlayerType } from 'src/models/game';
+import { PlayerInfo } from 'src/models/state';
+import { Maybe } from 'src/models/util';
 import { ui } from '../ui';
 
-export interface BoardComponentProps {
+export interface BoardProps {
   x: number;
   y: number;
   width: number;
@@ -14,6 +14,7 @@ export interface BoardComponentProps {
   game: Game;
   count: number;
   nextMove: Maybe<number>;
+  playerTypes: PlayerInfo<PlayerType>;
 }
 
 interface PlayedPiece extends PlayerTile {
@@ -22,19 +23,25 @@ interface PlayedPiece extends PlayerTile {
   disabled?: boolean;
 }
 
-export function BoardComponent({ x, y, width, height, game, count, nextMove }: BoardComponentProps) {
-  const tileWidth = width / boardCols;
-  const tileHeight = height / (boardRows + 1);
+export function BoardComponent({ x, y, width, height, game, count, nextMove, playerTypes }: BoardProps) {
+  const tileWidth = width / App.config.boardCols;
+  const tileHeight = height / (App.config.boardRows + 1);
 
   const pieces: PlayedPiece[] = [ ];
 
-  map2d(game.board, (tile, r, c) => {
+  App.util.map2d(game.board, (tile, r, c) => {
     if (tile.type !== 'empty') {
       pieces[tile.id] = { ...tile, r: r + 1, c };
     }
   });
-  if (game.status === 'playing' && nextMove !== null) {
-    pieces[count] = { id: count, type: game.turn, r: 0, c: nextMove, disabled: !canMove(game, nextMove) };
+  if (game.status === 'playing' && playerTypes[game.turn] === 'human' && nextMove !== null) {
+    pieces[count] = {
+      id: count,
+      type: game.turn,
+      r: 0,
+      c: nextMove,
+      disabled: !App.game.canMove(game.board, nextMove),
+    };
   }
 
   return (

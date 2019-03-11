@@ -1,6 +1,6 @@
 import { PlayerType } from 'src/models/game';
 import { PlayerInfo, Screen } from 'src/models/state';
-import { Maybe } from 'src/util';
+import { Maybe } from './util';
 
 // ---------------------------------------------------------
 
@@ -30,7 +30,7 @@ export interface SetCurrentGame {
   value: number;
 }
 
-export function setCurrentGame(value: number) {
+export function setCurrentGame(value: number): SetCurrentGame {
   return { type: 'SetCurrentGame', value };
 }
 
@@ -41,7 +41,7 @@ export interface SetScreen {
   screen: Screen;
 }
 
-export function setScreen(screen: Screen) {
+export function setScreen(screen: Screen): SetScreen {
   return { type: 'SetScreen', screen };
 }
 
@@ -53,7 +53,12 @@ export interface StartGame {
   playerTypes: PlayerInfo<PlayerType>;
 }
 
-export function startGame(player1Name: string, player2Name: string, player1Type: PlayerType, player2Type: PlayerType) {
+export function startGame(
+  player1Name: string,
+  player2Name: string,
+  player1Type: PlayerType,
+  player2Type: PlayerType
+): StartGame {
   return {
     type: 'StartGame',
     playerNames: {

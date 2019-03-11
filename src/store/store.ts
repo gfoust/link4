@@ -1,6 +1,7 @@
 import * as Redux from 'redux';
 
 import { App } from 'src/App';
+import { Action } from 'src/models/action';
 import { State } from 'src/models/state';
 import { reducer } from './reducer';
 
@@ -28,7 +29,7 @@ function storeState(state: State) {
   }
 }
 
-export function createStore(): Redux.Store {
+export function createStore(): Redux.Store<State, Action> {
   return Redux.createStore(reducer);
   // const store = Redux.createStore(reducer, loadState());
   // store.subscribe(() => {

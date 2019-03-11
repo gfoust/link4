@@ -1,18 +1,28 @@
-import { boardCols, boardRows } from 'src/config';
-import { Board, Game, otherPlayer, PieceLocation, Player, Status, TileType, WinLocation } from 'src/models/game';
-import { Pattern, PatternMatch, winningPatterns } from 'src/models/pattern';
-import { Dictionary, Maybe } from 'src/util';
+import { App } from 'src/App';
+import { Board, Game, PieceLocation, Player, Status, TileType, WinLocation } from 'src/models/game';
+import { Pattern, PatternMatch } from 'src/models/pattern';
+import { Dictionary, Maybe } from 'src/models/util';
+import { winningPatterns } from './pattern';
+
+export function otherPlayer(player: Player): Player {
+  switch (player) {
+    case 'player1':
+      return 'player2';
+    default:
+      return 'player1';
+  }
+}
 
 export function findTop(board: Board, column: number): number {
   let top = 0;
-  while (top < boardRows &&  board[top][column].type === 'empty') {
+  while (top < App.config.boardRows &&  board[top][column].type === 'empty') {
     ++top;
   }
   return top - 1;
 }
 
-export function canMove(game: Game, nextMove: Maybe<number>): boolean {
-  return nextMove !== null && findTop(game.board, nextMove) !== -1;
+export function canMove(board: Board, nextMove: Maybe<number>): boolean {
+  return nextMove !== null && findTop(board, nextMove) !== -1;
 }
 
 function findAll(pattern: Pattern, letter: string, offset: PieceLocation = [0, 0]): PieceLocation[] {
@@ -42,7 +52,7 @@ function boardFull(board: Board): boolean {
   return board[0].every(tile => tile.type !== 'empty');
 }
 
-export function takeTurn(game: Game, count: number, nextMove: Maybe<number>): Game {
+export function makeMove(game: Game, count: number, nextMove: Maybe<number>): Game {
   if (game.status !== 'playing' || nextMove === null) {
     return game;
   }
@@ -84,7 +94,7 @@ function tileMatches(pattern: string, board: Board, row: number, col: number, co
     case '-':
       return tile.type === 'empty';
     case '*':
-      return tile.type === 'empty' && (row === boardRows - 1 || board[row + 1][col].type !== 'empty');
+      return tile.type === 'empty' && (row === App.config.boardRows - 1 || board[row + 1][col].type !== 'empty');
     case '?':
     case ' ':
       return true;
@@ -109,7 +119,7 @@ function matchPatternAt(
 
   const rows = pattern.length;
   const maxcols = Math.max(...pattern.map(s => s.length));
-  if (row + rows > boardRows || col + maxcols > boardCols) {
+  if (row + rows > App.config.boardRows || col + maxcols > App.config.boardCols) {
     return null;
   }
 
@@ -136,8 +146,8 @@ export function matchPattern(pattern: Pattern, board: Board, player: Player): Pa
 
   const matches = [ ] as PatternMatch[];
 
-  for (let r = 0; r + rows <= boardRows; ++r) {
-    for (let c = 0; c + cols <= boardCols; ++c) {
+  for (let r = 0; r + rows <= App.config.boardRows; ++r) {
+    for (let c = 0; c + cols <= App.config.boardCols; ++c) {
       const context = matchPatternAt(pattern, board, player, r, c);
       if (context) {
         matches.push({

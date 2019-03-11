@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { boardCols, boardRows } from 'src/config';
+import { App } from 'src/App';
 import { PieceLocation } from 'src/models/game';
-import { count2d } from 'src/util';
 import { ui } from '../ui';
 
 export interface FrameComponentProps {
@@ -15,8 +14,8 @@ export interface FrameComponentProps {
 }
 
 export function FrameComponent({ x, y, width, height, availableMoves, highlight }: FrameComponentProps) {
-  const tileWidth = width / boardCols;
-  const tileHeight = height / boardRows;
+  const tileWidth = width / App.config.boardCols;
+  const tileHeight = height / App.config.boardRows;
 
   function shouldHighlight(row: number, col: number) {
     for (const [r, c] of highlight) {
@@ -35,7 +34,7 @@ export function FrameComponent({ x, y, width, height, availableMoves, highlight 
           <ellipse cx={0.5} cy={0.5} rx={0.425} ry={0.425} fill="black" />
         </mask>
       </defs>
-      { count2d(boardRows, boardCols, (r, c) =>
+      { App.util.count2d(App.config.boardRows, App.config.boardCols, (r, c) =>
           <ui.FrameTile
             key={`frame-tile-${r}-${c}`}
             x={x + c * tileWidth}

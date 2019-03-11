@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { App } from 'src/App';
-import { setScreen } from 'src/store/action';
+import { setScreen } from 'src/models/action';
 import './menu-panel.scss';
 
 export function MenuPanelComponent() {

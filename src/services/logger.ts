@@ -1,4 +1,4 @@
-import { Maybe } from '../util';
+import { Maybe } from 'src/models/util';
 
 export interface Logger {
   log(message?: any, ...optionalParams: any[]): void;

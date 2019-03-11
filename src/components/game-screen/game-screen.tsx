@@ -2,12 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { App } from 'src/App';
-import { boardCols } from 'src/config';
-import { Game, PieceLocation, Player } from 'src/models/game';
-import { State } from 'src/models/state';
-import { canMove, findTop } from 'src/services/game';
-import { setNextMove } from 'src/store/action';
-import { Maybe } from 'src/util';
+import { setNextMove } from 'src/models/action';
+import { Game, PieceLocation, Player, PlayerType } from 'src/models/game';
+import { PlayerInfo, State } from 'src/models/state';
+import { Maybe } from 'src/models/util';
 import { ui } from '../ui';
 import './game-screen.scss';
 
@@ -16,15 +14,22 @@ export interface GameScreenComponentProps {
   nextMove: Maybe<number>;
   current: number;
   count: number;
+  playerTypes: PlayerInfo<PlayerType>;
 }
 
-export function StatelessGameScreenComponent({ games, count, nextMove, current }: GameScreenComponentProps) {
+export function StatelessGameScreenComponent({
+  games,
+  count,
+  nextMove,
+  current,
+  playerTypes,
+}: GameScreenComponentProps) {
   let highlight = [ ] as PieceLocation[];
   let winner = null as Maybe<Player>;
   const game = games[current];
 
   if (game.status === 'playing' && game.lastMove !== null) {
-    highlight.push([findTop(game.board, game.lastMove) + 1, game.lastMove]);
+    highlight.push([App.game.findTop(game.board, game.lastMove) + 1, game.lastMove]);
   }
   else if (game.winner) {
     highlight = game.winner;
@@ -35,8 +40,11 @@ export function StatelessGameScreenComponent({ games, count, nextMove, current }
     }
   }
   const availableMoves: boolean[] = [];
-  for (let i = 0; i < boardCols; ++i) {
-    availableMoves[i] = game.status === 'playing' && canMove(game, i);
+  for (let i = 0; i < App.config.boardCols; ++i) {
+    availableMoves[i] =
+      game.status === 'playing' &&
+      playerTypes[game.turn] === 'human' &&
+      App.game.canMove(game.board, i);
   }
 
   return (
@@ -52,6 +60,7 @@ export function StatelessGameScreenComponent({ games, count, nextMove, current }
             game={game}
             count={count}
             nextMove={nextMove}
+            playerTypes={playerTypes}
           />
           <ui.Frame
             x={0}
@@ -74,4 +83,5 @@ export const GameScreenComponent = connect((state: State) => ({
   nextMove: state.nextMove,
   current: state.current,
   count: state.count,
+  playerTypes: state.playerTypes,
 }))(StatelessGameScreenComponent);
