@@ -1,0 +1,41 @@
+.modal-dialog {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.33);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & > .container {
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #888;
+    border-radius: 0.25rem;
+    padding: 0 1rem 1rem 1rem;
+    max-height: 90%;
+    overflow: auto;
+
+    & > .header {
+      position: sticky;
+      top: 0;
+      font-weight: bold;
+      padding: 0.25rem 0.25rem 0.25rem 1rem;
+      margin: 0 -1rem 1rem -1rem;
+      border-top-left-radius: 0.25rem;
+      border-top-right-radius: 0.25rem;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+
+      & > .material-icons {
+        cursor: pointer;
+      }
+    }
+
+  }
+}

@@ -15,6 +15,7 @@ export type FullSetup = Dictionary<PlayerSetup, Player>;
 
 export interface State {
   screen: Screen;
+  dialog: Maybe<JSX.Element>;
   nextMove: Maybe<number>;
   computerMove: Maybe<number>;
   games: Game[];

@@ -1,9 +1,11 @@
 import React, { FormEvent } from 'react';
 import { App } from 'src/App';
+import { setDialog } from 'src/models/action';
 import { Player, PlayerType } from 'src/models/game';
 import { Code } from 'src/models/parser';
 import { PlayerSetup } from 'src/models/state';
 import { Maybe } from 'src/models/util';
+import { ui } from '../ui';
 import './player-setup.scss';
 
 interface PlayerSetupProps {
@@ -50,6 +52,14 @@ export class PlayerSetupComponent extends React.PureComponent<PlayerSetupProps, 
     }
   }
 
+  onViewCode = () => {
+    if (this.state.code) {
+      App.store.dispatch(setDialog(
+        <ui.CodeViewer code={this.state.code}/>
+      ));
+    }
+  }
+
   get setup(): PlayerSetup {
     return {
       name: this.state.name,
@@ -85,7 +95,7 @@ export class PlayerSetupComponent extends React.PureComponent<PlayerSetupProps, 
           <input
               type="text"
               value={this.state.name}
-              onInput={this.onNameChange}
+              onChange={this.onNameChange}
               placeholder={App.state.defaultPlayerNames.player1}
               autoFocus
             />
@@ -112,10 +122,10 @@ export class PlayerSetupComponent extends React.PureComponent<PlayerSetupProps, 
         </div>
 
         {/* Code view group */}
-        <div className="code-add-on">
+        <div className="code-add-on" onClick={this.onViewCode}>
         {
           this.state.type === 'computer' && this.state.code &&
-            'View code'
+            (this.state.code.clean ? 'Rules verified' : 'Errors detected')
         }
         </div>
 

@@ -14,7 +14,7 @@ export const defaultSetup: FullSetup = {
     type: 'computer',
     file: null,
     code: null,
-  }
+  },
 };
 
 export const defaultPlayerNames: Dictionary<string, Player> = {

@@ -59,6 +59,17 @@ export function setScreen(screen: Screen): SetScreen {
 
 // ---------------------------------------------------------
 
+export interface SetDialog {
+  type: 'SetDialog';
+  dialog: Maybe<JSX.Element>;
+}
+
+export function setDialog(dialog: Maybe<JSX.Element>): SetDialog {
+  return { type: 'SetDialog', dialog };
+}
+
+// ---------------------------------------------------------
+
 export interface StartGame {
   type: 'StartGame';
   setup: Dictionary<PlayerSetup, Player>;
@@ -79,4 +90,4 @@ export function startGame(
 
 // ---------------------------------------------------------
 
-export type Action = SetNextMove  | SetComputerMove | TakeTurn | SetCurrentGame | SetScreen | StartGame;
+export type Action = SetNextMove  | SetComputerMove | TakeTurn | SetCurrentGame | SetScreen | SetDialog | StartGame;

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 
 import { App } from 'src/App';
-import { Board, EmptyTile, Game, Player, PlayerType, Status, Tile, WinLocation } from 'src/models/game';
-import { Screen, FullSetup, State } from 'src/models/state';
+import { Board, EmptyTile, Game, Player, Status, Tile, WinLocation } from 'src/models/game';
+import { FullSetup, Screen, State } from 'src/models/state';
 import { Maybe } from 'src/models/util';
 import { Action } from '../models/action';
 
@@ -116,6 +116,15 @@ function screen(state: Screen = 'start', action: Action): Screen {
   }
 }
 
+function dialog(state: Maybe<JSX.Element> = null, action: Action): Maybe<JSX.Element> {
+  switch (action.type) {
+    case 'SetDialog':
+      return action.dialog;
+    default:
+      return state;
+  }
+}
+
 function setup(state = App.state.defaultSetup, action: Action): FullSetup {
   switch (action.type) {
     case 'StartGame':
@@ -132,6 +141,7 @@ export function reducer(state = { } as State, action: Action): State {
     current: current(state.current, action),
     count: count(state.count, action),
     screen: screen(state.screen, action),
+    dialog: dialog(state.dialog, action),
     games: games(state.games, state.current, state.count, action),
     setup: setup(state.setup, action),
   };

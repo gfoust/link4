@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { App } from 'src/App';
 import { setNextMove } from 'src/models/action';
-import { Game, PieceLocation, Player, PlayerType } from 'src/models/game';
+import { Game, PieceLocation, Player } from 'src/models/game';
 import { FullSetup, State } from 'src/models/state';
 import { Maybe } from 'src/models/util';
 import { ui } from '../ui';
@@ -15,7 +15,7 @@ export interface GameScreenComponentProps {
   setup: FullSetup;
 }
 
-export function DisconnectedGameScreenComponent({ games, current, setup, }: GameScreenComponentProps) {
+export function DisconnectedGameScreenComponent({ games, current, setup }: GameScreenComponentProps) {
   let highlight = [ ] as PieceLocation[];
   let winner = null as Maybe<Player>;
   const game = games[current];
