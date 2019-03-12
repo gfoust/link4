@@ -1,4 +1,39 @@
 .code-viewer {
   min-width: 600px;
   min-height: 400px;
+
+  .comment {
+    color: #999;
+    font-style: italic;
+  }
+
+  .pattern {
+    color: #090;
+  }
+
+  .variable {
+    color: #099;
+  }
+
+  .header {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  .pos-priority {
+    color: #009;
+  }
+
+  .neg-priority {
+    color: #990;
+  }
+
+  .equal, .comma, .colon {
+    color: #888;
+  }
+
+  .error {
+    background-color: #fdd;
+    color: #900;
+  }
 }

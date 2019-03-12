@@ -9,6 +9,12 @@ interface CodeViewerProps {
 
 export function CodeViewerComponent({ code }: CodeViewerProps) {
   return (
-    <pre className="code-viewer">{code.text}</pre>
+    <pre className="code-viewer">{
+      code.sections.map(s =>
+        s.description ?
+        <span className={s.className} title={s.description}>{s.text}</span> :
+        <span className={s.className}>{s.text}</span>
+      )
+    }</pre>
   );
 }

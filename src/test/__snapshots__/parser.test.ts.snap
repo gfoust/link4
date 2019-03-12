@@ -1,0 +1,1899 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Parser findFirstHeader should consume all input if there is no header 1`] = `
+Array [
+  Object {
+    "className": "error",
+    "description": "Expected ::= section header",
+    "text": "abc",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "error",
+    "description": "Expected ::= section header",
+    "text": "xyz",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+]
+`;
+
+exports[`Parser findFirstHeader should find the first header 1`] = `
+Array [
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "error",
+    "description": "Expected ::= section header",
+    "text": "abc",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "error",
+    "description": "Expected ::= section header",
+    "text": "XOXO",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+
+",
+  },
+  Object {
+    "className": "header",
+    "description": null,
+    "text": "PATTERNS",
+  },
+]
+`;
+
+exports[`Parser parse should parse a simple rule set 1`] = `
+Array [
+  Object {
+    "patterns": Array [
+      Array [
+        "XXa",
+      ],
+    ],
+    "rules": Array [
+      Object {
+        "actions": Object {
+          "a": "always",
+        },
+        "definitions": Object {
+          "a": "*",
+        },
+      },
+    ],
+  },
+]
+`;
+
+exports[`Parser parse should parse a simple rule set 2`] = `
+Array [
+  Object {
+    "className": "header",
+    "description": null,
+    "text": "PATTERNS",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+
+",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "XX",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "header",
+    "description": null,
+    "text": "RULES",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+
+",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "*",
+  },
+  Object {
+    "className": "colon",
+    "description": null,
+    "text": ":",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "pos-priority",
+    "description": null,
+    "text": "+!",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+]
+`;
+
+exports[`Parser parse should parse amore complicated rule set 1`] = `
+Array [
+  Object {
+    "patterns": Array [
+      Array [
+        "abcd",
+      ],
+      Array [
+        "a",
+        "b",
+        "c",
+        "d",
+      ],
+      Array [
+        "a",
+        " b",
+        "  c",
+        "   d",
+      ],
+    ],
+    "rules": Array [
+      Object {
+        "actions": Object {
+          "a": "always",
+        },
+        "definitions": Object {
+          "a": "*",
+          "b": "X",
+          "c": "X",
+          "d": "X",
+        },
+      },
+      Object {
+        "actions": Object {
+          "b": "always",
+        },
+        "definitions": Object {
+          "a": "X",
+          "b": "*",
+          "c": "X",
+          "d": "X",
+        },
+      },
+    ],
+  },
+  Object {
+    "patterns": Array [
+      Array [
+        "*aXX*",
+      ],
+    ],
+    "rules": Array [
+      Object {
+        "actions": Object {
+          "a": "always",
+        },
+        "definitions": Object {
+          "a": "*",
+          "b": "X",
+        },
+      },
+    ],
+  },
+]
+`;
+
+exports[`Parser parse should parse amore complicated rule set 2`] = `
+Array [
+  Object {
+    "className": "comment",
+    "description": null,
+    "text": "# Immediate win situations",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+
+",
+  },
+  Object {
+    "className": "header",
+    "description": null,
+    "text": "PATTERNS",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+
+",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "abcd",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "b",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "c",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "d",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "b",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "  ",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "c",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "   ",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "d",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "header",
+    "description": null,
+    "text": "RULES",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+
+",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "*",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "b",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "X",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "c",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "X",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "d",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "X",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "colon",
+    "description": null,
+    "text": ":",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "pos-priority",
+    "description": null,
+    "text": "+!",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "X",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "b",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "*",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "c",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "X",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "d",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "X",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "colon",
+    "description": null,
+    "text": ":",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "b",
+  },
+  Object {
+    "className": "pos-priority",
+    "description": null,
+    "text": "+!",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+
+",
+  },
+  Object {
+    "className": "comment",
+    "description": null,
+    "text": "# Set up two-way win",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "header",
+    "description": null,
+    "text": "PATTERNS",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+
+",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "*",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "XX*",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "  ",
+  },
+  Object {
+    "className": "comment",
+    "description": null,
+    "text": "# pattern is reversible",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "header",
+    "description": null,
+    "text": "RULES",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+
+",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "*",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "b",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "X",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "colon",
+    "description": null,
+    "text": ":",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "pos-priority",
+    "description": null,
+    "text": "+!",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+]
+`;
+
+exports[`Parser parseHeader should accept whitespace before the header 1`] = `
+Array [
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+ 	 ",
+  },
+  Object {
+    "className": "comment",
+    "description": null,
+    "text": "# comment",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+  	",
+  },
+  Object {
+    "className": "header",
+    "description": null,
+    "text": "PATTERNS",
+  },
+]
+`;
+
+exports[`Parser parsePattern should match big ol' ugly patterns 1`] = `
+Array [
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "XO",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "error",
+    "description": "Invalid character in pattern",
+    "text": "2",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "b",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "?",
+  },
+  Object {
+    "className": "error",
+    "description": "Invalid character in pattern",
+    "text": "34",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "+-",
+  },
+  Object {
+    "className": "error",
+    "description": "Pattern longer than board length",
+    "text": "y",
+  },
+  Object {
+    "className": "error",
+    "description": "Pattern longer than board length",
+    "text": "XO",
+  },
+  Object {
+    "className": "error",
+    "description": "Invalid character in pattern",
+    "text": "3",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+]
+`;
+
+exports[`Parser parsePattern should not skip over whitespace on the first pattern line 1`] = `
+Array [
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": " XO",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "  X",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "  ",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "x",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+]
+`;
+
+exports[`Parser parsePattern should omit characters beyond board length 1`] = `
+Array [
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "XOXOXOX",
+  },
+  Object {
+    "className": "error",
+    "description": "Pattern longer than board length",
+    "text": "OXO",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "OXOXOXO",
+  },
+  Object {
+    "className": "error",
+    "description": "Pattern longer than board length",
+    "text": "a",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "XOXOXOX",
+  },
+  Object {
+    "className": "error",
+    "description": "Invalid character in pattern",
+    "text": "0",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+]
+`;
+
+exports[`Parser parsePattern should omit invalid characters in a pattern 1`] = `
+Array [
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "X ",
+  },
+  Object {
+    "className": "error",
+    "description": "Invalid character in pattern",
+    "text": "(&5",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": " O",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+]
+`;
+
+exports[`Parser parsePattern should omit whitespace at the end of pattern lines 1`] = `
+Array [
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "XO",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "  	  
+",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "OX",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "	  
+",
+  },
+]
+`;
+
+exports[`Parser parsePattern should omit whitespace at the end of pattern lines 2`] = `
+Array [
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "XO",
+  },
+  Object {
+    "className": "comment",
+    "description": null,
+    "text": "#XO",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "OX",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "comment",
+    "description": null,
+    "text": "#OX",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+]
+`;
+
+exports[`Parser parsePattern should parse a multi-line pattern 1`] = `
+Array [
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "XO?+-*",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "XOXOXO",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "+-+-+-",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+]
+`;
+
+exports[`Parser parsePattern should parse a one-line pattern 1`] = `
+Array [
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "XO? +-*",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+]
+`;
+
+exports[`Parser parsePattern should parse pattern at the end of the string 1`] = `
+Array [
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "XO",
+  },
+]
+`;
+
+exports[`Parser parsePattern should parse variables in a pattern 1`] = `
+Array [
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "X",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "?+-*",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "X",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "m",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "XO",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "x",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "O",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "+-",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "yz",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "+-",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+]
+`;
+
+exports[`Parser parsePattern should skip over whitespace before the first pattern line 1`] = `
+Array [
+  Object {
+    "className": "comment",
+    "description": null,
+    "text": "# hi there",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+ 	 
+",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "XO",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+",
+  },
+]
+`;
+
+exports[`Parser parseRule should detect duplicate action priorities 1`] = `
+Array [
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "X",
+  },
+  Object {
+    "className": "colon",
+    "description": null,
+    "text": ":",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "pos-priority",
+    "description": null,
+    "text": "+!",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "error",
+    "description": "Duplicate variable priority",
+    "text": "a-!",
+  },
+]
+`;
+
+exports[`Parser parseRule should detect duplicate variable definitions 1`] = `
+Array [
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "X",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "error",
+    "description": "Duplicate variable definition",
+    "text": "a=O",
+  },
+  Object {
+    "className": "colon",
+    "description": null,
+    "text": ":",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "pos-priority",
+    "description": null,
+    "text": "+!",
+  },
+]
+`;
+
+exports[`Parser parseRule should omit bad actions 1`] = `
+Array [
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "*",
+  },
+  Object {
+    "className": "colon",
+    "description": null,
+    "text": ":",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "pos-priority",
+    "description": null,
+    "text": "+!",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "error",
+    "description": "Expected ::= variable +/- priority",
+    "text": "b",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "error",
+    "description": "Expected ::= variable +/- priority",
+    "text": "+3",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "c",
+  },
+  Object {
+    "className": "error",
+    "description": "Invalid action",
+    "text": "+5!",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "error",
+    "description": "Invalid variable name",
+    "text": "5",
+  },
+  Object {
+    "className": "pos-priority",
+    "description": null,
+    "text": "+!",
+  },
+]
+`;
+
+exports[`Parser parseRule should omit bad definitions 1`] = `
+Array [
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "*",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "b",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "error",
+    "description": "Invalid pattern",
+    "text": "5",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "error",
+    "description": "Invalid variable name",
+    "text": "7",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "?",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "error",
+    "description": "Expected ::= variable = pattern",
+    "text": "c=",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "error",
+    "description": "Expected ::= variable = pattern",
+    "text": "=*",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "e",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "error",
+    "description": "Invalid pattern",
+    "text": "Xf=O",
+  },
+  Object {
+    "className": "colon",
+    "description": null,
+    "text": ":",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "pos-priority",
+    "description": null,
+    "text": "+!",
+  },
+]
+`;
+
+exports[`Parser parseRule should parse a rule with multiple actions 1`] = `
+Array [
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "*",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "colon",
+    "description": null,
+    "text": ":",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "pos-priority",
+    "description": null,
+    "text": "+ !",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "b",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "neg-priority",
+    "description": null,
+    "text": "-!",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "c",
+  },
+  Object {
+    "className": "pos-priority",
+    "description": null,
+    "text": "+ 9",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "d",
+  },
+  Object {
+    "className": "neg-priority",
+    "description": null,
+    "text": "-4",
+  },
+]
+`;
+
+exports[`Parser parseRule should parse a rule with multiple definitions 1`] = `
+Array [
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "*",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "b",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "X",
+  },
+  Object {
+    "className": "comma",
+    "description": null,
+    "text": ",",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "c",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "?",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "colon",
+    "description": null,
+    "text": ":",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "pos-priority",
+    "description": null,
+    "text": "+!",
+  },
+]
+`;
+
+exports[`Parser parseRule should parse a rule with one definition and one action 1`] = `
+Array [
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "*",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "colon",
+    "description": null,
+    "text": ":",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": " ",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "pos-priority",
+    "description": null,
+    "text": "+!",
+  },
+]
+`;
+
+exports[`Parser parseRule should return null if no definitions and/or actions 1`] = `
+Array [
+  Object {
+    "className": "error",
+    "description": "Expected ::= variable = pattern",
+    "text": "a=",
+  },
+  Object {
+    "className": "colon",
+    "description": null,
+    "text": ":",
+  },
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "pos-priority",
+    "description": null,
+    "text": "+!",
+  },
+]
+`;
+
+exports[`Parser parseRule should return null if no definitions and/or actions 2`] = `
+Array [
+  Object {
+    "className": "variable",
+    "description": null,
+    "text": "a",
+  },
+  Object {
+    "className": "equals",
+    "description": null,
+    "text": "=",
+  },
+  Object {
+    "className": "pattern",
+    "description": null,
+    "text": "*",
+  },
+  Object {
+    "className": "colon",
+    "description": null,
+    "text": ":",
+  },
+  Object {
+    "className": "error",
+    "description": "Expected ::= variable +/- priority",
+    "text": "a!",
+  },
+]
+`;
+
+exports[`Parser pushWhitespace should separate comments from whitespace 1`] = `
+Array [
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+	",
+  },
+  Object {
+    "className": "comment",
+    "description": null,
+    "text": "# abc",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+   ",
+  },
+  Object {
+    "className": "comment",
+    "description": null,
+    "text": "#def",
+  },
+  Object {
+    "className": "whitespace",
+    "description": null,
+    "text": "
+
+",
+  },
+]
+`;

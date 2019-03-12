@@ -1,13 +1,12 @@
+import { Maybe } from './util';
 
 export interface Code {
   clean: boolean;
-  text: string;
-  colors: Section[];
+  sections: CodeSection[];
 }
 
-export interface Section {
-  begin: number;
-  end: number;
-  description: string;
-  color: string;
+export interface CodeSection {
+  text: string;
+  description: Maybe<string>;
+  className: string;
 }

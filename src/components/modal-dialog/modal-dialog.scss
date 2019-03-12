@@ -24,7 +24,7 @@
       position: sticky;
       top: 0;
       font-weight: bold;
-      padding: 0.25rem 0.25rem 0.25rem 1rem;
+      padding: 0.25rem 1rem 0.25rem 1rem;
       margin: 0 -1rem 1rem -1rem;
       border-top-left-radius: 0.25rem;
       border-top-right-radius: 0.25rem;
@@ -34,6 +34,11 @@
 
       & > .material-icons {
         cursor: pointer;
+
+        &:hover {
+          background-color: rgba(0, 0, 200, 0.15);
+          border-radius: 0.25rem;
+        }
       }
     }
 
