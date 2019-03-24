@@ -2,6 +2,7 @@
 import 'popper.js/dist/popper.min.js';
 import 'bootstrap/js/src/util.js';
 import 'bootstrap/js/src/dropdown.js';
+import 'bootstrap/js/src/tooltip.js';
 // tslint:enable ordered-imports
 
 import React from 'react';

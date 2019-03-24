@@ -41,14 +41,20 @@ export class PlayerSetupComponent extends React.PureComponent<PlayerSetupProps, 
   }
 
   onFileChange = async (event: FormEvent<HTMLInputElement>) => {
+    console.log('onFileChange');
     const files = (event.target as HTMLInputElement).files;
-    if (files) {
+    if (files && files[0]) {
       const file = files[0];
+      (event.target as HTMLInputElement).value = '';
       this.setState({ file, code: null });
       const code = await App.parser.parseFile(file);
       if (this.state.file === file) {
         this.setState({ code });
       }
+    }
+    else {
+      (event.target as HTMLInputElement).value = '';
+      this.setState({ file: null, code: null });
     }
   }
 
@@ -110,6 +116,7 @@ export class PlayerSetupComponent extends React.PureComponent<PlayerSetupProps, 
                 className="custom-file-input"
                 id="customFile1"
                 onChange={this.onFileChange}
+                onClick={() => console.log('onClick')}
               />
               <div className="custom-file-label">
               { this.state.file ?

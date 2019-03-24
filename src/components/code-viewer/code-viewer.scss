@@ -8,11 +8,11 @@
   }
 
   .pattern {
-    color: #090;
+    color: #080;
   }
 
   .variable {
-    color: #099;
+    color: #09d;
   }
 
   .header {
@@ -21,19 +21,20 @@
   }
 
   .pos-priority {
-    color: #009;
+    color: #00b;
   }
 
   .neg-priority {
-    color: #990;
+    color: #960;
   }
 
-  .equal, .comma, .colon {
-    color: #888;
+  .equals, .comma, .colon {
+    color: #666;
   }
 
   .error {
     background-color: #fdd;
     color: #900;
   }
+
 }

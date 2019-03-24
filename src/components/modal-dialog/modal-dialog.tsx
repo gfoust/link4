@@ -12,7 +12,7 @@ export const ModalDialogComponent: FunctionComponent<ModalDialogProps> = props =
     <div className="modal-dialog">
       <div className="container">
         <div className="header alert-primary">
-          Dialog
+          {props.title}
           <span className="material-icons" onClick={() => App.store.dispatch(setDialog(null))}>close</span>
         </div>
         <div className="contents">

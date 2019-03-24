@@ -137,7 +137,7 @@ export class Parser {
       this.push(header, null, 'header');
     }
     else {
-      this.push(header, 'Expected ::= ' + expected, 'header');
+      this.push(header, 'Expected ' + expected, 'error');
     }
 
     const line = this.lexLineBody();
@@ -296,7 +296,7 @@ export class Parser {
         }
       }
       else {
-        this.push(text, 'Expected ::= variable = pattern', 'error');
+        this.push(text, 'Expected <br/> variable = pattern', 'error');
       }
     }
   }
@@ -349,7 +349,7 @@ export class Parser {
         }
       }
       else {
-        this.push(text, 'Expected ::= variable +/- priority', 'error');
+        this.push(text, 'Expected <br/> variable +/- priority', 'error');
       }
     }
   }
@@ -376,7 +376,7 @@ export class Parser {
         }
       }
       else {
-        this.push(line, 'Expected ::= definitions : actions', 'error');
+        this.push(line, 'Expected <br/> definitions : actions', 'error');
         this.commit();
         return null;
       }
@@ -396,7 +396,7 @@ export class Parser {
       }
       const line = this.lexLineBody();
       if (line) {
-        this.push(line, 'Expected ::= section header', 'error');
+        this.push(line, 'Expected PATTERNS', 'error');
       }
       else {
         break;

@@ -4,7 +4,7 @@ exports[`Parser findFirstHeader should consume all input if there is no header 1
 Array [
   Object {
     "className": "error",
-    "description": "Expected ::= section header",
+    "description": "Expected PATTERNS",
     "text": "abc",
   },
   Object {
@@ -15,7 +15,7 @@ Array [
   },
   Object {
     "className": "error",
-    "description": "Expected ::= section header",
+    "description": "Expected PATTERNS",
     "text": "xyz",
   },
   Object {
@@ -37,7 +37,7 @@ Array [
   },
   Object {
     "className": "error",
-    "description": "Expected ::= section header",
+    "description": "Expected PATTERNS",
     "text": "abc",
   },
   Object {
@@ -48,7 +48,7 @@ Array [
   },
   Object {
     "className": "error",
-    "description": "Expected ::= section header",
+    "description": "Expected PATTERNS",
     "text": "XOXO",
   },
   Object {
@@ -1378,7 +1378,7 @@ Array [
   },
   Object {
     "className": "error",
-    "description": "Expected ::= variable +/- priority",
+    "description": "Expected <br/> variable +/- priority",
     "text": "b",
   },
   Object {
@@ -1388,7 +1388,7 @@ Array [
   },
   Object {
     "className": "error",
-    "description": "Expected ::= variable +/- priority",
+    "description": "Expected <br/> variable +/- priority",
     "text": "+3",
   },
   Object {
@@ -1488,7 +1488,7 @@ Array [
   },
   Object {
     "className": "error",
-    "description": "Expected ::= variable = pattern",
+    "description": "Expected <br/> variable = pattern",
     "text": "c=",
   },
   Object {
@@ -1498,7 +1498,7 @@ Array [
   },
   Object {
     "className": "error",
-    "description": "Expected ::= variable = pattern",
+    "description": "Expected <br/> variable = pattern",
     "text": "=*",
   },
   Object {
@@ -1813,7 +1813,7 @@ exports[`Parser parseRule should return null if no definitions and/or actions 1`
 Array [
   Object {
     "className": "error",
-    "description": "Expected ::= variable = pattern",
+    "description": "Expected <br/> variable = pattern",
     "text": "a=",
   },
   Object {
@@ -1858,7 +1858,7 @@ Array [
   },
   Object {
     "className": "error",
-    "description": "Expected ::= variable +/- priority",
+    "description": "Expected <br/> variable +/- priority",
     "text": "a!",
   },
 ]
