@@ -1,22 +1,29 @@
-import { Game, Player, PlayerType } from './game';
+import { Game, Player } from './game';
 import { Code } from './parser';
 import { Dictionary, Maybe } from './util';
 
 export type Screen = 'start' | 'game';
 
-export interface PlayerSetup {
+export interface HumanPlayerSetup {
   name: string;
-  type: PlayerType;
-  file: Maybe<File>;
-  code: Maybe<Code>;
+  type: 'human';
 }
+
+export interface ComputerPlayerSetup {
+  name: string;
+  type: 'computer';
+  file: Maybe<File>;
+  code: Code;
+}
+
+export type PlayerSetup = HumanPlayerSetup | ComputerPlayerSetup;
 
 export type FullSetup = Dictionary<PlayerSetup, Player>;
 
 export interface State {
   screen: Screen;
   dialog: Maybe<JSX.Element>;
-  nextMove: Maybe<number>;
+  playerMove: Maybe<number>;
   computerMove: Maybe<number>;
   games: Game[];
   current: number;

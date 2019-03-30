@@ -18,18 +18,31 @@ interface PlayerSetupState {
   type: PlayerType;
   file: Maybe<File>;
   code: Maybe<Code>;
+  ready: boolean;
 }
 
 export class PlayerSetupComponent extends React.PureComponent<PlayerSetupProps, PlayerSetupState> {
   constructor(props: PlayerSetupProps) {
     super(props);
 
-    this.state = {
-      name: props.init.name,
-      type: props.init.type,
-      file: props.init.file,
-      code: props.init.code,
-    };
+    if (props.init.type === 'human') {
+      this.state = {
+        name: props.init.name,
+        type: props.init.type,
+        file: null,
+        code: null,
+        ready: true,
+      };
+    }
+    else {
+      this.state = {
+        name: props.init.name,
+        type: props.init.type,
+        file: props.init.file,
+        code: props.init.code,
+        ready: true,
+      };
+    }
   }
 
   onNameChange = (event: FormEvent<HTMLInputElement>) => {
@@ -37,7 +50,7 @@ export class PlayerSetupComponent extends React.PureComponent<PlayerSetupProps, 
   }
 
   onTypeChange = (type: PlayerType) => () => {
-    this.setState({ type });
+    this.setState({ type, ready: type === 'human' || this.state.ready });
   }
 
   onFileChange = async (event: FormEvent<HTMLInputElement>) => {
@@ -46,15 +59,15 @@ export class PlayerSetupComponent extends React.PureComponent<PlayerSetupProps, 
     if (files && files[0]) {
       const file = files[0];
       (event.target as HTMLInputElement).value = '';
-      this.setState({ file, code: null });
+      this.setState({ file, ready: false });
       const code = await App.parser.parseFile(file);
       if (this.state.file === file) {
-        this.setState({ code });
+        this.setState({ code, ready: true });
       }
     }
     else {
       (event.target as HTMLInputElement).value = '';
-      this.setState({ file: null, code: null });
+      this.setState({ file: null, code: null, ready: true });
     }
   }
 
@@ -67,12 +80,20 @@ export class PlayerSetupComponent extends React.PureComponent<PlayerSetupProps, 
   }
 
   get setup(): PlayerSetup {
-    return {
-      name: this.state.name,
-      type: this.state.type,
-      file: this.state.file,
-      code: this.state.code,
-    };
+    if (this.state.type === 'computer') {
+      return {
+        name: this.state.name,
+        type: 'computer',
+        file: this.state.file,
+        code: this.state.code || { clean: true, rulesets: [ ], sections: [ ] },
+      };
+    }
+    else {
+      return {
+        name: this.state.name,
+        type: 'human',
+      };
+    }
   }
 
   render() {

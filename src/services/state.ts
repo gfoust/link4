@@ -6,14 +6,12 @@ export const defaultSetup: FullSetup = {
   player1: {
     name: '',
     type: 'human',
-    file: null,
-    code: null,
   },
   player2: {
     name: '',
     type: 'computer',
     file: null,
-    code: null,
+    code: { clean: true, rulesets: [ ], sections: [ ] },
   },
 };
 

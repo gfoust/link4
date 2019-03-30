@@ -136,7 +136,7 @@ function setup(state = App.state.defaultSetup, action: Action): FullSetup {
 
 export function reducer(state = { } as State, action: Action): State {
   const nextState: State = {
-    nextMove: nextMove(state.nextMove, action),
+    playerMove: nextMove(state.playerMove, action),
     computerMove: computerMove(state.computerMove, action),
     current: current(state.current, action),
     count: count(state.count, action),

@@ -2,22 +2,44 @@ import { App } from 'src/App';
 import { Code, CodeSection } from 'src/models/parser';
 import { Actions, Definitions, Pattern, Priority, Rule, RuleSet } from 'src/models/pattern';
 import { Maybe } from 'src/models/util';
+import { pushIfUnique } from './util';
 
 export function parseFile(file: File) {
   return new Promise<Code>((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = (event: any) => {
       const p = new Parser();
-      p.parse(event.target.result);
+      const rulesets = p.parse(event.target.result) || [ ];
       const sections = p.sections;
       const clean = p.sections.every(s => s.className !== 'error');
-      resolve({ clean, sections });
+      resolve({ clean, sections, rulesets });
     };
     reader.onerror = (event: any) => {
       reject(event.error);
     };
     reader.readAsText(file);
   });
+}
+
+function fillPattern(pattern: Pattern) {
+  const maxcols = Math.max(...pattern.map(p => p.length));
+  return pattern.map(p => p.padEnd(maxcols, ' '));
+}
+
+function reversePattern(pattern: Pattern) {
+  return pattern.map(p => p.split('').reverse().join(''));
+}
+
+function patternsEqual(p1: Pattern, p2: Pattern) {
+  if (p1.length !== p2.length) {
+    return false;
+  }
+  for (let i = 0; i < p1.length; ++i) {
+    if (p1[i] !== p2[i]) {
+      return false;
+    }
+  }
+  return true;
 }
 
 export class Parser {
@@ -408,7 +430,7 @@ export class Parser {
     return header;
   }
 
-  parse(text: string) {
+parse(text: string) {
     this.init(text);
     const rulesets = [ ] as RuleSet[];
     const first = this.findFirstHeader();
@@ -450,7 +472,10 @@ export class Parser {
         else if (header === 'PATTERNS') {
           const pattern = this.parsePattern();
           if (pattern && state === 'patterns') {
-            patterns.push(pattern);
+            const filled = fillPattern(pattern);
+            pushIfUnique(patterns, filled, patternsEqual);
+            const reverse = reversePattern(filled);
+            pushIfUnique(patterns, reverse, patternsEqual);
           }
         }
         else {
@@ -466,7 +491,7 @@ export class Parser {
           rulesets.push({ patterns, rules });
         }
       }
-  }
+    }
     const ws = this.lexWhitespace();
     if (ws) {
       this.pushWhitespace(ws);

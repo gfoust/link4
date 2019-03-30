@@ -42,3 +42,16 @@ export function allPropertiesIdentical(x: any, y: any): boolean {
   }
   return true;
 }
+
+export function pushIfUnique<T>(ts: T[], t: T, eq?: (t1: T, t2: T) => boolean) {
+  if (eq === undefined) {
+    if (ts.every(tt => t !== tt)) {
+      ts.push(t);
+    }
+  }
+  else {
+    if (ts.every(tt => ! eq(t, tt))) {
+      ts.push(t);
+    }
+  }
+}

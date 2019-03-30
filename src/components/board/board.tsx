@@ -90,7 +90,7 @@ export function DisconnectedBoardComponent({
 export const BoardComponent = connect((state: State) => ({
   count: state.count,
   game: state.games[state.current],
-  nextMove: state.nextMove,
+  nextMove: state.playerMove,
   computerMove: state.computerMove,
   setup: state.setup,
 }))(DisconnectedBoardComponent);

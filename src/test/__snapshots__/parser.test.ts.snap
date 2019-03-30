@@ -73,6 +73,9 @@ Array [
       Array [
         "XXa",
       ],
+      Array [
+        "aXX",
+      ],
     ],
     "rules": Array [
       Object {
@@ -183,16 +186,25 @@ Array [
         "abcd",
       ],
       Array [
+        "dcba",
+      ],
+      Array [
         "a",
         "b",
         "c",
         "d",
       ],
       Array [
-        "a",
-        " b",
-        "  c",
+        "a   ",
+        " b  ",
+        "  c ",
         "   d",
+      ],
+      Array [
+        "   a",
+        "  b ",
+        " c  ",
+        "d   ",
       ],
     ],
     "rules": Array [
@@ -224,6 +236,9 @@ Array [
     "patterns": Array [
       Array [
         "*aXX*",
+      ],
+      Array [
+        "*XXa*",
       ],
     ],
     "rules": Array [

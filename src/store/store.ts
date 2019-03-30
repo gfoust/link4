@@ -7,7 +7,7 @@ import { reducer } from './reducer';
 
 function loadState(): Partial<State> {
   try {
-    const mouseState = localStorage.getItem('mouseState');
+    const mouseState = sessionStorage.getItem('mouseState');
     if (mouseState) {
       const state = JSON.parse(mouseState);
       return state;
@@ -22,7 +22,7 @@ function loadState(): Partial<State> {
 
 function storeState(state: State) {
   try {
-    localStorage.setItem('mouseState', JSON.stringify(state));
+    sessionStorage.setItem('mouseState', JSON.stringify(state));
   }
   catch (err) {
     App.logger.error(err);

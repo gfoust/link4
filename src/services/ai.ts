@@ -1,12 +1,24 @@
 import { App } from 'src/App';
 import { Board, Player } from 'src/models/game';
+import { Priority, RuleSet } from 'src/models/pattern';
 
-export function pickMove(player: Player, board: Board) {
-  const moves = [ ] as number[];
+export function pickMove(player: Player, board: Board, ruleset: RuleSet[]) {
+  const priorities = [ ] as Priority[];
   for (let c = 0; c < App.config.boardCols; ++c) {
     if (App.game.canMove(board, c)) {
-      moves.push(c);
+      priorities[c] = 0;
+    }
+    else {
+      priorities[c] = 'never';
     }
   }
-  return Promise.resolve(moves[Math.floor(Math.random() * moves.length)]);
+
+  const possibilities = [ ] as number[];
+  for (let c = 0; c < App.config.boardCols; ++c) {
+    if (priorities[c] !== 'never') {
+      possibilities.push(c);
+    }
+  }
+
+  return Promise.resolve(possibilities[Math.floor(Math.random() * possibilities.length)]);
 }
