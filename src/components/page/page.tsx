@@ -14,12 +14,7 @@ export interface PageComponentProps {
 export function DisconnectedPageComponent(props: PageComponentProps) {
   return (
     <div>
-    {
-      props.dialog &&
-        <ui.ModalDialog title="Link 4 Rule Set">
-          {props.dialog}
-        </ui.ModalDialog>
-    }
+    { props.dialog }
     {
       props.screen === 'start' ?
         <ui.StartScreen/> :

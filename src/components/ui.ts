@@ -1,5 +1,6 @@
 import { BoardComponent } from './board/board';
 import { CodeViewerComponent } from './code-viewer/code-viewer';
+import { ExplainViewerComponent } from './explain-viewer/explain-viewer';
 import { FrameTileComponent } from './frame-tile/frame-tile';
 import { FrameComponent } from './frame/frame';
 import { GameScreenComponent } from './game-screen/game-screen';
@@ -15,6 +16,7 @@ import { TurnsPanelComponent } from './turns-panel/turns-panel';
 export const ui = {
   Board: BoardComponent,
   CodeViewer: CodeViewerComponent,
+  ExplainViewer: ExplainViewerComponent,
   Frame: FrameComponent,
   FrameTile: FrameTileComponent,
   GameScreen: GameScreenComponent,

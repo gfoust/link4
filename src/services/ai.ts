@@ -23,7 +23,7 @@ export interface RelativeScore {
   reasons: Reason[];
 }
 
-export type Score = FullScore | AbsoluteScore | RelativeScore;
+export type Score = FullScore | AbsoluteScore | RelativeScore | undefined;
 
 export async function scoreColumns(player: Player, board: Board, rulesets: RuleSet[]): Promise<Score[]> {
   let scores = [ ] as Score[];
@@ -46,19 +46,19 @@ export async function scoreColumns(player: Player, board: Board, rulesets: RuleS
               const p = rule.actions[name];
               const reason = { pattern, rule };
               if (p === 'always') {
-                if (scores[c].priority !== 'never') {
+                if (scores[c]!.priority !== 'never') {
                   scores = [];
                   scores[c] = { priority: 'always', reason };
                   return scores;
                 }
               }
               else if (p === 'never') {
-                if (scores[c].priority !== 'never') {
+                if (scores[c]!.priority !== 'never') {
                   scores[c] = { priority: 'never', reason };
                 }
               }
               else {
-                if (typeof scores[c].priority === 'number') {
+                if (typeof scores[c]!.priority === 'number') {
                   const score = scores[c] as RelativeScore;
                   score.priority += p;
                   score.reasons.push(reason);
@@ -78,10 +78,10 @@ export function pickMove(scores: Score[]): number {
   let possibilities = [ ] as number[];
   let maxScore = -Infinity;
   for (let c = 0; c < scores.length; ++c) {
-    if (!scores[c]) {
-      continue;
-    }
-    const p = scores[c].priority;
+    const s = scores[c];
+    if (!s) { continue; }
+
+    const p = s.priority;
     if (p === 'always') {
       return c;
     }

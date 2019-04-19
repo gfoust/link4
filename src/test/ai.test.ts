@@ -1,6 +1,6 @@
 import { Board, Tile } from 'src/models/game';
 import { RuleSet } from 'src/models/pattern';
-import { scoreColumns, pickMove, Score } from 'src/services/ai';
+import { pickMove, scoreColumns } from 'src/services/ai';
 
 function makeBoard(pattern: string[]): Board {
   let id = 0;

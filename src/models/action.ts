@@ -1,5 +1,6 @@
 import { Player } from 'src/models/game';
 import { PlayerSetup, Screen } from 'src/models/state';
+import { Score } from 'src/services/ai';
 import { Dictionary, Maybe } from './util';
 
 // ---------------------------------------------------------
@@ -17,11 +18,12 @@ export function setNextMove(column: Maybe<number>): SetNextMove {
 
 export interface SetComputerMove {
   type: 'SetComputerMove';
-  column: Maybe<number>;
+  column: number;
+  explain: Score[];
 }
 
-export function setComputerMove(column: Maybe<number>): SetComputerMove {
-  return { type: 'SetComputerMove', column };
+export function setComputerMove(column: number, explain: Score[]): SetComputerMove {
+  return { type: 'SetComputerMove', column, explain };
 }
 
 // ---------------------------------------------------------
@@ -29,10 +31,11 @@ export function setComputerMove(column: Maybe<number>): SetComputerMove {
 export interface TakeTurn {
   type: 'TakeTurn';
   move: number;
+  explain: Maybe<Score[]>;
 }
 
-export function takeTurn(move: number): TakeTurn {
-  return { type: 'TakeTurn', move };
+export function takeTurn(move: number, explain: Maybe<Score[]> = null): TakeTurn {
+  return { type: 'TakeTurn', move, explain };
 }
 
 // ---------------------------------------------------------

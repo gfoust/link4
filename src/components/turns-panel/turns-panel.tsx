@@ -1,8 +1,9 @@
 import React from 'react';
 
 import { App } from 'src/App';
-import { setCurrentGame } from 'src/models/action';
+import { setCurrentGame, setDialog } from 'src/models/action';
 import { Game } from 'src/models/game';
+import { ui } from '../ui';
 import './turns-panel.scss';
 
 export interface TurnsPanelProps {
@@ -11,6 +12,7 @@ export interface TurnsPanelProps {
 }
 
 export function TurnsPanelComponent({ games, current }: TurnsPanelProps) {
+
   const turns = [ ] as JSX.Element[];
   for (let i = 0, end = games.length; i < end; ++i) {
     const itemClass = i === 0 ? 'secondary' : App.game.otherPlayer(games[i].turn);
@@ -23,8 +25,18 @@ export function TurnsPanelComponent({ games, current }: TurnsPanelProps) {
         onClick={() => App.store.dispatch(setCurrentGame(i))}
       >
         Turn {i}
-        { i === current && i !== 0 &&
-            <span className="material-icons">info</span>
+        { i === current && i !== 0 && games[i].explain &&
+            <span
+              className="material-icons"
+              onClick={(evt: React.MouseEvent) => {
+                evt.stopPropagation();
+                App.store.dispatch(setDialog(
+                  <ui.ModalDialog title="Link 4 Turn Explanation">
+                    <ui.ExplainViewer/>
+                  </ui.ModalDialog>
+                ));
+              }}
+            >info</span>
         }
       </button>
     );

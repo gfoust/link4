@@ -1,6 +1,7 @@
 import { Board, Game, PieceLocation, Player, Status, WinLocation } from 'src/models/game';
 import { Pattern } from 'src/models/pattern';
 import { Dictionary, Maybe } from 'src/models/util';
+import { Score } from './ai';
 import { winningPatterns } from './pattern';
 
 // =========================================================
@@ -45,10 +46,7 @@ export function locationsInPattern(pattern: Pattern, letter: string, offset: Pie
 
 // =========================================================
 // Advance to next game by making a move in the current game
-export function makeMove(game: Game, count: number, nextMove: Maybe<number>): Game {
-  if (game.status !== 'playing' || nextMove === null) {
-    return game;
-  }
+export function makeMove(game: Game, count: number, nextMove: number, explain: Maybe<Score[]>): Game {
 
   const top = topOfColumn(game.board, nextMove);
   if (top === -1) {
@@ -75,6 +73,7 @@ export function makeMove(game: Game, count: number, nextMove: Maybe<number>): Ga
     turn: otherPlayer(game.turn),
     board,
     lastMove: nextMove,
+    explain,
     winner,
   };
 }

@@ -1,7 +1,6 @@
-import { combineReducers } from 'redux';
 
 import { App } from 'src/App';
-import { Board, EmptyTile, Game, Player, Status, Tile, WinLocation } from 'src/models/game';
+import { Board, EmptyTile, Game, Tile } from 'src/models/game';
 import { FullSetup, Screen, State } from 'src/models/state';
 import { Maybe } from 'src/models/util';
 import { Action } from '../models/action';
@@ -10,50 +9,36 @@ const emptyTile: EmptyTile = {
   type: 'empty',
 };
 
-function board(state: Board | undefined, action: Action): Board {
-  if (! state) {
-    state = [ ];
-    for (let i = 0; i < App.config.boardRows; ++i) {
-      const row: Tile[] = [ ];
-      for (let j = 0; j < App.config.boardCols; ++j) {
-        row.push(emptyTile);
-      }
-      state.push(row);
+function initBoard(): Board {
+  const board: Board = [ ];
+  for (let i = 0; i < App.config.boardRows; ++i) {
+    const row: Tile[] = [ ];
+    for (let j = 0; j < App.config.boardCols; ++j) {
+      row.push(emptyTile);
     }
+    board.push(row);
   }
-  return state;
+  return board;
 }
-
-function lastMove(state: Maybe<number> = null, action: Action): Maybe<number> {
-  return state;
-}
-
-function turn(state: Player = 'player1', action: Action): Player {
-  return state;
-}
-
-function status(state: Status = 'playing', action: Action): Status {
-  return state;
-}
-
-function winner(state: Maybe<WinLocation> = null, action: Action): Maybe<WinLocation> {
-  return state;
-}
-
-const game = combineReducers({ status, turn, board, lastMove, winner });
 
 // tslint:disable-next-line no-shadowed-variable
 function games(state = [ ] as Game[], current: number, count: number, action: Action): Game[] {
   if (action.type === 'StartGame') {
     state = [ ];
   }
-  let nextGame = game(state[current], action);
   if (state.length === 0) {
-    state.push(nextGame);
+    state.push({
+      status: 'playing',
+      turn: 'player1',
+      board: initBoard(),
+      lastMove: null,
+      explain: null,
+      winner: null,
+    });
   }
   switch (action.type) {
     case 'TakeTurn':
-      nextGame = App.game.makeMove(nextGame, count, action.move);
+      const nextGame = App.game.makeMove(state[current], count, action.move, action.explain);
       state = state.slice(0, current + 1);
       state.push(nextGame);
       break;

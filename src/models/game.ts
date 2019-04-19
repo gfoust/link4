@@ -1,3 +1,4 @@
+import { Score } from 'src/services/ai';
 import { Maybe } from './util';
 
 export type Player = 'player1' | 'player2';
@@ -30,5 +31,6 @@ export interface Game {
   board: Board;
   turn: Player;
   lastMove: Maybe<number>;
+  explain: Maybe<Score[]>;
   winner: Maybe<WinLocation>;
 }
