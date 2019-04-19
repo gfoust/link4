@@ -53,7 +53,7 @@ export function DisconnectedBoardComponent({
         type: game.turn,
         r: 0,
         c: nextMove,
-        disabled: !App.game.canMove(game.board, nextMove),
+        disabled: !App.game.canPlayInColumn(game.board, nextMove),
       };
     }
     else if (setup[game.turn].type === 'computer' && computerMove != null) {

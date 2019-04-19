@@ -16,21 +16,45 @@
       min-height: 3rem;
     }
   }
-}
 
-.list-group-item-action.list-group-item-player1.current,
-.list-group-item-action.list-group-item-player1.current:active,
-.list-group-item-action.list-group-item-player1.current:hover,
-.list-group-item-action.list-group-item-player1.current:focus {
-  color: $white;
-  background: $player1;
-}
+  .list-group-item-action.list-group-item-player1.current,
+  .list-group-item-action.list-group-item-player1.current:active,
+  .list-group-item-action.list-group-item-player1.current:hover,
+  .list-group-item-action.list-group-item-player1.current:focus {
+    color: $white;
+    background: $player1;
 
-.list-group-item-action.list-group-item-player2.current,
-.list-group-item-action.list-group-item-player2.current:active,
-.list-group-item-action.list-group-item-player2.current:hover,
-.list-group-item-action.list-group-item-player2.current:focus {
-  color: $white;
-  background: $player2;
+    .material-icons {
+      color: theme-color-level("player1", -9);
+      &:hover {
+        color: $white;
+      }
+    }
+  }
+
+  .list-group-item-action.list-group-item-player2.current,
+  .list-group-item-action.list-group-item-player2.current:active,
+  .list-group-item-action.list-group-item-player2.current:hover,
+  .list-group-item-action.list-group-item-player2.current:focus {
+    color: $white;
+    background: $player2;
+
+    .material-icons {
+      color: theme-color-level("player2", -9);
+    }
+  }
+
+  .list-group-item-action.list-group-item-secondary.current,
+  .list-group-item-action.list-group-item-secondary.current:active,
+  .list-group-item-action.list-group-item-secondary.current:hover,
+  .list-group-item-action.list-group-item-secondary.current:focus {
+    color: $white;
+    background: $gray-600;
+  }
+
+  .material-icons {
+    float: right;
+    margin-right: -0.5ex;
+  }
 }
 

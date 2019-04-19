@@ -1,24 +1,100 @@
 import { App } from 'src/App';
 import { Board, Player } from 'src/models/game';
-import { Priority, RuleSet } from 'src/models/pattern';
+import { Pattern, Rule, RuleSet } from 'src/models/pattern';
+import { locationsInPattern } from './game';
 
-export function pickMove(player: Player, board: Board, ruleset: RuleSet[]) {
-  const priorities = [ ] as Priority[];
-  for (let c = 0; c < App.config.boardCols; ++c) {
-    if (App.game.canMove(board, c)) {
-      priorities[c] = 0;
+export interface Reason {
+  pattern: Pattern;
+  rule: Rule;
+}
+
+export interface FullScore {
+  priority: 'never';
+  reason: 'full';
+}
+
+export interface AbsoluteScore {
+  priority: 'always' | 'never';
+  reason: Reason;
+}
+
+export interface RelativeScore {
+  priority: number;
+  reasons: Reason[];
+}
+
+export type Score = FullScore | AbsoluteScore | RelativeScore;
+
+export async function scoreColumns(player: Player, board: Board, rulesets: RuleSet[]): Promise<Score[]> {
+  let scores = [ ] as Score[];
+  for (let c = 0; c < board[0].length; ++c) {
+    if (App.game.canPlayInColumn(board, c)) {
+      scores[c] = { priority: 0, reasons: [] };
     }
     else {
-      priorities[c] = 'never';
+      scores[c] = { priority: 'never', reason: 'full' };
     }
   }
 
-  const possibilities = [ ] as number[];
-  for (let c = 0; c < App.config.boardCols; ++c) {
-    if (priorities[c] !== 'never') {
-      possibilities.push(c);
+  for (const ruleset of rulesets) {
+    for (const pattern of ruleset.patterns) {
+      for (const rule of ruleset.rules) {
+        for (const match of App.game.matchPattern(pattern, board, player, rule.definitions)) {
+          for (const name in rule.actions) {
+            for (const location of locationsInPattern(pattern, name, match)) {
+              const c = location[1];
+              const p = rule.actions[name];
+              const reason = { pattern, rule };
+              if (p === 'always') {
+                if (scores[c].priority !== 'never') {
+                  scores = [];
+                  scores[c] = { priority: 'always', reason };
+                  return scores;
+                }
+              }
+              else if (p === 'never') {
+                if (scores[c].priority !== 'never') {
+                  scores[c] = { priority: 'never', reason };
+                }
+              }
+              else {
+                if (typeof scores[c].priority === 'number') {
+                  const score = scores[c] as RelativeScore;
+                  score.priority += p;
+                  score.reasons.push(reason);
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 
-  return Promise.resolve(possibilities[Math.floor(Math.random() * possibilities.length)]);
+  return scores;
+}
+
+export function pickMove(scores: Score[]): number {
+  let possibilities = [ ] as number[];
+  let maxScore = -Infinity;
+  for (let c = 0; c < scores.length; ++c) {
+    if (!scores[c]) {
+      continue;
+    }
+    const p = scores[c].priority;
+    if (p === 'always') {
+      return c;
+    }
+    else if (p !== 'never') {
+      if (p > maxScore) {
+        possibilities = [c];
+        maxScore = p;
+      }
+      if (p === maxScore) {
+        possibilities.push(c);
+      }
+    }
+  }
+
+  return possibilities[Math.floor(Math.random() * possibilities.length)];
 }

@@ -21,7 +21,7 @@ export function DisconnectedGameScreenComponent({ games, current, setup }: GameS
   const game = games[current];
 
   if (game.status === 'playing' && game.lastMove !== null) {
-    highlight.push([App.game.findTop(game.board, game.lastMove) + 1, game.lastMove]);
+    highlight.push([App.game.topOfColumn(game.board, game.lastMove) + 1, game.lastMove]);
   }
   else if (game.winner) {
     highlight = game.winner;
@@ -36,7 +36,7 @@ export function DisconnectedGameScreenComponent({ games, current, setup }: GameS
     availableMoves[i] =
       game.status === 'playing' &&
       setup[game.turn].type === 'human' &&
-      App.game.canMove(game.board, i);
+      App.game.canPlayInColumn(game.board, i);
   }
 
   return (

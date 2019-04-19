@@ -152,7 +152,7 @@ export class PlayerSetupComponent extends React.PureComponent<PlayerSetupProps, 
         {/* Code view group */}
         <div className="code-add-on" onClick={this.onViewCode}>
         {
-          this.state.type === 'computer' && this.state.code &&
+          this.state.type === 'computer' && this.state.file && this.state.code &&
             (this.state.code.clean ? 'Rules verified' : 'Errors detected')
         }
         </div>

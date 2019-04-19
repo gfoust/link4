@@ -13,15 +13,19 @@ export interface TurnsPanelProps {
 export function TurnsPanelComponent({ games, current }: TurnsPanelProps) {
   const turns = [ ] as JSX.Element[];
   for (let i = 0, end = games.length; i < end; ++i) {
+    const itemClass = i === 0 ? 'secondary' : App.game.otherPlayer(games[i].turn);
     const currentClass = i === current ? 'current' : '';
     turns.push(
       <button
         key={`turn-${i}`}
         id={`turn-${i}`}
-        className={`list-group-item list-group-item-action list-group-item-${games[i].turn} ${currentClass}`}
+        className={`list-group-item list-group-item-action list-group-item-${itemClass} ${currentClass}`}
         onClick={() => App.store.dispatch(setCurrentGame(i))}
       >
-        Turn {i + 1}
+        Turn {i}
+        { i === current && i !== 0 &&
+            <span className="material-icons">info</span>
+        }
       </button>
     );
   }
