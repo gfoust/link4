@@ -1,0 +1,50 @@
+@import "src/scss/variables";
+
+.explain-viewer {
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  .clear-score {
+    color: blue;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .column-score {
+    margin: 0.4rem 0;
+    &.has-details:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .column-label {
+      color: $gray-600;
+    }
+
+    .no-score {
+      color: $gray-600;
+    }
+
+    .score-always {
+      color: $player1;
+    }
+
+    .score-never {
+      color: $player2;
+    }
+
+  }
+
+  .match {
+    margin: 1em 0;
+    border-style: solid none none none;
+    border-color: black;
+    border-width: 1px;
+  }
+
+}

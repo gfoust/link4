@@ -75,7 +75,7 @@ export class PlayerSetupComponent extends React.PureComponent<PlayerSetupProps, 
     if (this.state.code) {
       App.store.dispatch(setDialog(
         <ui.ModalDialog title="Link 4 Rule Set">
-          <ui.CodeViewer code={this.state.code}/>
+          <ui.CodeViewer sections={this.state.code.sections}/>
         </ui.ModalDialog>
       ));
     }

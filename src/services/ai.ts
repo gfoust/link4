@@ -1,11 +1,12 @@
 import { App } from 'src/App';
-import { Board, Player } from 'src/models/game';
+import { Board, PieceLocation, Player } from 'src/models/game';
 import { Pattern, Rule, RuleSet } from 'src/models/pattern';
 import { locationsInPattern } from './game';
 
 export interface Reason {
   pattern: Pattern;
   rule: Rule;
+  location: PieceLocation;
 }
 
 export interface FullScore {
@@ -44,10 +45,11 @@ export async function scoreColumns(player: Player, board: Board, rulesets: RuleS
             for (const location of locationsInPattern(pattern, name, match)) {
               const c = location[1];
               const p = rule.actions[name];
-              const reason = { pattern, rule };
+              const reason = { pattern, rule, location: match } as Reason;
               if (p === 'always') {
                 if (scores[c]!.priority !== 'never') {
-                  scores = [];
+                  scores = Array(board[0].length);
+                  scores.fill(undefined, 0, board[0].length);
                   scores[c] = { priority: 'always', reason };
                   return scores;
                 }

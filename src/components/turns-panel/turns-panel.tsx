@@ -17,6 +17,7 @@ export function TurnsPanelComponent({ games, current }: TurnsPanelProps) {
   for (let i = 0, end = games.length; i < end; ++i) {
     const itemClass = i === 0 ? 'secondary' : App.game.otherPlayer(games[i].turn);
     const currentClass = i === current ? 'current' : '';
+    const explain = games[i].explain;
     turns.push(
       <button
         key={`turn-${i}`}
@@ -25,14 +26,14 @@ export function TurnsPanelComponent({ games, current }: TurnsPanelProps) {
         onClick={() => App.store.dispatch(setCurrentGame(i))}
       >
         Turn {i}
-        { i === current && i !== 0 && games[i].explain &&
+        { i === current && explain &&
             <span
               className="material-icons"
               onClick={(evt: React.MouseEvent) => {
                 evt.stopPropagation();
                 App.store.dispatch(setDialog(
                   <ui.ModalDialog title="Link 4 Turn Explanation">
-                    <ui.ExplainViewer/>
+                    <ui.ExplainViewer scores={explain} board={games[i - 1].board}/>
                   </ui.ModalDialog>
                 ));
               }}

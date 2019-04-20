@@ -7,9 +7,9 @@ import { reducer } from './reducer';
 
 function loadState(): Partial<State> {
   try {
-    const mouseState = sessionStorage.getItem('mouseState');
-    if (mouseState) {
-      const state = JSON.parse(mouseState);
+    const stateText = sessionStorage.getItem('link4-state');
+    if (stateText) {
+      const state = JSON.parse(stateText);
       return state;
     }
   }
@@ -22,7 +22,9 @@ function loadState(): Partial<State> {
 
 function storeState(state: State) {
   try {
-    sessionStorage.setItem('mouseState', JSON.stringify(state));
+    sessionStorage.setItem('link4-state', JSON.stringify({
+      setup: state.setup,
+    }));
   }
   catch (err) {
     App.logger.error(err);
@@ -30,10 +32,9 @@ function storeState(state: State) {
 }
 
 export function createStore(): Redux.Store<State, Action> {
-  return Redux.createStore(reducer);
-  // const store = Redux.createStore(reducer, loadState());
-  // store.subscribe(() => {
-  //   storeState(store.getState());
-  // });
-  // return store;
+  const store = Redux.createStore(reducer, loadState());
+  store.subscribe(() => {
+    storeState(store.getState());
+  });
+  return store;
 }

@@ -25,8 +25,20 @@ a=O, b=O, c=O, d=* : d+!
 
 PATTERNS
 
-Xa
+ba
+
+a
+b
 
 RULES
 
-a=* : a+1
+a=*, b=X : a+1
+a=*, b=O : a-1
+
+PATTERNS
+
+OaO
+
+RULES
+
+a=* : a-!

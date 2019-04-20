@@ -1,12 +1,12 @@
 import $ from 'jquery';
 import React from 'react';
 
-import { Code } from 'src/models/parser';
+import { CodeSection } from 'src/models/parser';
 
 import './code-viewer.scss';
 
 interface CodeViewerProps {
-  code: Code;
+  sections: CodeSection[];
 }
 
 export class CodeViewerComponent extends React.PureComponent<CodeViewerProps> {
@@ -17,7 +17,7 @@ export class CodeViewerComponent extends React.PureComponent<CodeViewerProps> {
     let i = 0;
     return (
       <pre ref={this.preEl} className="code-viewer">{
-        this.props.code.sections.map(s =>
+        this.props.sections.map(s =>
           s.description ?
           <span key={'cv-' + i++} className={s.className} data-toggle="tooltip" title={s.description}>{s.text}</span> :
           <span key={'cv-' + i++} className={s.className}>{s.text}</span>

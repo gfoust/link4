@@ -1,6 +1,6 @@
+@import "src/scss/variables";
+
 .code-viewer {
-  min-width: 600px;
-  min-height: 400px;
 
   .comment {
     color: #999;
@@ -37,4 +37,20 @@
     color: #900;
   }
 
+  .empty {
+    color: $gray-400;
+  }
+
+  .player1 {
+    color: $player1;
+  }
+
+  .player2 {
+    color: $player2;
+  }
+
+  .playable {
+    // color: #6b6;
+    color: #c6c;
+  }
 }
