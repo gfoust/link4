@@ -1,8 +1,27 @@
 import { Board, Game, PieceLocation, Player, Status, WinLocation } from 'src/models/game';
-import { Pattern } from 'src/models/pattern';
+import { Score } from 'src/models/rules';
+import { Pattern } from 'src/models/rules';
 import { Dictionary, Maybe } from 'src/models/util';
-import { Score } from './ai';
-import { winningPatterns } from './pattern';
+
+const winningPatterns = [
+  ['XXXX',
+  ],
+  ['X',
+   'X',
+   'X',
+   'X',
+  ],
+  ['X',
+   ' X',
+   '  X',
+   '   X',
+  ],
+  ['   X',
+   '  X',
+   ' X',
+   'X',
+  ],
+];
 
 // =========================================================
 export function otherPlayer(player: Player): Player {

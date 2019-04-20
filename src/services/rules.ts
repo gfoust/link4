@@ -1,30 +1,7 @@
 import { App } from 'src/App';
-import { Board, PieceLocation, Player } from 'src/models/game';
-import { Pattern, Rule, RuleSet } from 'src/models/pattern';
-import { locationsInPattern } from './game';
-
-export interface Reason {
-  pattern: Pattern;
-  rule: Rule;
-  location: PieceLocation;
-}
-
-export interface FullScore {
-  priority: 'never';
-  reason: 'full';
-}
-
-export interface AbsoluteScore {
-  priority: 'always' | 'never';
-  reason: Reason;
-}
-
-export interface RelativeScore {
-  priority: number;
-  reasons: Reason[];
-}
-
-export type Score = FullScore | AbsoluteScore | RelativeScore | undefined;
+import { Board, Player } from 'src/models/game';
+import { Reason, RelativeScore, Score } from 'src/models/rules';
+import { RuleSet } from 'src/models/rules';
 
 export async function scoreColumns(player: Player, board: Board, rulesets: RuleSet[]): Promise<Score[]> {
   let scores = [ ] as Score[];
@@ -42,7 +19,7 @@ export async function scoreColumns(player: Player, board: Board, rulesets: RuleS
       for (const rule of ruleset.rules) {
         for (const match of App.game.matchPattern(pattern, board, player, rule.definitions)) {
           for (const name in rule.actions) {
-            for (const location of locationsInPattern(pattern, name, match)) {
+            for (const location of App.game.locationsInPattern(pattern, name, match)) {
               const c = location[1];
               const p = rule.actions[name];
               const reason = { pattern, rule, location: match } as Reason;

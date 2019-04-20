@@ -1,6 +1,6 @@
 import { App } from 'src/App';
 import { Code, CodeSection } from 'src/models/parser';
-import { Actions, Definitions, Pattern, Priority, Rule, RuleSet } from 'src/models/pattern';
+import { Actions, Definitions, Pattern, Priority, Rule, RuleSet } from 'src/models/rules';
 import { Maybe } from 'src/models/util';
 import { pushIfUnique } from './util';
 

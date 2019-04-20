@@ -1,7 +1,7 @@
-import { Board, PieceLocation } from 'src/models/game';
+import { Board } from 'src/models/game';
 import { CodeSection } from 'src/models/parser';
-import { Pattern, Rule } from 'src/models/pattern';
-import { Reason } from './ai';
+import { Reason } from 'src/models/rules';
+import { Pattern, Rule } from 'src/models/rules';
 
 export function formatReason(reason: Reason) {
   return formatPattern(reason.pattern).concat(formatRule(reason.rule));

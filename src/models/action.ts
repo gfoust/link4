@@ -1,6 +1,6 @@
-import { Player } from 'src/models/game';
-import { PlayerSetup, Screen } from 'src/models/state';
-import { Score } from 'src/services/ai';
+import { Player } from './game';
+import { Score } from './rules';
+import { PlayerSetup, Screen } from './state';
 import { Dictionary, Maybe } from './util';
 
 // ---------------------------------------------------------

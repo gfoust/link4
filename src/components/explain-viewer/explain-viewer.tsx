@@ -1,7 +1,7 @@
 import React from 'react';
 import { App } from 'src/App';
 import { Board } from 'src/models/game';
-import { Score, Reason, RelativeScore, AbsoluteScore } from 'src/services/ai';
+import { AbsoluteScore, Reason, RelativeScore, Score } from 'src/models/rules';
 import { ui } from '../ui';
 import './explain-viewer.scss';
 

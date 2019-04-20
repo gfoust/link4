@@ -34,8 +34,8 @@ async function doComputerMove(nextState: State) {
   const setup = nextState.setup[game.turn];
   if (game.status === 'playing' && setup.type === 'computer') {
     const rulesets = setup.code.rulesets;
-    const scores = await App.ai.scoreColumns(game.turn, game.board, rulesets);
-    const move = App.ai.pickMove(scores);
+    const scores = await App.rules.scoreColumns(game.turn, game.board, rulesets);
+    const move = App.rules.pickMove(scores);
     App.store.dispatch(setComputerMove(move, scores));
   }
 }

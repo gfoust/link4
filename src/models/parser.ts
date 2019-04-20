@@ -1,4 +1,4 @@
-import { RuleSet } from './pattern';
+import { RuleSet } from './rules';
 import { Maybe } from './util';
 
 export interface Code {

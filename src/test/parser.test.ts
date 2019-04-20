@@ -1,5 +1,5 @@
 import { CodeSection } from 'src/models/parser';
-import { Rule, RuleSet } from 'src/models/pattern';
+import { Rule, RuleSet } from 'src/models/rules';
 import { Maybe } from 'src/models/util';
 import * as parser from '../services/parser';
 

@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 import { App } from './App';
 import { ui } from './components/ui';
 import './Root.scss';
-import './services/ai';
+import './services/rules';
 
 export class Root extends React.Component {
   public render() {

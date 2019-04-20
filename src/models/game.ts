@@ -1,4 +1,4 @@
-import { Score } from 'src/services/ai';
+import { Score } from './rules';
 import { Maybe } from './util';
 
 export type Player = 'player1' | 'player2';
