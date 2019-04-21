@@ -81,7 +81,10 @@ export function formatBoard(board: Board, { pattern, rule, location }: Reason): 
       const tile = board[r][c];
       const patrow = pattern[r - location[0]];
       if (patrow && c >= location[1] && c < location[1] + patrow.length) {
-        const letter = patrow[c - location[1]];
+        let letter = patrow[c - location[1]];
+        if (letter === ' ') {
+          letter = '?';
+        }
         if (letter === '*' || rule.definitions[letter] === '*') {
           sections.push({ text: letter, className: 'playable', description: null });
         }
