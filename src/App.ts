@@ -23,4 +23,5 @@ export const App = {
   store: { } as Redux.Store <State, Action>,
   triggers,
   util,
+  worker: { } as Worker,
 };

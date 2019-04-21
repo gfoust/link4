@@ -11,8 +11,8 @@ module.exports = [
       compress: true,
       contentBase: [path.join(__dirname, '../static'), path.join(__dirname, '../dist')],
       historyApiFallback: true,
-      hot: true,
-      overlay: true,
+      hot: false,
+      overlay: false,
       watchOptions: {
         ignored: [ 'node_modules', '**/*.spec.ts' ],
       },

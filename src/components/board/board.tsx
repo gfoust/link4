@@ -56,7 +56,7 @@ export function DisconnectedBoardComponent({
         disabled: !App.game.canPlayInColumn(game.board, nextMove),
       };
     }
-    else if (setup[game.turn].type === 'computer' && computerMove != null) {
+    else if (setup[game.turn].type !== 'human' && computerMove != null) {
       pieces[count] = {
         id: count,
         type: game.turn,

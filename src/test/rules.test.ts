@@ -21,7 +21,7 @@ function makeBoard(pattern: string[]): Board {
   });
 }
 
-describe('AI', () => {
+describe('Rules matching', () => {
   describe('scoreColumns', () => {
     it('should score a simple always match', async () => {
       const board = makeBoard([
@@ -52,8 +52,11 @@ describe('AI', () => {
 
       expect(await scoreColumns('player1', board, rulesets)).toMatchObject([
         { priority: 'always',
-          reason: { pattern: rulesets[0].patterns[0], rule: rulesets[0].rules[0] },
+          reason: { pattern: rulesets[0].patterns[0], rule: rulesets[0].rules[0], location: [3, 0] },
         },
+        undefined,
+        undefined,
+        undefined,
       ]);
     });
 
@@ -90,8 +93,10 @@ describe('AI', () => {
       expect(await scoreColumns('player1', board, rulesets)).toMatchObject([
         undefined,
         { priority: 'always',
-          reason: { pattern: rulesets[0].patterns[1], rule: rulesets[0].rules[0] },
+          reason: { pattern: rulesets[0].patterns[1], rule: rulesets[0].rules[0], location: [0, 1] },
         },
+        undefined,
+        undefined,
       ]);
 
       board = makeBoard([
@@ -104,8 +109,9 @@ describe('AI', () => {
         undefined,
         undefined,
         { priority: 'always',
-          reason: { pattern: rulesets[0].patterns[0], rule: rulesets[0].rules[2] },
+          reason: { pattern: rulesets[0].patterns[0], rule: rulesets[0].rules[2], location: [3, 0] },
         },
+        undefined,
       ]);
 
       board = makeBoard([

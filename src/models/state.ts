@@ -9,14 +9,20 @@ export interface HumanPlayerSetup {
   type: 'human';
 }
 
-export interface ComputerPlayerSetup {
+export interface RulesPlayerSetup {
   name: string;
-  type: 'computer';
+  type: 'rules';
   file: Maybe<File>;
   code: Code;
 }
 
-export type PlayerSetup = HumanPlayerSetup | ComputerPlayerSetup;
+export interface AiPlayerSetup {
+  name: string;
+  type: 'ai';
+  depth: number;
+}
+
+export type PlayerSetup = HumanPlayerSetup | RulesPlayerSetup | AiPlayerSetup;
 
 export type FullSetup = Dictionary<PlayerSetup, Player>;
 
@@ -26,6 +32,7 @@ export interface State {
   playerMove: Maybe<number>;
   computerMove: Maybe<number>;
   games: Game[];
+  gameId: number;
   current: number;
   count: number;
   setup: FullSetup;

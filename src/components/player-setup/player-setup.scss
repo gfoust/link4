@@ -30,6 +30,18 @@
   .file-add-on {
     height: 2.5rem;
     width: 400px;
+
+    .btn-block {
+      margin-top: 0;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: stretch;
+      align-items: center;
+
+      .depth {
+        flex-grow: 1;
+      }
+    }
   }
 
   .code-add-on {

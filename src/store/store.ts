@@ -6,16 +6,16 @@ import { State } from 'src/models/state';
 import { reducer } from './reducer';
 
 function loadState(): Partial<State> {
-  try {
-    const stateText = sessionStorage.getItem('link4-state');
-    if (stateText) {
-      const state = JSON.parse(stateText);
-      return state;
-    }
-  }
-  catch (err) {
-    App.logger.error(err);
-  }
+  // try {
+  //   const stateText = sessionStorage.getItem('link4-state');
+  //   if (stateText) {
+  //     const state = JSON.parse(stateText);
+  //     return state;
+  //   }
+  // }
+  // catch (err) {
+  //   App.logger.error(err);
+  // }
 
   return { };
 }

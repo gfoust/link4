@@ -14,9 +14,17 @@ module.exports = [
     context: path.resolve('./src'),
     output: {
       filename: '[name].js',
+      globalObject: 'this',
     },
     module: {
       rules: [
+        {
+          test: /\.worker\.[tj]s?$/,
+          loader: 'worker-loader',
+          options: {
+            name: '[name].js',
+          }
+        },
         {
           test: /\.tsx?$/,
           loader: 'ts-loader',

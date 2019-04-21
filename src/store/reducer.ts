@@ -59,7 +59,7 @@ function current(state = 0, action: Action): number {
   }
 }
 
-function nextMove(state: Maybe<number> = null, action: Action): Maybe<number> {
+function playerMove(state: Maybe<number> = null, action: Action): Maybe<number> {
   if (action.type === 'SetNextMove') {
     return action.column;
   }
@@ -119,15 +119,27 @@ function setup(state = App.state.defaultSetup, action: Action): FullSetup {
   }
 }
 
+function gameId(state = 0, action: Action): number {
+  switch (action.type) {
+    case 'SetScreen':
+      if (action.screen === 'start') {
+        return state + 1;
+      }
+    default:
+      return state;
+  }
+}
+
 export function reducer(state = { } as State, action: Action): State {
   const nextState: State = {
-    playerMove: nextMove(state.playerMove, action),
+    playerMove: playerMove(state.playerMove, action),
     computerMove: computerMove(state.computerMove, action),
     current: current(state.current, action),
     count: count(state.count, action),
     screen: screen(state.screen, action),
     dialog: dialog(state.dialog, action),
     games: games(state.games, state.current, state.count, action),
+    gameId: gameId(state.gameId, action),
     setup: setup(state.setup, action),
   };
 

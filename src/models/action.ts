@@ -19,10 +19,10 @@ export function setNextMove(column: Maybe<number>): SetNextMove {
 export interface SetComputerMove {
   type: 'SetComputerMove';
   column: number;
-  explain: Score[];
+  explain: Maybe<Score[]>;
 }
 
-export function setComputerMove(column: number, explain: Score[]): SetComputerMove {
+export function setComputerMove(column: number, explain: Maybe<Score[]>): SetComputerMove {
   return { type: 'SetComputerMove', column, explain };
 }
 
