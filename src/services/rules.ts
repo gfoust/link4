@@ -15,8 +15,8 @@ export async function scoreColumns(player: Player, board: Board, rulesets: RuleS
   }
 
   for (const ruleset of rulesets) {
-    for (const pattern of ruleset.patterns) {
-      for (const rule of ruleset.rules) {
+    for (const rule of ruleset.rules) {
+      for (const pattern of ruleset.patterns) {
         for (const match of App.game.matchPattern(pattern, board, player, rule.definitions)) {
           for (const name in rule.actions) {
             for (const location of App.game.locationsInPattern(pattern, name, match)) {

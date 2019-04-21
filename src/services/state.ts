@@ -10,7 +10,7 @@ export const defaultSetup: FullSetup = {
   player2: {
     name: '',
     type: 'ai',
-    depth: 2,
+    depth: 4,
   },
 };
 

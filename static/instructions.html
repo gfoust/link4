@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Link 4 Instructions</title>
+    <style>
+      html, body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        font-size: 1rem;
+      }
+      pre, code {
+          font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+          font-size: 0.9rem;
+      }
+      pre.bq {
+          margin: -1em 0 -1em 3ex;
+      }
+      pre.example {
+          margin-left: 1em;
+          border: 1px solid black;
+          padding: 0.5em;
+      }
+      .patterns {
+          margin-left: 3ex;
+      }
+      .patterns td:first-child {
+          font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+          font-size: 0.9rem;
+          text-align: center;
+      }
+      .patterns td:last-child {
+          padding-left: 2ex;
+      }
+      h1 { color: #009; }
+      h2 { color: #66c; }
+      h3 { color: #669; }
+    </style>
+  </head>
+  <body>
+    <h1>Link 4 Instructions</h1>
+    <h2>Overview</h2>
+    <p>
+      Link 4 is a two-player game played on a grid of six rows and seven
+      columns.  The goal of the game is to get four of your pieces in a row,
+      either horizontally, vertically, or diagonally.
+    </p>
+    <p>
+      Play alternates between the two players.  On your turn you may play a
+      piece in one of the seven columnns on the board.  Pieces
+      &ldquo;fall&rdquo; to the lowest available position in that column.  As
+      soon as either player manages to get four pieces in a row, the game is
+      over and that player wins.
+    </p>
+    <h2>Player Types</h2>
+    <h3>Human Players</h3>
+    <p>
+      Human players are controlled by the mouse.  When it is your turn, click
+      on one of the seven columns to play your piece.  You may click anywhere
+      in the column.
+    </p>
+    <h3>Computer Players</h3>
+    <p>
+      Computer players play automatically by examining every possible move for
+      a certain number of turns.  The number of turns the computer looks ahead
+      is controlled by the <dfn>depth</dfn> setting when setting up the game.
+      Computer players will play their piece automatically.  Note that setting
+      the depth to a large number may result in the computer taking a long
+      time to select a move.
+    </p>
+    <h3>Rule-Based Players</h3>
+    <p>
+      Rule-based players play automatically by following rules contained in a
+      file.  The rule file should be selected when setting up the game.  The
+      format of a rule file is described below.  Rule-based players will play
+      their piece automatically.
+    </p>
+    <h2>The Turn Browser</h2>
+    <p>
+      As the game progresses, each turn is recorded in a list to the right of
+      the board.  At any point in the game the player may scroll through the
+      list and click on different turns.  Clicking on a turn will reset the
+      board to what it looked like at that turn.
+    </p>
+    <p>
+      It is possible to start playing a game from one of these previous
+      turns.  Note, however, that making a move will throw out all turns
+      following the selected turn, resulting in a different game.
+    </p>
+    <h2>Rule Files</h2>
+    <p>
+      rule files are plain-text files, also known as &ldquo;Text
+      Documents&rdquo;.  You should create these files using a text editor
+      such as Notepad for Windows or TextEdit for Mac.  (When using TextEdit,
+      you must look in the <code>Format</code> menu and
+      select the option
+      labeled <code>Make</code> <code>Plain</code> <code>Text</code>.)  Beware
+      that many word processors such as Microsoft Office will not save files
+      as plain-text files without coersion.
+    </p>
+    <p>
+      Note that rule files are <em>case sensitive</em>.  That is, the program
+      distinguishes between uppercase letters and lowercase letters, and will
+      reject a rule file if it uses the wrong case.  Thus, in the following
+      description you should pay attention to whether uppercase or lowercase
+      letters are used.
+    </p>
+    <p>
+      A rule file consists of one or more <dfn>rule sets</dfn>.  Each rule
+      set contains two sections:  a <dfn>patterns</dfn> section and
+      a <dfn>rules</dfn> section.
+    </p>
+    <h3>Patterns</h3>
+    <p>
+      A pattern is simply a representation of a game board using different
+      characters to represent different possible values for each tile on the
+      board.  The characters you may use in a pattern are:
+    </p>
+    <table class="patterns">
+      <tr>
+        <td>X</td>
+        <td>One of your pieces</td>
+      </tr>
+      <tr>
+        <td>O</td>
+        <td>One of your opponent's pieces</td>
+      </tr>
+      <tr>
+        <td>+</td>
+        <td>Any piece (yours or your opponent's)</td>
+      </tr>
+      <tr>
+        <td>-</td>
+        <td>No piece (tile is empty)</td>
+      </tr>
+      <tr>
+        <td>*</td>
+        <td>
+          A playable tile (empty, and either on the bottom or the tile below
+          is non-empty)
+        </td>
+      </tr>
+      <tr>
+        <td>?</td>
+        <td>Anything</td>
+      </tr>
+    </table>
+    <p>
+      Spaces in a pattern are ignored; i.e., they match anything just as a
+      question mark.
+    </p>
+    <p>
+      Patterns should form a grid where lines are rows and individual
+      characters are columns.  However, a pattern does not need to be as big
+      as the entire board; it can be smaller, allowing it to be matched in
+      multiple positions of the board.
+    </p>
+    <p>
+      For example, consider the following pattern:
+    </p>
+    <pre class="bq">
+??--
+OOX-
+++X*
+</pre>
+    <p>
+      This pattern describes a section of the board consisting of three rows
+      and four columns.  The bottom row has any two pieces, a player's piece,
+      and a playable tile.  The second row has two opponent's piece, a
+      player's piece, and an empty tile.  The third row can have anything in
+      the first two tiles but the last two tiles must be empty.  This pattern
+      could match any section of the board as long as each piece in that
+      section matches the corresponding character of the pattern.
+    </p>
+    <p>
+      In addition to the above characters, you may also use lowercase letters
+      as variables.  Each variable may occur only once in a pattern, but
+      multiple patterns can use the same variable.  Variables are assigned a
+      pattern character by a rule and must match the pattern assigned to it.
+      Rules which share a pattern may each assign different pattern characters
+      to each variable.
+    </p>
+    <p>
+      Unless a pattern is a palindrome (i.e., identical when read in reverse)
+      the reverse pattern will automatically be added to a ruleset as well.
+      For example, consider the following pattern.
+    </p>
+    <pre class="bq">
+aXXX
+</pre>
+    <p>
+      This will result in the following pattern also being added to the rule set.
+    </p>
+    <pre class="bq">
+XXXa
+</pre>
+    <p>
+      Now consider the following pattern.
+    </p>
+    <pre class="bq">
+a
+X
+X
+X
+</pre>
+    <p>
+      This pattern is the same read left-to-right and right-to-left.
+      Therefore no other patterns will be added to the rule set.
+    </p>
+    <h3>Rules</h3>
+    <p>
+      A rule is written on one line.  It consists of two
+      parts: <dfn>definitions</dfn> and <dfn>actions</dfn>.  The definitions
+      are written first, followed by a colon, followed by the actions.
+    </p>
+    <p>
+      Definitions simply assign a pattern character to each variable.  This is
+      written as a variable name, followed by an equal sign, followed by a
+      pattern character.  If there are multiple definitions they must be
+      separated by commas.
+    </p>
+    <p>
+      Actions assign a score to a column based on a variable.  Scores given by
+      each rule will be added up, and the column with the highest score will
+      be selected as the best move.  An action is written as a variable name,
+      followed by either a plus or minus sign, followed by a number.  The
+      number will either be added (for plus) or subtracted (for minus) to the
+      column which contains the specified variable.  If there are multiple
+      actions they must be separated by commas.
+    </p>
+    <p>
+      For example, consider the following rule.
+    </p>
+    <pre class="bq">a=X, b=O : a+5, b-2</pre>
+    <p>
+      This rule specifies that the variable <code>a</code> must match a player
+      piece and the variable <code>b</code> must match an opponent piece.  The
+      action adds five to the score of the column that
+      contained <code>a</code>, and subtracts two from the score of the column
+      that contained <code>b</code>.
+    </p>
+    <p>
+      There is one special score that may be given, indicated by an
+      exclamation mark.  A score of <code>+!</code> means the column should
+      immediately be selected and no further scoring should be attempted.  A
+      score of <code>-!</code> means the column should be immediately rejected
+      and not considered any further.
+    </p>
+    <h3>Rule Sets</h3>
+    <p>
+      A rule set always begins with a line consisting solely of the word
+      &ldquo;PATTERNS&rdquo;.  After that should come one or more patterns.  A
+      blank line is used to indicate the end of a pattern.
+    </p>
+    <p>
+      Next should be a line consisting solely of the word
+      &ldquo;RULES&rdquo;.  After that should come one or more rules.
+    </p>
+    <p>
+      There is no special marker for the end of a rule set.  It ends either
+      when the file ends, or when the word &ldquo;PATTERNS&rdquo; is found,
+      indicating the beginning of the next rule set.
+    </p>
+    <p>
+      When applying a rule set in order to select a move, rules are applied in
+      the order in which they appear in the file.  When applying a rule, each
+      pattern in the rule set is matched against the board using the variable
+      definitions given in the rule.  Every time a match is found, the actions
+      of the rule are performed, modifying the scores as specified.
+    </p>
+    <h3>Examples</h3>
+    <p>
+      As an example, consider the following rule set.
+    </p>
+    <pre class="example">
+PATTERNS
+
+ab
+
+a
+b
+
+RULES
+
+a=*, b=X : a+1
+a=*, b=O : b-1
+
+</pre>
+    <p>
+      This rule set specifies two patterns and two rules.  However, note that
+      the first pattern is not a palindrome; therefore the
+      pattern <code>ba</code> is also added to the rule set.  The second rule
+      is a palindrome, so no further patterns are added.  Thus this rule set
+      actually has three patterns and two rules.
+    </p>
+    <p>
+      To apply this rule set we begin with the first rule.  Thus, all three
+      patterns will be matched using the definitions of the first rule.  The
+      first pattern, <code>ab</code>, will match playable tiles to the left of
+      a player's piece.  The second pattern, <code>ba</code>, will match
+      playable tiles to the right of a player's piece.  The third pattern will
+      match playable tiles on top of a player's piece.  In each case, one
+      point will be added to the column with the playable piece.
+    </p>
+    <p>
+      Next we use the second rule.  Again, all three patterns will be matched
+      using the definitions of the second rule.  This time the patterns will
+      match playable tiles next to the opponent's piece and subtract one from
+      their scores.
+    </p>
+    <p>
+      Note that our rule set does <em>not</em> contain a rule that tests
+      for <code>b</code> as a playable piece, such as the following rule.
+    </p>
+    <pre class="bq">
+a=X, b=* : b+1
+</pre>
+    <p>
+      Because our rule set contained both the patterns <code>ab</code>
+      and <code>ba</code>, such a rule would effectively be a duplicate of the
+      first rule in our rule set.  If both rules were in our rule set, pieces
+      to the left or right of a player's piece would have <em>two</em> added
+      to their score instead of just one.
+    </p>
+    <p style="margin-top: 3em">
+      As another example, consider the following rule set.
+    </p>
+    <pre class="example">
+PATTERNS
+
+abcd
+
+a
+b
+c
+d
+
+a
++b
+++c
++++d
+
+RULES
+
+a=*, b=X, c=X, d=X : a+!
+a=X, b=*, c=X, d=X : b+!
+a=X, b=X, c=*, d=X : c+!
+a=X, b=X, c=X, d=* : d+!
+
+a=*, b=O, c=O, d=O : a+!
+a=O, b=*, c=O, d=O : b+!
+a=O, b=O, c=*, d=O : c+!
+a=O, b=O, c=O, d=* : d+!
+</pre>
+    <p>
+      To apply this rule set we begin by matching all patterns using the
+      definitions of the first rule.  Next, we match all patterns using the
+      definitions of the second rule.  In this way, we continue until all
+      rules have been applied.
+    </p>
+    <p>
+      Notice that the first four rules all describe scenarios in which the
+      player can win in a single move.  The second four rules all describe
+      scenarios in which the opponent can win in a single move.  (The blank
+      line in between is not significant; it is only there to make it easier
+      to read the rules.)  The actions all result in the playable column being
+      selected immediately.  Because rules will be applied in order, this rule
+      set will <em>first</em> try to select a winning move.  If no winning
+      move can be found, it will try to block the opponent from winning.
+    </p>
+    <p>
+      As with the previous example, we should remember that reverse patterns
+      are added to the rule set.  Pattern 2 is a palindrome, and therefore its
+      reverse is not added.  The reverse of pattern 3 is helpful because it
+      checks for diagonals going in the reverse direction.
+    </p>
+    <p>
+      The reverse of pattern 1 will result in duplicates.  For example, rule 1
+      with pattern1 is the same as rule 4 with the reverse of pattern 1.
+      However, as these rules immediately select a column for play, the
+      duplication is harmless.  If the first rule matches, the column will be
+      immediately selected and the duplicate ignored.  If the first rule does
+      not match, the duplicate will not match either.
+    </p>
+  </body>
+</html>

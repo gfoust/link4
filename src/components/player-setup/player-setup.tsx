@@ -32,7 +32,7 @@ export class PlayerSetupComponent extends React.PureComponent<PlayerSetupProps, 
         type: props.init.type,
         file: null,
         code: null,
-        depth: 2,
+        depth: 4,
         ready: true,
       };
     }
@@ -41,7 +41,7 @@ export class PlayerSetupComponent extends React.PureComponent<PlayerSetupProps, 
         name: props.init.name,
         type: props.init.type,
         file: props.init.file,
-        depth: 2,
+        depth: 4,
         code: props.init.code,
         ready: true,
       };
@@ -58,6 +58,8 @@ export class PlayerSetupComponent extends React.PureComponent<PlayerSetupProps, 
     }
   }
 
+  fileInputRef = React.createRef<HTMLInputElement>();
+
   onNameChange = (event: FormEvent<HTMLInputElement>) => {
     this.setState({ name: ((event.target as HTMLInputElement).value)});
   }
@@ -70,12 +72,21 @@ export class PlayerSetupComponent extends React.PureComponent<PlayerSetupProps, 
     this.setState({ depth });
   }
 
-  onFileChange = async (event: FormEvent<HTMLInputElement>) => {
-    console.log('onFileChange');
-    const files = (event.target as HTMLInputElement).files;
+  onFileChange = (event: FormEvent<HTMLInputElement>) => {
+    this.updateFiles(event.currentTarget.files);
+  }
+
+  onFileClick = () => {
+    if (this.fileInputRef.current) {
+      this.fileInputRef.current.value = '';
+      this.updateFiles(null);
+    }
+  }
+
+  async updateFiles(files: Maybe<FileList>) {
     if (files && files[0]) {
       const file = files[0];
-      (event.target as HTMLInputElement).value = '';
+      // (event.target as HTMLInputElement).value = '';
       this.setState({ file, ready: false });
       const code = await App.parser.parseFile(file);
       if (this.state.file === file) {
@@ -83,7 +94,6 @@ export class PlayerSetupComponent extends React.PureComponent<PlayerSetupProps, 
       }
     }
     else {
-      (event.target as HTMLInputElement).value = '';
       this.setState({ file: null, code: null, ready: true });
     }
   }
@@ -160,11 +170,11 @@ export class PlayerSetupComponent extends React.PureComponent<PlayerSetupProps, 
         {/* File selection group */}
         <div className="file-add-on">
         { this.state.type === 'rules' &&
-            <div className="custom-file">
+            <div className="custom-file" onClick={this.onFileClick}>
               <input
                 type="file"
+                ref={this.fileInputRef}
                 className="custom-file-input"
-                id="customFile1"
                 onChange={this.onFileChange}
                 onClick={() => console.log('onClick')}
               />
@@ -182,6 +192,7 @@ export class PlayerSetupComponent extends React.PureComponent<PlayerSetupProps, 
                 <div className="depth">Depth: {this.state.depth}</div>
               </div>
               <div className="dropdown-menu">
+                <div className="dropdown-item" onClick={this.onDepthChange(1)}>1</div>
                 <div className="dropdown-item" onClick={this.onDepthChange(2)}>2</div>
                 <div className="dropdown-item" onClick={this.onDepthChange(3)}>3</div>
                 <div className="dropdown-item" onClick={this.onDepthChange(4)}>4</div>

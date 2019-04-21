@@ -18,6 +18,7 @@ a=*, b=X, c=X, d=X : a+!
 a=X, b=*, c=X, d=X : b+!
 a=X, b=X, c=*, d=X : c+!
 a=X, b=X, c=X, d=* : d+!
+
 a=*, b=O, c=O, d=O : a+!
 a=O, b=*, c=O, d=O : b+!
 a=O, b=O, c=*, d=O : c+!

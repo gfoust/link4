@@ -26,6 +26,9 @@ export function StatelessStartScreenComponent(props: StartScreenProps) {
   return (
     <section className="start-screen">
       <h1>Link 4</h1>
+      <div className="instructions">
+        <a target="_blank" href="instructions.html">Instructions</a>
+      </div>
       <div>
         <form onSubmit={event => event.preventDefault()}>
           <ui.PlayerSetup
