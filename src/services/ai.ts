@@ -120,6 +120,7 @@ export function planMove(game: Game, player: Player, depth: number, prune: Maybe
     else {
       const move = planMove(next, player, depth - 1, moves.length > 0 ? moves[0].score : null);
       if (move === null) {
+        block = null;
         continue;
       }
       score = move.score;

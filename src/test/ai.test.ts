@@ -253,6 +253,51 @@ describe('AI', () => {
       expect(planMove(game, 'player2', 6)).toMatchObject({ column: 4 });
     });
 
+    it('should pick the right move', () => {
+      const board = makeBoard([
+        '   2 2 ',
+        '  21 1 ',
+        '  12 2 ',
+        '2 2111 ',
+        '1 12221',
+        '1 21112',
+      ]);
+      const game: Game = {
+        status: 'playing',
+        board,
+        turn: 'player2',
+        winner: null,
+        lastMove: null,
+        explain: null,
+      };
+
+      const move = planMove(game, 'player2', 6);
+      expect(move !== null && (move.column === 4 || move.column === 6)).toBe(true);
+    });
+
+    it('should pick the right move', () => {
+      debugger;
+      const board = makeBoard([
+        ' 2 21  ',
+        '21 12 1',
+        '12 21 1',
+        '21 12 2',
+        '22 21 1',
+        '21 1211',
+      ]);
+      const game: Game = {
+        status: 'playing',
+        board,
+        turn: 'player2',
+        winner: null,
+        lastMove: null,
+        explain: null,
+      };
+
+      const move = planMove(game, 'player2', 4);
+      expect(move !== null && (move.column === 0 || move.column === 6)).toBe(true);
+    });
+
   });
 
 });
