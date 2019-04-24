@@ -1,3 +1,5 @@
+# simple example rule file
+
 PATTERNS
 
 abcd
@@ -13,6 +15,7 @@ a
    d
 
 RULES
+
 
 a=*, b=X, c=X, d=X : a+!
 a=X, b=*, c=X, d=X : b+!

@@ -98,6 +98,14 @@
       as plain-text files without coersion.
     </p>
     <p>
+      In general, the program will try to understand all text inside a rule
+      file; therefore all the text in a rule file should follow the syntax
+      defined below.  There is one exception: any text following a pound sign
+      (<code>#</code>) is ignored.  Such text is considered
+      a <dfn>comment</dfn> and may be used to add notes to the file without
+      violating the syntax defined below.
+    </p>
+    <p>
       Note that rule files are <em>case sensitive</em>.  That is, the program
       distinguishes between uppercase letters and lowercase letters, and will
       reject a rule file if it uses the wrong case.  Thus, in the following

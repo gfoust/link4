@@ -9,8 +9,9 @@ export const defaultSetup: FullSetup = {
   },
   player2: {
     name: '',
-    type: 'ai',
-    depth: 4,
+    type: 'rules',
+    file: null,
+    code: { clean: true, rulesets: [ ], sections: [ ] },
   },
 };
 

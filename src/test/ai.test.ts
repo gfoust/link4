@@ -168,6 +168,91 @@ describe('AI', () => {
       expect(planMove(game, 'player1', 6)).toMatchObject({column: 4});
     });
 
+    it('should pick the right move', () => {
+      const board = makeBoard([
+        '       ',
+        '       ',
+        '   2 2 ',
+        '   1 1 ',
+        '   2 2 ',
+        '   1 11',
+      ]);
+      const game: Game = {
+        status: 'playing',
+        board,
+        turn: 'player2',
+        winner: null,
+        lastMove: null,
+        explain: null,
+      };
+
+      expect(planMove(game, 'player2', 4)).toMatchObject({column: 4});
+    });
+
+    it('should pick the right move', () => {
+      const board = makeBoard([
+        '  22   ',
+        '  22   ',
+        '  12 2 ',
+        '  21 11',
+        ' 212 11',
+        '1121112',
+      ]);
+      const game: Game = {
+        status: 'playing',
+        board,
+        turn: 'player2',
+        winner: null,
+        lastMove: null,
+        explain: null,
+      };
+
+      expect(planMove(game, 'player2', 4)).toMatchObject({column: 4});
+    });
+
+    it('should pick the right move', () => {
+      const board = makeBoard([
+        '       ',
+        '       ',
+        '       ',
+        '       ',
+        '   22  ',
+        '  111  ',
+      ]);
+      const game: Game = {
+        status: 'playing',
+        board,
+        turn: 'player2',
+        winner: null,
+        lastMove: null,
+        explain: null,
+      };
+
+      const move = planMove(game, 'player2', 6);
+      expect(move !== null && (move.column === 1 || move.column === 5)).toBe(true);
+    });
+
+    it('should pick the right move', () => {
+      const board = makeBoard([
+        '  2    ',
+        '  2    ',
+        '  12 2 ',
+        '  21 11',
+        ' 212 21',
+        '1121112',
+      ]);
+      const game: Game = {
+        status: 'playing',
+        board,
+        turn: 'player2',
+        winner: null,
+        lastMove: null,
+        explain: null,
+      };
+
+      expect(planMove(game, 'player2', 6)).toMatchObject({ column: 4 });
+    });
+
   });
 
 });

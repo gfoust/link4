@@ -83,6 +83,11 @@ export function evaluateBoard(board: Board, player: Player) {
 
 export function planMove(game: Game, player: Player, depth: number, prune: Maybe<number> = null): Maybe<Move> {
   let moves = [] as Move[];
+  let block = null as Maybe<Move>;
+
+  if (depth < 1) {
+    depth = 1;
+  }
 
   const board = game.board;
   const playerTurn = game.turn === player;
@@ -101,13 +106,15 @@ export function planMove(game: Game, player: Player, depth: number, prune: Maybe
     let score: number;
     if (next.winner) {
       if (playerTurn) {
-        return { column: c, score: depth * 1e10 };
+        score = Math.pow(10, 3 + depth);
+        // return { column: c, score: Math.pow(10, 3 + depth) };
       }
       else {
-        return { column: c, score: depth * -1e10 };
+        score = -Math.pow(10, 3 + depth);
+        // return { column: c, score: Math.pow(10, 3 + depth) };
       }
     }
-    else if (depth <= 1) {
+    else if (depth === 1) {
       score = evaluateBoard(board, player);
     }
     else {
@@ -116,6 +123,10 @@ export function planMove(game: Game, player: Player, depth: number, prune: Maybe
         continue;
       }
       score = move.score;
+
+      if (score < 0 && (block === null || score <= block.score)) {
+        block = move;
+      }
     }
 
     // Update plan
@@ -155,6 +166,22 @@ export function planMove(game: Game, player: Player, depth: number, prune: Maybe
     else {
       return open[Math.trunc(Math.random() * moveBy.length)];
     }
+  }
+  else if (moves[0].score >= 1e4 || moves[0].score <= -1e4) {
+    let move: Move;
+    if (block && moves[0].score === block.score) {
+      move = block;
+    }
+    else if (moves.length === 1) {
+      move = moves[0];
+    }
+    else {
+      move = moves[Math.trunc(Math.random() * moves.length)];
+    }
+    return {
+      column: move.column,
+      score: move.score * moves.length,
+    };
   }
   else if (moves.length === 1) {
     return moves[0];
