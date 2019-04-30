@@ -181,7 +181,7 @@ export class Parser {
     let height = 0;
     let line = this.lexLineBody();
     while (line) {
-      if (height + 1 >= App.config.boardRows) {
+      if (height >= App.config.boardRows) {
         this.push(line, 'Pattern longer than board height', 'error');
       }
       else {
@@ -198,10 +198,10 @@ export class Parser {
             else if (length < App.config.boardCols) {
               this.push(part.substring(0, App.config.boardCols - length), null, className);
               pattern[height] += part.substring(0, App.config.boardCols - length);
-              this.push(part.substring(App.config.boardCols - length), 'Pattern longer than board length', 'error');
+              this.push(part.substring(App.config.boardCols - length), 'Pattern longer than board width', 'error');
             }
             else {
-              this.push(part, 'Pattern longer than board length', 'error');
+              this.push(part, 'Pattern longer than board width', 'error');
             }
             length += part.length;
           }
